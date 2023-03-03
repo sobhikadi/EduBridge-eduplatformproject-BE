@@ -26,7 +26,7 @@ public class FakeCourseRepositoryImpl implements CourseRepository {
     public List<CourseEntity> findAllByProvider(String provider) {
         return this.savedCourses
                 .stream()
-                .filter(courseEntity -> courseEntity.getProvider().equals(provider))
+                .filter(courseEntity -> courseEntity.getProvider().contains(provider))
                 .toList();
     }
 
@@ -52,7 +52,15 @@ public class FakeCourseRepositoryImpl implements CourseRepository {
     }
 
     @Override
-    public Optional<CourseEntity> findById(Long courseId) {
+    public Optional<CourseEntity> findByTitle(String courseTitle) {
+        return this.savedCourses
+                .stream()
+                .filter(courseEntity -> courseEntity.getTitle().contains(courseTitle))
+                .findFirst();
+    }
+
+    @Override
+    public Optional<CourseEntity> findById(long courseId) {
         return this.savedCourses
                 .stream()
                 .filter(courseEntity -> courseEntity.getId().equals(courseId))
