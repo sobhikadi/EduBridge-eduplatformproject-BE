@@ -16,17 +16,16 @@ import javax.validation.constraints.NotBlank;
 public class CreateCourseRequest {
 
     @NotBlank
-    @Length(min = 3, max = 200)
+    @Length(min = 3, max = 100)
     private String title;
     @NotBlank
     private String description;
 
-    @NonNull
     @Min(1)
     private int nrOfLessons;
 
     @NotBlank
-    @Length(min = 1, max = 500)
+    @Length(min = 1, max = 200)
     private String provider;
 
 }

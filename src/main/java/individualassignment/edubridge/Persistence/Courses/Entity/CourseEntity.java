@@ -1,13 +1,12 @@
-package individualassignment.edubridge.Domain.Courses;
+package individualassignment.edubridge.Persistence.Courses.Entity;
 
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 
 @Data
 @Builder
-@AllArgsConstructor
-public class Course {
+public class CourseEntity {
+
     private Long id;
     private String title;
     private String description;
