@@ -32,7 +32,6 @@ public class CreateCourseUseCaseImpl implements CreateCourseUseCase {
         CourseEntity newCourse = CourseEntity.builder()
                 .title(request.getTitle())
                 .description(request.getDescription())
-                .nrOfLessons(request.getNrOfLessons())
                 .provider(request.getProvider())
                 .build();
         return courseRepository.saveCourse(newCourse);

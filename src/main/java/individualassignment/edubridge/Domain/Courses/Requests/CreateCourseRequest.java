@@ -20,10 +20,6 @@ public class CreateCourseRequest {
     private String title;
     @NotBlank
     private String description;
-
-    @Min(1)
-    private int nrOfLessons;
-
     @NotBlank
     @Length(min = 1, max = 200)
     private String provider;

@@ -29,7 +29,6 @@ public class UpdateCourseUseCaseImpl implements UpdateCourseUseCase {
     private CourseEntity updateFields(UpdateCourseRequest request, CourseEntity course){
         course.setTitle(request.getTitle());
         course.setDescription(request.getDescription());
-        course.setNrOfLessons(request.getNrOfLessons());
         course.setProvider(request.getProvider());
 
         return course;

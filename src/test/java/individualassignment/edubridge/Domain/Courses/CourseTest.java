@@ -11,7 +11,7 @@ class CourseTest {
 
         String actual = course.toString();
 
-        String expected = "Course(id=1, title=Java For Beginners, description=This course is for beginners in Java and want to start their career in it, nrOfLessons=25, provider=John Doe)";
+        String expected = "Course(id=1, title=Java For Beginners, description=This course is for beginners in Java and want to start their career in it, provider=John Doe)";
         assertEquals(expected, actual);
 
     }
@@ -26,9 +26,13 @@ class CourseTest {
 
     @Test
     void equals_ShouldReturnFalse_WhenOneFieldHaveDifferentValue(){
-        Course courseOne = createCourseTestRequest();
+        Course courseOne = Course.builder()
+                .id(1L)
+                .title("Beginners")
+                .description("This course is for beginners in Java and want to start their career in it")
+                .provider("John Doe")
+                .build();;
         Course courseTwo = createCourseTestRequest();
-        courseTwo.setNrOfLessons(20);
         assertNotEquals(courseOne, courseTwo);
     }
 
@@ -40,7 +44,6 @@ class CourseTest {
                 .id(1L)
                 .title("Java For Beginners")
                 .description("This course is for beginners in Java and want to start their career in it")
-                .nrOfLessons(25)
                 .provider("John Doe")
                 .build();
     }

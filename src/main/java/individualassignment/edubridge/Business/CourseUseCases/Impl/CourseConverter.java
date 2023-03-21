@@ -11,7 +11,6 @@ public class CourseConverter {
                 .id(course.getId())
                 .title(course.getTitle())
                 .description(course.getDescription())
-                .nrOfLessons(course.getNrOfLessons())
                 .provider(course.getProvider())
                 .build();
     }

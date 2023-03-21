@@ -10,6 +10,5 @@ public class CourseEntity {
     private Long id;
     private String title;
     private String description;
-    private int nrOfLessons;
     private String provider;
 }
