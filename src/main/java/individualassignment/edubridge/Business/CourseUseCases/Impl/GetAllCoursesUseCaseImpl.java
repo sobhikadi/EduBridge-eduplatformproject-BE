@@ -19,7 +19,7 @@ public class GetAllCoursesUseCaseImpl implements GetAllCoursesUseCase {
     private CourseRepository courseRepository;
 
     @Override
-    public GetAllCoursesResponse getAllStudents(final GetAllCoursesRequest request) {
+    public GetAllCoursesResponse getAllCourses(final GetAllCoursesRequest request) {
         List<CourseEntity> result;
 
         if(StringUtils.hasText(request.getProvider())){

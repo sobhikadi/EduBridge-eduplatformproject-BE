@@ -4,5 +4,5 @@ import individualassignment.edubridge.Domain.Courses.Requests.GetAllCoursesReque
 import individualassignment.edubridge.Domain.Courses.Responses.GetAllCoursesResponse;
 
 public interface GetAllCoursesUseCase {
-    GetAllCoursesResponse getAllStudents(GetAllCoursesRequest request);
+    GetAllCoursesResponse getAllCourses(GetAllCoursesRequest request);
 }

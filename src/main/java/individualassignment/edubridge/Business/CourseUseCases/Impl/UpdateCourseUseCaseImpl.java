@@ -22,17 +22,17 @@ public class UpdateCourseUseCaseImpl implements UpdateCourseUseCase {
         }
 
         CourseEntity course = courseOptional.get();
-        updateFields(request, course);
-
+        CourseEntity updatedCourse = updateFields(request, course);
+        courseRepository.saveCourse(updatedCourse);
     }
 
-    private void updateFields(UpdateCourseRequest request, CourseEntity course){
+    private CourseEntity updateFields(UpdateCourseRequest request, CourseEntity course){
         course.setTitle(request.getTitle());
         course.setDescription(request.getDescription());
         course.setNrOfLessons(request.getNrOfLessons());
         course.setProvider(request.getProvider());
 
-        courseRepository.saveCourse(course);
+        return course;
     }
 
 }

@@ -36,7 +36,7 @@ public class CourseController {
     @GetMapping()
     public ResponseEntity<GetAllCoursesResponse> getAllCourses(@RequestParam(value = "provider", required = false) String provider){
         GetAllCoursesRequest request = GetAllCoursesRequest.builder().provider(provider).build();
-        GetAllCoursesResponse response = getAllCoursesUseCase.getAllStudents(request);
+        GetAllCoursesResponse response = getAllCoursesUseCase.getAllCourses(request);
         return ResponseEntity.ok(response);
     }
 
