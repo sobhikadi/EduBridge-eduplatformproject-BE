@@ -12,6 +12,5 @@ public class DeleteCourseUseCaseImpl implements DeleteCourseUseCase {
     @Override
     public void deleteCourse(long courseId) {
         this.courseRepository.deleteById(courseId);
-
     }
 }
