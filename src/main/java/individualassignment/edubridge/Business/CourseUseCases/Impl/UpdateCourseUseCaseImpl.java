@@ -26,10 +26,12 @@ public class UpdateCourseUseCaseImpl implements UpdateCourseUseCase {
         courseRepository.saveCourse(updatedCourse);
     }
 
-    private CourseEntity updateFields(UpdateCourseRequest request, CourseEntity course){
+    private CourseEntity updateFields(UpdateCourseRequest request, CourseEntity course) {
         course.setTitle(request.getTitle());
         course.setDescription(request.getDescription());
         course.setProvider(request.getProvider());
+        course.setPublishDate(request.getPublishDate());
+
 
         return course;
     }

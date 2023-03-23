@@ -2,9 +2,10 @@ package individualassignment.edubridge.Domain.Courses.Requests;
 
 import lombok.*;
 import org.hibernate.validator.constraints.Length;
-
-import javax.validation.constraints.Min;
+import javax.validation.constraints.FutureOrPresent;
 import javax.validation.constraints.NotBlank;
+import java.time.LocalDate;
+import java.util.Optional;
 
 @Data
 @Builder
@@ -22,4 +23,7 @@ public class UpdateCourseRequest {
     @NotBlank
     @Length(min = 1, max = 200)
     private String provider;
+    @NonNull
+    private Optional<LocalDate> publishDate;
+
 }

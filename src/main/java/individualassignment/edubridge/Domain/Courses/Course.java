@@ -20,6 +20,6 @@ public class Course {
     private LocalDate creationDate;
     private Optional<LocalDate> publishDate;
     private Optional<LocalDateTime> lastModified;
-    private List<Lesson> lessons;
-    private Category category;
+//    private List<Lesson> lessons;
+//    private Category category;
 }

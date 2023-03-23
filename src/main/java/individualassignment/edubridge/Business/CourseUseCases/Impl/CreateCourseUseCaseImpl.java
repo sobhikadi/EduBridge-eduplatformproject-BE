@@ -33,6 +33,8 @@ public class CreateCourseUseCaseImpl implements CreateCourseUseCase {
                 .title(request.getTitle())
                 .description(request.getDescription())
                 .provider(request.getProvider())
+                .creationDate(request.getCreationDate())
+                .publishDate(request.getPublishDate())
                 .build();
         return courseRepository.saveCourse(newCourse);
     }
