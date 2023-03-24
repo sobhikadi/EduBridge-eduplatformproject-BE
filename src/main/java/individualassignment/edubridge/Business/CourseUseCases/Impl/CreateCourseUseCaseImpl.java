@@ -9,6 +9,9 @@ import individualassignment.edubridge.Persistence.Courses.Entity.CourseEntity;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.util.Optional;
+
 @Service
 @AllArgsConstructor
 public class CreateCourseUseCaseImpl implements CreateCourseUseCase {
@@ -29,12 +32,15 @@ public class CreateCourseUseCaseImpl implements CreateCourseUseCase {
 
     private CourseEntity saveNewCourse(CreateCourseRequest request)
     {
+        String pDate = request.getPublishDate().orElse("");
+        Optional<LocalDate> publishDate = pDate != "" ? Optional.ofNullable(LocalDate.parse(pDate)) : null;
+
         CourseEntity newCourse = CourseEntity.builder()
                 .title(request.getTitle())
                 .description(request.getDescription())
                 .provider(request.getProvider())
-                .creationDate(request.getCreationDate())
-                .publishDate(request.getPublishDate())
+                .creationDate(LocalDate.parse(request.getCreationDate()))
+                .publishDate(publishDate)
                 .build();
         return courseRepository.saveCourse(newCourse);
     }

@@ -1,10 +1,7 @@
 package individualassignment.edubridge.Domain.Courses.Requests;
 
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NonNull;
+import lombok.*;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.FutureOrPresent;
@@ -18,6 +15,7 @@ import java.util.Optional;
 @Data
 @Builder
 @AllArgsConstructor
+@NoArgsConstructor
 public class CreateCourseRequest {
 
     @NotBlank
@@ -29,8 +27,8 @@ public class CreateCourseRequest {
     @Length(min = 1, max = 100)
     private String provider;
     @NonNull
-    private LocalDate creationDate;
-    private Optional<LocalDate> publishDate;
+    private String creationDate;
+    private Optional<String> publishDate;
 
 
 }
