@@ -6,7 +6,6 @@ import lombok.Data;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Optional;
 
 @Data
@@ -18,8 +17,10 @@ public class Course {
     private String description;
     private String provider;
     private LocalDate creationDate;
+    private PublishState publishState;
     private Optional<LocalDate> publishDate;
     private Optional<LocalDateTime> lastModified;
-//    private List<Lesson> lessons;
-//    private Category category;
+    //    private Optional<String> imageUrl;
+    //    private List<Lesson> lessons;
+    //    private Category category;
 }

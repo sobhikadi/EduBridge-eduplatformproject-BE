@@ -1,5 +1,6 @@
 package individualassignment.edubridge.Domain.Courses.Requests;
 
+import individualassignment.edubridge.Domain.Courses.PublishState;
 import lombok.*;
 import org.hibernate.validator.constraints.Length;
 import javax.validation.constraints.FutureOrPresent;
@@ -25,5 +26,7 @@ public class UpdateCourseRequest {
     private String provider;
     @NonNull
     private Optional<LocalDate> publishDate;
+    @NonNull
+    private PublishState publishState;
 
 }

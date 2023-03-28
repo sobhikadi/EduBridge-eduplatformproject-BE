@@ -7,5 +7,5 @@ import lombok.Data;
 @Builder
 public class CategoryEntity {
     private Long id;
-    String name;
+    private String name;
 }

@@ -33,7 +33,7 @@ public class CreateCourseUseCaseImpl implements CreateCourseUseCase {
     private CourseEntity saveNewCourse(CreateCourseRequest request)
     {
         String pDate = request.getPublishDate().orElse("");
-        Optional<LocalDate> publishDate = pDate != "" ? Optional.ofNullable(LocalDate.parse(pDate)) : null;
+        Optional<LocalDate> publishDate = !pDate.equals("") ? Optional.ofNullable(LocalDate.parse(pDate)) : null;
 
         CourseEntity newCourse = CourseEntity.builder()
                 .title(request.getTitle())
@@ -41,6 +41,7 @@ public class CreateCourseUseCaseImpl implements CreateCourseUseCase {
                 .provider(request.getProvider())
                 .creationDate(LocalDate.parse(request.getCreationDate()))
                 .publishDate(publishDate)
+                .publishState(request.getPublishState())
                 .build();
         return courseRepository.saveCourse(newCourse);
     }

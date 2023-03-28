@@ -11,8 +11,8 @@ import java.util.HashMap;
 @AllArgsConstructor
 public class Lesson {
     private Long id;
-    String title;
-    String description;
-    HashMap<String, String> links;
+    private String name;
+    private String description;
+    private HashMap<String, String> links;
 
 }

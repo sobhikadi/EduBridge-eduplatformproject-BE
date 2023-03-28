@@ -14,6 +14,7 @@ public class CourseConverter {
                 .provider(course.getProvider())
                 .creationDate(course.getCreationDate())
                 .publishDate(course.getPublishDate())
+                .publishState(course.getPublishState())
                 .build();
     }
 }

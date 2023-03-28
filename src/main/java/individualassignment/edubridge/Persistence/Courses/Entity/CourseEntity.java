@@ -2,6 +2,7 @@ package individualassignment.edubridge.Persistence.Courses.Entity;
 
 import individualassignment.edubridge.Domain.Courses.Category;
 import individualassignment.edubridge.Domain.Courses.Lesson;
+import individualassignment.edubridge.Domain.Courses.PublishState;
 import lombok.Builder;
 import lombok.Data;
 
@@ -19,8 +20,10 @@ public class CourseEntity {
     private String description;
     private String provider;
     private LocalDate creationDate;
+    private PublishState publishState;
     private Optional<LocalDate> publishDate;
     private Optional<LocalDateTime> lastModified;
 //    private List<Lesson> lessons;
 //    private Category category;
+//    private Optional<String> imageUrl;
 }

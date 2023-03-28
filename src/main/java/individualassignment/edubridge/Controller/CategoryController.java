@@ -7,9 +7,7 @@ import individualassignment.edubridge.Business.CourseUseCases.GetAllCategoriesUs
 import individualassignment.edubridge.Business.CourseUseCases.UpdateCategoryUseCase;
 import individualassignment.edubridge.Domain.Courses.Requests.*;
 import individualassignment.edubridge.Domain.Courses.Responses.CreateCategoryResponse;
-import individualassignment.edubridge.Domain.Courses.Responses.CreateCourseResponse;
 import individualassignment.edubridge.Domain.Courses.Responses.GetAllCategoriesResponse;
-import individualassignment.edubridge.Domain.Courses.Responses.GetAllCoursesResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +18,7 @@ import javax.validation.Valid;
 @RestController
 @RequestMapping("/categories")
 @AllArgsConstructor
+@CrossOrigin(origins = "http://localhost:3000/")
 public class CategoryController {
     private final CreateCategoryUseCase createCategoryUseCase;
     private final DeleteCategoryUseCase deleteCategoryUseCase;

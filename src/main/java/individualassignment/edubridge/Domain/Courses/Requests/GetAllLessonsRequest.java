@@ -1,4 +1,4 @@
-package individualassignment.edubridge.Domain.Courses;
+package individualassignment.edubridge.Domain.Courses.Requests;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -8,8 +8,6 @@ import lombok.NoArgsConstructor;
 @Data
 @Builder
 @AllArgsConstructor
-@NoArgsConstructor
-public class Category {
-    private Long id;
-    private String name;
+public class GetAllLessonsRequest {
+    private Long courseId;
 }
