@@ -1,5 +1,6 @@
 package individualassignment.edubridge.Business.CourseUseCases.Impl;
 
+import individualassignment.edubridge.Domain.Courses.PublishState;
 import individualassignment.edubridge.Domain.Courses.Requests.CreateCourseRequest;
 import individualassignment.edubridge.Domain.Courses.Responses.CreateCourseResponse;
 import individualassignment.edubridge.Persistence.Courses.CourseRepository;
@@ -34,6 +35,7 @@ class CreateCourseUseCaseImplTest {
                 .provider("EduBridge")
                 .creationDate(LocalDate.parse("2020-01-01"))
                 .publishDate(Optional.ofNullable(LocalDate.parse("2020-01-01")))
+                .publishState(PublishState.PENDING)
                 .build();
 
         CourseEntity expected = CourseEntity.builder()
@@ -43,6 +45,7 @@ class CreateCourseUseCaseImplTest {
                 .provider("EduBridge")
                 .creationDate(LocalDate.parse("2020-01-01"))
                 .publishDate(Optional.ofNullable(LocalDate.parse("2020-01-01")))
+                .publishState(PublishState.PENDING)
                 .build();
 
         when(courseRepositoryMock.saveCourse(courseEntity)).thenReturn(expected);
@@ -53,6 +56,7 @@ class CreateCourseUseCaseImplTest {
                 .provider("EduBridge")
                 .creationDate("2020-01-01")
                 .publishDate(Optional.of("2020-01-01"))
+                .publishState(PublishState.PENDING)
                 .build();
         CreateCourseResponse actual = createCourseUseCase.createCourse(courseRequest);
 
