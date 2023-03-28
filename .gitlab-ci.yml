@@ -14,3 +14,10 @@ test:
   stage: test
   script:
     - ./gradlew test
+
+sonar:
+  stage: sonar
+  script:
+    - ./gradlew sonarqube
+    - ./gradlew --stop
+
