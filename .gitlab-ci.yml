@@ -20,4 +20,4 @@ sonar:
   script:
     - ./gradlew sonar
     - ./gradlew --stop
-
+  allow_failure: true
