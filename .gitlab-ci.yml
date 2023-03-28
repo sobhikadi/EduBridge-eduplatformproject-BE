@@ -15,9 +15,3 @@ test:
   script:
     - ./gradlew test
 
-sonar:
-  stage: sonar
-  script:
-    - ./gradlew sonar
-    - ./gradlew --stop
-  allow_failure: true
