@@ -15,3 +15,8 @@ test:
   script:
     - ./gradlew test
 
+sonar:
+  stage: test
+  script:
+    - ./gradlew test jacocoTestReport sonarqube
+    - ./gradlew sonarqube
