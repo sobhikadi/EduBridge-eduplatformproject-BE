@@ -5,7 +5,7 @@ import lombok.*;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.HashMap;
 
 @Data
@@ -14,7 +14,7 @@ import java.util.HashMap;
 @NoArgsConstructor
 public class UpdateLessonRequest {
 
-    @NonNull
+    @NotNull
     private Long id;
     @NotBlank
     @Length(min = 3, max = 100)
