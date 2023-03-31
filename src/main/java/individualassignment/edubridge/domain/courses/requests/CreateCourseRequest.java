@@ -1,6 +1,5 @@
 package individualassignment.edubridge.domain.courses.requests;
 
-
 import individualassignment.edubridge.domain.courses.PublishState;
 import lombok.*;
 import org.hibernate.validator.constraints.Length;
@@ -23,11 +22,9 @@ public class CreateCourseRequest {
     @NotBlank
     @Length(min = 1, max = 100)
     private String provider;
-    @NotBlank
-    private String creationDate;
-    private Optional<String> publishDate;
     @NotNull
     private PublishState publishState;
-
-
+    private Optional<String> imageUrl;
+    @NotNull
+    private Long categoryId;
 }
