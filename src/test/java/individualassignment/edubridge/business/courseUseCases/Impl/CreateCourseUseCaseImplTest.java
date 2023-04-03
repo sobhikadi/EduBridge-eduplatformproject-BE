@@ -1,9 +1,11 @@
 package individualassignment.edubridge.business.courseUseCases.Impl;
 
-import individualassignment.edubridge.domain.courses.PublishState;
+import individualassignment.edubridge.domain.courses.CoursePublishState;
 import individualassignment.edubridge.domain.courses.requests.CreateCourseRequest;
 import individualassignment.edubridge.domain.courses.responses.CreateCourseResponse;
+import individualassignment.edubridge.persistence.categories.CategoryRepository;
 import individualassignment.edubridge.persistence.courses.CourseRepository;
+import individualassignment.edubridge.persistence.categories.entities.CategoryEntity;
 import individualassignment.edubridge.persistence.courses.entities.CourseEntity;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -24,18 +26,28 @@ class CreateCourseUseCaseImplTest {
     @Mock
     private CourseRepository courseRepositoryMock;
 
+    @Mock
+    private CategoryRepository categoryRepositoryMock;
+
     @InjectMocks
     private CreateCourseUseCaseImpl createCourseUseCase;
 
     @Test
     void createCourse_ShouldCreateAndSaveCourse_ShouldReturnAddedCourseId() {
+        CategoryEntity category = CategoryEntity.builder()
+                .id(1L)
+                .name("category")
+                .build();
+
         CourseEntity courseEntity = CourseEntity.builder()
                 .title("Java")
                 .description("Java Programming")
                 .provider("EduBridge")
-                .creationDate(LocalDate.parse("2020-01-01"))
-                .publishDate(Optional.ofNullable(LocalDate.parse("2020-01-01")))
-                .publishState(PublishState.PENDING)
+                .creationDate(LocalDate.now())
+                .publishDate(null)
+                .publishState(CoursePublishState.PENDING)
+                .imageUrl(Optional.of("url"))
+                .category(category)
                 .build();
 
         CourseEntity expected = CourseEntity.builder()
@@ -44,8 +56,10 @@ class CreateCourseUseCaseImplTest {
                 .description("Java Programming")
                 .provider("EduBridge")
                 .creationDate(LocalDate.parse("2020-01-01"))
-                .publishDate(Optional.ofNullable(LocalDate.parse("2020-01-01")))
-                .publishState(PublishState.PENDING)
+                .publishDate(null)
+                .publishState(CoursePublishState.PENDING)
+                .imageUrl(Optional.of("url"))
+                .category(category)
                 .build();
 
         when(courseRepositoryMock.saveCourse(courseEntity)).thenReturn(expected);
@@ -54,10 +68,15 @@ class CreateCourseUseCaseImplTest {
                 .title("Java")
                 .description("Java Programming")
                 .provider("EduBridge")
-                .creationDate("2020-01-01")
-                .publishDate(Optional.of("2020-01-01"))
-                .publishState(PublishState.PENDING)
+                .publishState(CoursePublishState.PENDING)
+                .imageUrl(Optional.of("url"))
+                .categoryId(category.getId())
                 .build();
+
+        when(courseRepositoryMock.existsByName(courseRequest.getTitle())).thenReturn(false);
+        when(categoryRepositoryMock.existsById(category.getId())).thenReturn(true);
+        when(categoryRepositoryMock.findById(category.getId())).thenReturn(Optional.of(category));
+
         CreateCourseResponse actual = createCourseUseCase.createCourse(courseRequest);
 
         CreateCourseResponse expectedResponse = CreateCourseResponse.builder()
@@ -66,5 +85,8 @@ class CreateCourseUseCaseImplTest {
 
         assertEquals(expectedResponse, actual);
         verify(courseRepositoryMock).saveCourse(courseEntity);
+        verify(courseRepositoryMock).existsByName(courseRequest.getTitle());
+        verify(categoryRepositoryMock).existsById(category.getId());
+        verify(categoryRepositoryMock).findById(category.getId());
     }
 }

@@ -1,7 +1,7 @@
-package individualassignment.edubridge.persistence.courses.impl;
+package individualassignment.edubridge.persistence.lessons.impl;
 
-import individualassignment.edubridge.persistence.courses.entities.LessonEntity;
-import individualassignment.edubridge.persistence.courses.LessonRepository;
+import individualassignment.edubridge.persistence.lessons.entities.LessonEntity;
+import individualassignment.edubridge.persistence.lessons.LessonRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;

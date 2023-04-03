@@ -3,12 +3,12 @@ package individualassignment.edubridge.business.courseUseCases.Impl;
 import individualassignment.edubridge.business.categoryUseCases.exceptions.InvalidCategoryIdException;
 import individualassignment.edubridge.business.courseUseCases.CreateCourseUseCase;
 import individualassignment.edubridge.business.courseUseCases.exceptions.CourseNameAlreadyExistsException;
-import individualassignment.edubridge.domain.courses.PublishState;
+import individualassignment.edubridge.domain.courses.CoursePublishState;
 import individualassignment.edubridge.domain.courses.requests.CreateCourseRequest;
 import individualassignment.edubridge.domain.courses.responses.CreateCourseResponse;
-import individualassignment.edubridge.persistence.courses.CategoryRepository;
+import individualassignment.edubridge.persistence.categories.CategoryRepository;
 import individualassignment.edubridge.persistence.courses.CourseRepository;
-import individualassignment.edubridge.persistence.courses.entities.CategoryEntity;
+import individualassignment.edubridge.persistence.categories.entities.CategoryEntity;
 import individualassignment.edubridge.persistence.courses.entities.CourseEntity;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -43,7 +43,7 @@ public class CreateCourseUseCaseImpl implements CreateCourseUseCase {
         CategoryEntity category = categoryRepository.findById(request.getCategoryId()).get();
 
         Optional<LocalDate> publishDate =
-                request.getPublishState() == PublishState.PUBLISHED ? Optional.of(LocalDate.now()) : null;
+                request.getPublishState() == CoursePublishState.PUBLISHED ? Optional.of(LocalDate.now()) : null;
 
         CourseEntity newCourse = CourseEntity.builder()
                 .title(request.getTitle())

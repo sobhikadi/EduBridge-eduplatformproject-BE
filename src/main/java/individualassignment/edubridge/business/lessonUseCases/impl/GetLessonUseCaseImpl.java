@@ -2,7 +2,7 @@ package individualassignment.edubridge.business.lessonUseCases.impl;
 
 import individualassignment.edubridge.business.lessonUseCases.GetLessonUseCase;
 import individualassignment.edubridge.domain.lessons.Lesson;
-import individualassignment.edubridge.persistence.courses.LessonRepository;
+import individualassignment.edubridge.persistence.lessons.LessonRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 

@@ -4,8 +4,8 @@ import individualassignment.edubridge.business.lessonUseCases.CreateLessonUseCas
 import individualassignment.edubridge.business.lessonUseCases.exceptions.LessonNameAlreadyExistsException;
 import individualassignment.edubridge.domain.lessons.requests.CreateLessonRequest;
 import individualassignment.edubridge.domain.lessons.responses.CreateLessonResponse;
-import individualassignment.edubridge.persistence.courses.entities.LessonEntity;
-import individualassignment.edubridge.persistence.courses.LessonRepository;
+import individualassignment.edubridge.persistence.lessons.entities.LessonEntity;
+import individualassignment.edubridge.persistence.lessons.LessonRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 

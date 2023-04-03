@@ -1,8 +1,8 @@
 package individualassignment.edubridge.persistence.courses.entities;
 
-import individualassignment.edubridge.domain.categories.Category;
-import individualassignment.edubridge.domain.courses.PublishState;
-import individualassignment.edubridge.domain.lessons.Lesson;
+import individualassignment.edubridge.domain.courses.CoursePublishState;
+import individualassignment.edubridge.persistence.categories.entities.CategoryEntity;
+import individualassignment.edubridge.persistence.lessons.entities.LessonEntity;
 import lombok.Builder;
 import lombok.Data;
 
@@ -20,7 +20,7 @@ public class CourseEntity {
     private String description;
     private String provider;
     private LocalDate creationDate;
-    private PublishState publishState;
+    private CoursePublishState publishState;
     private Optional<LocalDate> publishDate;
     private Optional<LocalDateTime> lastModified;
     private List<LessonEntity> lessons;

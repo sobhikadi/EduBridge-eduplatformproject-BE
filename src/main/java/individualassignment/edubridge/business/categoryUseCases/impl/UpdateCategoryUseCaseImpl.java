@@ -3,8 +3,8 @@ package individualassignment.edubridge.business.categoryUseCases.impl;
 import individualassignment.edubridge.business.categoryUseCases.exceptions.InvalidCategoryIdException;
 import individualassignment.edubridge.business.categoryUseCases.UpdateCategoryUseCase;
 import individualassignment.edubridge.domain.categories.requests.UpdateCategoryRequest;
-import individualassignment.edubridge.persistence.courses.CategoryRepository;
-import individualassignment.edubridge.persistence.courses.entities.CategoryEntity;
+import individualassignment.edubridge.persistence.categories.CategoryRepository;
+import individualassignment.edubridge.persistence.categories.entities.CategoryEntity;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 

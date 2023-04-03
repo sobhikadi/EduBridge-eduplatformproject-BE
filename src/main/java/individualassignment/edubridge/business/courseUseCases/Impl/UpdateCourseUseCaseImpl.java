@@ -2,18 +2,25 @@ package individualassignment.edubridge.business.courseUseCases.Impl;
 
 import individualassignment.edubridge.business.courseUseCases.exceptions.InvalidCourseIdException;
 import individualassignment.edubridge.business.courseUseCases.UpdateCourseUseCase;
+import individualassignment.edubridge.domain.courses.CoursePublishState;
 import individualassignment.edubridge.domain.courses.requests.UpdateCourseRequest;
+import individualassignment.edubridge.persistence.categories.CategoryRepository;
+import individualassignment.edubridge.persistence.categories.entities.CategoryEntity;
 import individualassignment.edubridge.persistence.courses.CourseRepository;
 import individualassignment.edubridge.persistence.courses.entities.CourseEntity;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
 @Service
 @AllArgsConstructor
 public class UpdateCourseUseCaseImpl implements UpdateCourseUseCase {
     private final CourseRepository courseRepository;
+    private final CategoryRepository categoryRepository;
     @Override
     public void updateCourse(UpdateCourseRequest request) {
         Optional<CourseEntity> courseOptional = courseRepository.findById(request.getId());
@@ -27,12 +34,17 @@ public class UpdateCourseUseCaseImpl implements UpdateCourseUseCase {
     }
 
     private CourseEntity updateFields(UpdateCourseRequest request, CourseEntity course) {
+
+        CategoryEntity category = categoryRepository.findById(request.getCategoryId()).get();
+
         course.setTitle(request.getTitle());
         course.setDescription(request.getDescription());
         course.setProvider(request.getProvider());
-        course.setPublishDate(request.getPublishDate());
-
-
+        course.setPublishDate(request.getPublishState() == CoursePublishState.PUBLISHED ? Optional.of(LocalDate.now()) : Optional.empty());
+        course.setPublishState(request.getPublishState());
+        course.setImageUrl(request.getImageUrl());
+        course.setLastModified(null);
+        course.setCategory(category);
         return course;
     }
 

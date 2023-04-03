@@ -1,7 +1,7 @@
 package individualassignment.edubridge.business.lessonUseCases.impl;
 
 import individualassignment.edubridge.domain.lessons.Lesson;
-import individualassignment.edubridge.persistence.courses.entities.LessonEntity;
+import individualassignment.edubridge.persistence.lessons.entities.LessonEntity;
 
 public class LessonConverter {
 

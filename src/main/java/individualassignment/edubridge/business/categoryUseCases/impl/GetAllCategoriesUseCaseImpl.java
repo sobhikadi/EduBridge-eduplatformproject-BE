@@ -3,8 +3,8 @@ package individualassignment.edubridge.business.categoryUseCases.impl;
 import individualassignment.edubridge.business.categoryUseCases.GetAllCategoriesUseCase;
 import individualassignment.edubridge.domain.categories.Category;
 import individualassignment.edubridge.domain.categories.responses.GetAllCategoriesResponse;
-import individualassignment.edubridge.persistence.courses.CategoryRepository;
-import individualassignment.edubridge.persistence.courses.entities.CategoryEntity;
+import individualassignment.edubridge.persistence.categories.CategoryRepository;
+import individualassignment.edubridge.persistence.categories.entities.CategoryEntity;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 

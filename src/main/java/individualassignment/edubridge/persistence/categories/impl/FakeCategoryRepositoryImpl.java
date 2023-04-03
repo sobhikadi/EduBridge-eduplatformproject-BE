@@ -1,7 +1,7 @@
-package individualassignment.edubridge.persistence.courses.impl;
+package individualassignment.edubridge.persistence.categories.impl;
 
-import individualassignment.edubridge.persistence.courses.CategoryRepository;
-import individualassignment.edubridge.persistence.courses.entities.CategoryEntity;
+import individualassignment.edubridge.persistence.categories.CategoryRepository;
+import individualassignment.edubridge.persistence.categories.entities.CategoryEntity;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;

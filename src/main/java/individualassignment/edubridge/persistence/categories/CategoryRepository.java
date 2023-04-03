@@ -1,6 +1,6 @@
-package individualassignment.edubridge.persistence.courses;
+package individualassignment.edubridge.persistence.categories;
 
-import individualassignment.edubridge.persistence.courses.entities.CategoryEntity;
+import individualassignment.edubridge.persistence.categories.entities.CategoryEntity;
 
 import java.util.List;
 import java.util.Optional;

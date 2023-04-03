@@ -5,8 +5,8 @@ import individualassignment.edubridge.business.lessonUseCases.GetAllLessonsUseCa
 import individualassignment.edubridge.domain.lessons.Lesson;
 import individualassignment.edubridge.domain.lessons.requests.GetAllLessonsRequest;
 import individualassignment.edubridge.domain.lessons.responses.GetAllLessonsResponse;
-import individualassignment.edubridge.persistence.courses.entities.LessonEntity;
-import individualassignment.edubridge.persistence.courses.LessonRepository;
+import individualassignment.edubridge.persistence.lessons.entities.LessonEntity;
+import individualassignment.edubridge.persistence.lessons.LessonRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 

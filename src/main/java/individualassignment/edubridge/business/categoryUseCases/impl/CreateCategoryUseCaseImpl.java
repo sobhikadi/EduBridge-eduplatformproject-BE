@@ -4,8 +4,8 @@ import individualassignment.edubridge.business.categoryUseCases.CreateCategoryUs
 import individualassignment.edubridge.business.categoryUseCases.exceptions.CategoryNameAlreadyExistsException;
 import individualassignment.edubridge.domain.categories.requests.CreateCategoryRequest;
 import individualassignment.edubridge.domain.categories.responses.CreateCategoryResponse;
-import individualassignment.edubridge.persistence.courses.CategoryRepository;
-import individualassignment.edubridge.persistence.courses.entities.CategoryEntity;
+import individualassignment.edubridge.persistence.categories.CategoryRepository;
+import individualassignment.edubridge.persistence.categories.entities.CategoryEntity;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 

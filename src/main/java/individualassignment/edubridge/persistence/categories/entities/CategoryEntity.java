@@ -1,4 +1,4 @@
-package individualassignment.edubridge.persistence.courses.entities;
+package individualassignment.edubridge.persistence.categories.entities;
 
 import lombok.Builder;
 import lombok.Data;
