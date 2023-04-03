@@ -1,5 +1,6 @@
 package individualassignment.edubridge.business.courseUseCases.Impl;
 
+import individualassignment.edubridge.business.categoryUseCases.exceptions.InvalidCategoryIdException;
 import individualassignment.edubridge.business.courseUseCases.exceptions.InvalidCourseIdException;
 import individualassignment.edubridge.business.courseUseCases.UpdateCourseUseCase;
 import individualassignment.edubridge.domain.courses.CoursePublishState;
@@ -35,7 +36,11 @@ public class UpdateCourseUseCaseImpl implements UpdateCourseUseCase {
 
     private CourseEntity updateFields(UpdateCourseRequest request, CourseEntity course) {
 
-        CategoryEntity category = categoryRepository.findById(request.getCategoryId()).get();
+        Optional<CategoryEntity> category = categoryRepository.findById(request.getCategoryId());
+
+        if (category.isEmpty()) {
+            throw new InvalidCategoryIdException();
+        }
 
         course.setTitle(request.getTitle());
         course.setDescription(request.getDescription());
@@ -44,7 +49,7 @@ public class UpdateCourseUseCaseImpl implements UpdateCourseUseCase {
         course.setPublishState(request.getPublishState());
         course.setImageUrl(request.getImageUrl());
         course.setLastModified(null);
-        course.setCategory(category);
+        course.setCategory(category.get());
         return course;
     }
 

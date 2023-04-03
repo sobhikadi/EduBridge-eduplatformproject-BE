@@ -74,7 +74,7 @@ class CreateCourseUseCaseImplTest {
                 .build();
 
         when(courseRepositoryMock.existsByName(courseRequest.getTitle())).thenReturn(false);
-        when(categoryRepositoryMock.existsById(category.getId())).thenReturn(true);
+
         when(categoryRepositoryMock.findById(category.getId())).thenReturn(Optional.of(category));
 
         CreateCourseResponse actual = createCourseUseCase.createCourse(courseRequest);
@@ -86,7 +86,6 @@ class CreateCourseUseCaseImplTest {
         assertEquals(expectedResponse, actual);
         verify(courseRepositoryMock).saveCourse(courseEntity);
         verify(courseRepositoryMock).existsByName(courseRequest.getTitle());
-        verify(categoryRepositoryMock).existsById(category.getId());
         verify(categoryRepositoryMock).findById(category.getId());
     }
 }

@@ -28,9 +28,6 @@ public class CreateCourseUseCaseImpl implements CreateCourseUseCase {
         if(courseRepository.existsByName(request.getTitle())) {
             throw new CourseNameAlreadyExistsException();
         }
-        if (!categoryRepository.existsById(request.getCategoryId())) {
-            throw new InvalidCategoryIdException();
-        }
 
         CourseEntity savedCourse = saveNewCourse(request);
         return CreateCourseResponse.builder()
@@ -40,7 +37,11 @@ public class CreateCourseUseCaseImpl implements CreateCourseUseCase {
 
     private CourseEntity saveNewCourse(CreateCourseRequest request)
     {
-        CategoryEntity category = categoryRepository.findById(request.getCategoryId()).get();
+        Optional<CategoryEntity> category = categoryRepository.findById(request.getCategoryId());
+
+        if (category.isEmpty()) {
+            throw new InvalidCategoryIdException();
+        }
 
         Optional<LocalDate> publishDate =
                 request.getPublishState() == CoursePublishState.PUBLISHED ? Optional.of(LocalDate.now()) : null;
@@ -52,7 +53,7 @@ public class CreateCourseUseCaseImpl implements CreateCourseUseCase {
                 .creationDate(LocalDate.now())
                 .publishDate(publishDate)
                 .publishState(request.getPublishState())
-                .category(category)
+                .category(category.get())
                 .imageUrl(request.getImageUrl())
                 .build();
         return courseRepository.saveCourse(newCourse);
