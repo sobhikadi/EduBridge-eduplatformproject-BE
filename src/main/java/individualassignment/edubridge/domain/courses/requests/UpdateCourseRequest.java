@@ -3,6 +3,7 @@ package individualassignment.edubridge.domain.courses.requests;
 import individualassignment.edubridge.domain.courses.CoursePublishState;
 import lombok.*;
 import org.hibernate.validator.constraints.Length;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.FutureOrPresent;
 import javax.validation.constraints.NotBlank;
@@ -27,7 +28,7 @@ public class UpdateCourseRequest {
     @NotNull
     private CoursePublishState publishState;
 
-    private Optional<String> imageUrl;
+    private Optional<MultipartFile> image;
     @NotNull
     private Long categoryId;
 

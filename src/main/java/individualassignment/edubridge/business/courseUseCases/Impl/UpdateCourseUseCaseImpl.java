@@ -1,6 +1,7 @@
 package individualassignment.edubridge.business.courseUseCases.Impl;
 
 import individualassignment.edubridge.business.categoryUseCases.exceptions.InvalidCategoryIdException;
+import individualassignment.edubridge.business.courseUseCases.UploadImageService;
 import individualassignment.edubridge.business.courseUseCases.exceptions.InvalidCourseIdException;
 import individualassignment.edubridge.business.courseUseCases.UpdateCourseUseCase;
 import individualassignment.edubridge.domain.courses.CoursePublishState;
@@ -22,6 +23,7 @@ import java.util.Optional;
 public class UpdateCourseUseCaseImpl implements UpdateCourseUseCase {
     private final CourseRepository courseRepository;
     private final CategoryRepository categoryRepository;
+    private final UploadImageService uploadImageService;
     @Override
     public void updateCourse(UpdateCourseRequest request) {
         Optional<CourseEntity> courseOptional = courseRepository.findById(request.getId());
@@ -42,12 +44,17 @@ public class UpdateCourseUseCaseImpl implements UpdateCourseUseCase {
             throw new InvalidCategoryIdException();
         }
 
+        String imageUrl = null;
+        if(request.getImage().isPresent()) {
+            imageUrl = uploadImageService.uploadImage(request.getImage().orElse(null), request.getTitle());
+        }
+
         course.setTitle(request.getTitle());
         course.setDescription(request.getDescription());
         course.setProvider(request.getProvider());
         course.setPublishDate(request.getPublishState() == CoursePublishState.PUBLISHED ? Optional.of(LocalDate.now()) : Optional.empty());
         course.setPublishState(request.getPublishState());
-        course.setImageUrl(request.getImageUrl());
+        course.setImageUrl(Optional.of(imageUrl));
         course.setLastModified(null);
         course.setCategory(category.get());
         return course;

@@ -69,7 +69,7 @@ class CreateCourseUseCaseImplTest {
                 .description("Java Programming")
                 .provider("EduBridge")
                 .publishState(CoursePublishState.PENDING)
-                .imageUrl(Optional.of("url"))
+                .image(null)
                 .categoryId(category.getId())
                 .build();
 

@@ -47,8 +47,8 @@ public class CreateCourseUseCaseImpl implements CreateCourseUseCase {
         }
 
         String imageUrl = null;
-        if(request.getImage() != null) {
-            imageUrl = uploadImageService.uploadImage(request.getImage(), request.getTitle());
+        if(request.getImage().isPresent()) {
+            imageUrl = uploadImageService.uploadImage(request.getImage().orElse(null), request.getTitle());
         }
 
         Optional<LocalDate> publishDate =

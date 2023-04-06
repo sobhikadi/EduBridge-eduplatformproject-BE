@@ -43,7 +43,7 @@ public class CourseController {
             throw new RuntimeException(e);
         }
 
-        request.setImage(image);
+        request.setImage(Optional.of(image));
 
         CreateCourseResponse response = createCourseUseCase.createCourse(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
@@ -72,7 +72,17 @@ public class CourseController {
     }
 
     @PutMapping("{courseId}")
-    public ResponseEntity<Void> updateCourse(@PathVariable("courseId") long courseId, @RequestBody @Valid UpdateCourseRequest request){
+    public ResponseEntity<Void> updateCourse(@PathVariable("courseId") long courseId,
+                                             @RequestParam("courseInfo") String courseInfo,
+                                             @RequestParam("image") MultipartFile image){
+        UpdateCourseRequest request = null;
+        try {
+            request = objectMapper.readValue(courseInfo, UpdateCourseRequest.class);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
+
+        request.setImage(Optional.of(image));
         request.setId(courseId);
         updateCourseUseCase.updateCourse(request);
         return ResponseEntity.noContent().build();

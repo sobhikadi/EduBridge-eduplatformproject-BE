@@ -64,7 +64,7 @@ class UpdateCourseUseCaseImplTest {
                 .publishState(CoursePublishState.PENDING)
                 .category(category)
                 .lastModified(null)
-                .imageUrl(Optional.of("newImage"))
+                .imageUrl(null)
                 .lessons(Collections.emptyList())
                 .build();
 
@@ -77,7 +77,7 @@ class UpdateCourseUseCaseImplTest {
                 .provider(expected.getProvider())
                 .publishState(expected.getPublishState())
                 .categoryId(expected.getCategory().getId())
-                .imageUrl(expected.getImageUrl())
+                .image(null)
                 .build();
 
         when(categoryRepositoryMock.findById(expected.getCategory().getId())).thenReturn(Optional.of(category));

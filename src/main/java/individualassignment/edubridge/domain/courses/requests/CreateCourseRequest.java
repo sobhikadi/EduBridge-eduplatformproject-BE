@@ -6,7 +6,7 @@ import org.hibernate.validator.constraints.Length;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.*;
-
+import java.util.Optional;
 
 
 @Data
@@ -29,7 +29,7 @@ public class CreateCourseRequest {
     @NotNull
     private CoursePublishState publishState;
 
-    private MultipartFile image;
+    private Optional<MultipartFile> image;
 
     @NotNull
     private Long categoryId;
