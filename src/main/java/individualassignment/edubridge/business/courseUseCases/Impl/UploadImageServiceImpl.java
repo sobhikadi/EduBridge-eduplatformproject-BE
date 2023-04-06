@@ -7,17 +7,15 @@ import individualassignment.edubridge.business.courseUseCases.UploadImageService
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.Map;
 
 @Component
 public class UploadImageServiceImpl implements UploadImageService {
     @Override
     public String uploadImage(MultipartFile image, String imageName) {
 
-        Map config = new HashMap();
+        HashMap<String, String> config = new HashMap<>();
         config.put("cloud_name", "diwgbx1f9");
         config.put("api_key", "249747327848349");
         config.put("api_secret", "jsGuZRAER3RJikpNeGqx8eTrNX8");
@@ -32,9 +30,15 @@ public class UploadImageServiceImpl implements UploadImageService {
         }
 
         // Transform
-        String url = cloudinary.url()
-                .transformation(new Transformation().width(265).height(200).crop("fit")).generate(imageName);
 
-        return url;
+        //noinspection rawtypes
+        return cloudinary.url()
+                .transformation(new Transformation()
+                                .width(265)
+                                .height(200)
+                                .crop("fit"))
+                .generate(imageName);
+
+
     }
 }
