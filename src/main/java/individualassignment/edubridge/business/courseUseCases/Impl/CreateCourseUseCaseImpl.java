@@ -2,6 +2,7 @@ package individualassignment.edubridge.business.courseUseCases.Impl;
 
 import individualassignment.edubridge.business.categoryUseCases.exceptions.InvalidCategoryIdException;
 import individualassignment.edubridge.business.courseUseCases.CreateCourseUseCase;
+import individualassignment.edubridge.business.courseUseCases.UploadImageService;
 import individualassignment.edubridge.business.courseUseCases.exceptions.CourseNameAlreadyExistsException;
 import individualassignment.edubridge.domain.courses.CoursePublishState;
 import individualassignment.edubridge.domain.courses.requests.CreateCourseRequest;
@@ -14,6 +15,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.Base64;
 import java.util.Optional;
 
 @Service
@@ -22,6 +24,7 @@ public class CreateCourseUseCaseImpl implements CreateCourseUseCase {
 
     private final CourseRepository courseRepository;
     private final CategoryRepository categoryRepository;
+    private final UploadImageService uploadImageService;
 
     @Override
     public CreateCourseResponse createCourse(CreateCourseRequest request) {
@@ -43,6 +46,11 @@ public class CreateCourseUseCaseImpl implements CreateCourseUseCase {
             throw new InvalidCategoryIdException();
         }
 
+        String imageUrl = null;
+        if(request.getImage() != null) {
+            imageUrl = uploadImageService.uploadImage(request.getImage(), request.getTitle());
+        }
+
         Optional<LocalDate> publishDate =
                 request.getPublishState() == CoursePublishState.PUBLISHED ? Optional.of(LocalDate.now()) : null;
 
@@ -54,7 +62,7 @@ public class CreateCourseUseCaseImpl implements CreateCourseUseCase {
                 .publishDate(publishDate)
                 .publishState(request.getPublishState())
                 .category(category.get())
-                .imageUrl(request.getImageUrl())
+                .imageUrl(Optional.of(imageUrl))
                 .build();
         return courseRepository.saveCourse(newCourse);
     }

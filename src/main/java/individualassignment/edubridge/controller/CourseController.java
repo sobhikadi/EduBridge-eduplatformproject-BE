@@ -1,5 +1,6 @@
 package individualassignment.edubridge.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import individualassignment.edubridge.business.courseUseCases.*;
 import individualassignment.edubridge.domain.courses.Course;
 import individualassignment.edubridge.domain.courses.requests.CreateCourseRequest;
@@ -11,6 +12,8 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import javax.validation.Valid;
 import java.util.Optional;
@@ -26,10 +29,22 @@ public class CourseController {
     private final GetCourseUseCase getCourseUseCase;
     private final DeleteCourseUseCase deleteCourseUseCase;
     private final UpdateCourseUseCase updateCourseUseCase;
+    private final ObjectMapper objectMapper;
 
 
     @PostMapping()
-    public ResponseEntity<CreateCourseResponse> createCourse(@RequestBody @Valid CreateCourseRequest request){
+    public ResponseEntity<CreateCourseResponse> createCourse(@RequestParam("courseInfo") String courseInfo,
+                                                            @RequestParam("image") MultipartFile image){
+
+        CreateCourseRequest request = null;
+        try {
+            request = objectMapper.readValue(courseInfo, CreateCourseRequest.class);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
+
+        request.setImage(image);
+
         CreateCourseResponse response = createCourseUseCase.createCourse(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
