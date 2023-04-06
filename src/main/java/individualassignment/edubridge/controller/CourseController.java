@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import javax.validation.Valid;
 import java.util.Optional;
 
 @RestController
@@ -36,7 +35,7 @@ public class CourseController {
     public ResponseEntity<CreateCourseResponse> createCourse(@RequestParam("courseInfo") String courseInfo,
                                                             @RequestParam("image") MultipartFile image){
 
-        CreateCourseRequest request = null;
+        CreateCourseRequest request;
         try {
             request = objectMapper.readValue(courseInfo, CreateCourseRequest.class);
         } catch (JsonProcessingException e) {
@@ -75,7 +74,7 @@ public class CourseController {
     public ResponseEntity<Void> updateCourse(@PathVariable("courseId") long courseId,
                                              @RequestParam("courseInfo") String courseInfo,
                                              @RequestParam("image") MultipartFile image){
-        UpdateCourseRequest request = null;
+        UpdateCourseRequest request;
         try {
             request = objectMapper.readValue(courseInfo, UpdateCourseRequest.class);
         } catch (JsonProcessingException e) {
