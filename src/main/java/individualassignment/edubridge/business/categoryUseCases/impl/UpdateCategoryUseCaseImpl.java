@@ -25,7 +25,7 @@ public class UpdateCategoryUseCaseImpl implements UpdateCategoryUseCase {
 
         CategoryEntity category = categoryOptional.get();
         CategoryEntity updatedCategory = updateFields(request, category);
-        categoryRepository.saveCategory(updatedCategory);
+        categoryRepository.save(updatedCategory);
     }
 
     private CategoryEntity updateFields(UpdateCategoryRequest request, CategoryEntity category){

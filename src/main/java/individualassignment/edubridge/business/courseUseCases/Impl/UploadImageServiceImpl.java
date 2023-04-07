@@ -12,14 +12,16 @@ import java.util.HashMap;
 
 @Component
 public class UploadImageServiceImpl implements UploadImageService {
+
+    private Cloudinary cloudinary;
+
     @Override
     public String uploadImage(MultipartFile image, String imageName) {
-
         HashMap<String, String> config = new HashMap<>();
         config.put("cloud_name", "diwgbx1f9");
         config.put("api_key", "249747327848349");
         config.put("api_secret", "jsGuZRAER3RJikpNeGqx8eTrNX8");
-        Cloudinary cloudinary = new Cloudinary(config);
+        cloudinary = new Cloudinary(config);
 
         // Upload
         try {
@@ -28,9 +30,7 @@ public class UploadImageServiceImpl implements UploadImageService {
         } catch (IOException exception) {
             return exception.getMessage();
         }
-
         // Transform
-
         //noinspection rawtypes
         return cloudinary.url()
                 .transformation(new Transformation()
@@ -38,7 +38,16 @@ public class UploadImageServiceImpl implements UploadImageService {
                                 .height(200)
                                 .crop("fit"))
                 .generate(imageName);
-
-
     }
+
+    @Override
+    public void deleteImage(String imageName) {
+        try {
+            cloudinary.uploader().destroy(imageName, ObjectUtils.emptyMap());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
 }

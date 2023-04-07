@@ -20,6 +20,7 @@ public class CreateCourseRequest {
     private String title;
 
     @NotBlank
+    @Length(min = 3, max = 300)
     private String description;
 
     @NotBlank
@@ -29,7 +30,8 @@ public class CreateCourseRequest {
     @NotNull
     private CoursePublishState publishState;
 
-    private Optional<MultipartFile> image;
+    @NotNull
+    private MultipartFile image;
 
     @NotNull
     private Long categoryId;

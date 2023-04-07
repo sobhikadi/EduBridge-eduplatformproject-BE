@@ -7,6 +7,7 @@ import individualassignment.edubridge.domain.courses.responses.GetAllCoursesResp
 import individualassignment.edubridge.persistence.courses.CourseRepository;
 import individualassignment.edubridge.persistence.courses.entities.CourseEntity;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -26,7 +27,7 @@ public class GetAllCoursesUseCaseImpl implements GetAllCoursesUseCase {
             result = courseRepository.findAllByProvider(request.getProvider());
         }
         else {
-            result = courseRepository.findAll();
+            result = courseRepository.findAll(Sort.by(Sort.Direction.ASC, "id"));
         }
 
         final GetAllCoursesResponse response = new GetAllCoursesResponse();

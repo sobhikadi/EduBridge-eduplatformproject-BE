@@ -42,7 +42,7 @@ public class CourseController {
             throw new RuntimeException(e);
         }
 
-        request.setImage(Optional.of(image));
+        request.setImage(image);
 
         CreateCourseResponse response = createCourseUseCase.createCourse(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
@@ -58,10 +58,8 @@ public class CourseController {
     @GetMapping("{title}")
     public ResponseEntity<Course> getCourseByTitle(@PathVariable(value = "title") final String title){
         final Optional<Course> courseOptional = getCourseUseCase.getCourse(title);
-        if(courseOptional.isEmpty()){
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok().body(courseOptional.get());
+        return courseOptional.map(course -> ResponseEntity.ok().body(course))
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @DeleteMapping("{courseId}")
@@ -81,7 +79,7 @@ public class CourseController {
             throw new RuntimeException(e);
         }
 
-        request.setImage(Optional.of(image));
+        request.setImage(image);
         request.setId(courseId);
         updateCourseUseCase.updateCourse(request);
         return ResponseEntity.noContent().build();

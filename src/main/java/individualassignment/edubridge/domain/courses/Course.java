@@ -23,7 +23,7 @@ public class Course {
     private CoursePublishState publishState;
     private Optional<LocalDate> publishDate;
     private Optional<LocalDateTime> lastModified;
-    private Optional<String> imageUrl;
+    private String imageUrl;
     private List<Lesson> lessons;
     private Category category;
 }

@@ -18,8 +18,11 @@ public class CreateLessonRequest {
     @NotBlank
     @Length(min = 3, max = 100)
     private String name;
+
     @NotBlank
+    @Length(min = 3, max = 300)
     private String description;
-    private HashMap<String, String> links;
+
+//    private HashMap<String, String> links;
 
 }

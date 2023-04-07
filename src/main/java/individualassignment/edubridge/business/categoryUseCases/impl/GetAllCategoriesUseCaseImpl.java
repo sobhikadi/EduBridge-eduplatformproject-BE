@@ -6,8 +6,10 @@ import individualassignment.edubridge.domain.categories.responses.GetAllCategori
 import individualassignment.edubridge.persistence.categories.CategoryRepository;
 import individualassignment.edubridge.persistence.categories.entities.CategoryEntity;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.OrderBy;
 import java.util.List;
 
 @Service
@@ -18,7 +20,8 @@ public class GetAllCategoriesUseCaseImpl implements GetAllCategoriesUseCase {
 
     @Override
     public GetAllCategoriesResponse getAllCategories() {
-        List<CategoryEntity> result = categoryRepository.findAll();
+
+        List<CategoryEntity> result = categoryRepository.findAll(Sort.by(Sort.Direction.ASC, "id"));
 
         final GetAllCategoriesResponse response = new GetAllCategoriesResponse();
         List<Category> categories = result

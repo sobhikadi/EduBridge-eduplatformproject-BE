@@ -27,8 +27,8 @@ public class UpdateCourseRequest {
     private String provider;
     @NotNull
     private CoursePublishState publishState;
-
-    private Optional<MultipartFile> image;
+    @NotNull
+    private MultipartFile image;
     @NotNull
     private Long categoryId;
 

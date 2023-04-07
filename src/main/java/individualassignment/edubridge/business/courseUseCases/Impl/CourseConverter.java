@@ -6,6 +6,7 @@ import individualassignment.edubridge.domain.courses.Course;
 import individualassignment.edubridge.persistence.courses.entities.CourseEntity;
 
 import java.util.Collections;
+import java.util.Optional;
 
 public class CourseConverter {
     private CourseConverter(){}
@@ -17,15 +18,10 @@ public class CourseConverter {
                 .description(course.getDescription())
                 .provider(course.getProvider())
                 .creationDate(course.getCreationDate())
-                .publishDate(course.getPublishDate())
+                .publishDate(Optional.of(course.getPublishDate()))
                 .publishState(course.getPublishState())
-                .lastModified(course.getLastModified())
+                .lastModified(Optional.of(course.getLastModified()))
                 .imageUrl(course.getImageUrl())
-                .lessons(
-                        course.getLessons() != null && !course.getLessons().isEmpty() ?
-                                course.getLessons().stream().map(LessonConverter::convert).toList()
-                        : Collections.emptyList()
-                        )
                 .category(CategoryConverter.convert(course.getCategory()))
                 .build();
     }

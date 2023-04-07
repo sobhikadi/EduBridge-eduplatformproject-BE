@@ -31,6 +31,6 @@ public class CreateCategoryUseCaseImpl implements CreateCategoryUseCase {
         CategoryEntity newCategory = CategoryEntity.builder()
                 .name(request.getName())
                 .build();
-        return categoryRepository.saveCategory(newCategory);
+        return categoryRepository.save(newCategory);
     }
 }

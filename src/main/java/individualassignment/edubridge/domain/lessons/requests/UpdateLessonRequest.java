@@ -21,6 +21,6 @@ public class UpdateLessonRequest {
     private String name;
     @NotBlank
     private String description;
-    private HashMap<String, String> links;
+//    private HashMap<String, String> links;
 
 }

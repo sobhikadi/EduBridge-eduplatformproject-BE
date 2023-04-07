@@ -15,7 +15,6 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.util.Base64;
 import java.util.Optional;
 
 @Service
@@ -28,7 +27,7 @@ public class CreateCourseUseCaseImpl implements CreateCourseUseCase {
 
     @Override
     public CreateCourseResponse createCourse(CreateCourseRequest request) {
-        if(courseRepository.existsByName(request.getTitle())) {
+        if(courseRepository.existsByTitle(request.getTitle())) {
             throw new CourseNameAlreadyExistsException();
         }
 
@@ -47,12 +46,12 @@ public class CreateCourseUseCaseImpl implements CreateCourseUseCase {
         }
 
         String imageUrl = null;
-        if(request.getImage().isPresent()) {
-            imageUrl = uploadImageService.uploadImage(request.getImage().orElse(null), request.getTitle());
+        if(request.getImage() != null) {
+            imageUrl = uploadImageService.uploadImage(request.getImage(), request.getTitle());
         }
 
-        Optional<LocalDate> publishDate =
-                request.getPublishState() == CoursePublishState.PUBLISHED ? Optional.of(LocalDate.now()) : null;
+        LocalDate publishDate =
+                request.getPublishState() == CoursePublishState.PUBLISHED ? LocalDate.now() : null;
 
         CourseEntity newCourse = CourseEntity.builder()
                 .title(request.getTitle())
@@ -62,8 +61,10 @@ public class CreateCourseUseCaseImpl implements CreateCourseUseCase {
                 .publishDate(publishDate)
                 .publishState(request.getPublishState())
                 .category(category.get())
-                .imageUrl(Optional.of(imageUrl))
+                .imageUrl(imageUrl)
                 .build();
-        return courseRepository.saveCourse(newCourse);
+
+        return courseRepository.save(newCourse);
     }
+
 }

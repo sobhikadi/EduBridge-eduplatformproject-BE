@@ -9,6 +9,8 @@ import individualassignment.edubridge.persistence.lessons.LessonRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+
 @Service
 @AllArgsConstructor
 public class CreateLessonUseCaseImpl implements CreateLessonUseCase {
@@ -31,8 +33,7 @@ public class CreateLessonUseCaseImpl implements CreateLessonUseCase {
         LessonEntity newLesson = LessonEntity.builder()
                 .name(request.getName())
                 .description(request.getDescription())
-                .links(request.getLinks())
                 .build();
-        return lessonRepository.saveLesson(newLesson);
+        return lessonRepository.save(newLesson);
     }
 }

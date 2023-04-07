@@ -12,7 +12,7 @@ public class LessonConverter {
                 .id(lesson.getId())
                 .name(lesson.getName())
                 .description(lesson.getDescription())
-                .links(lesson.getLinks())
+//                .links(lesson.getLinks())
                 .build();
     }
 

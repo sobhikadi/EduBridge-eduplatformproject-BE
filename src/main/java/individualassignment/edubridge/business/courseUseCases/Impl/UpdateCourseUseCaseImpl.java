@@ -33,7 +33,7 @@ public class UpdateCourseUseCaseImpl implements UpdateCourseUseCase {
 
         CourseEntity course = courseOptional.get();
         CourseEntity updatedCourse = updateFields(request, course);
-        courseRepository.saveCourse(updatedCourse);
+        courseRepository.save(updatedCourse);
     }
 
     private CourseEntity updateFields(UpdateCourseRequest request, CourseEntity course) {
@@ -45,16 +45,16 @@ public class UpdateCourseUseCaseImpl implements UpdateCourseUseCase {
         }
 
         String imageUrl = null;
-        if(request.getImage().isPresent()) {
-            imageUrl = uploadImageService.uploadImage(request.getImage().orElse(null), request.getTitle());
+        if(request.getImage() != null) {
+            imageUrl = uploadImageService.uploadImage(request.getImage(), request.getTitle());
         }
 
         course.setTitle(request.getTitle());
         course.setDescription(request.getDescription());
         course.setProvider(request.getProvider());
-        course.setPublishDate(request.getPublishState() == CoursePublishState.PUBLISHED ? Optional.of(LocalDate.now()) : Optional.empty());
+        course.setPublishDate(request.getPublishState() == CoursePublishState.PUBLISHED ? LocalDate.now() : null);
         course.setPublishState(request.getPublishState());
-        course.setImageUrl(Optional.of(imageUrl));
+        course.setImageUrl(imageUrl);
         course.setLastModified(null);
         course.setCategory(category.get());
         return course;
