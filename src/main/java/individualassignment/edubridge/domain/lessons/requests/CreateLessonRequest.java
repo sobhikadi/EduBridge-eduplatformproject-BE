@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.HashMap;
 
 @Data
@@ -23,6 +24,7 @@ public class CreateLessonRequest {
     @Length(min = 3, max = 300)
     private String description;
 
-//    private HashMap<String, String> links;
+    @NotNull
+    private Long courseId;
 
 }

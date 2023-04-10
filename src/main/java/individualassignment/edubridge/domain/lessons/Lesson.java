@@ -13,6 +13,5 @@ public class Lesson {
     private Long id;
     private String name;
     private String description;
-    private HashMap<String, String> links;
 
 }
