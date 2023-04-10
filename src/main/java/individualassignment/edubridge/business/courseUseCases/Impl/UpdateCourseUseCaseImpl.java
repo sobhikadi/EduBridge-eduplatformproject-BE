@@ -55,7 +55,11 @@ public class UpdateCourseUseCaseImpl implements UpdateCourseUseCase {
         course.setPublishDate(request.getPublishState() == CoursePublishState.PUBLISHED ? LocalDate.now() : null);
         course.setPublishState(request.getPublishState());
         course.setImageUrl(imageUrl);
-        course.setLastModified(null);
+        course.setLastModified(LocalDateTime.parse(LocalDateTime
+                .now()
+                .format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")),
+                DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+
         course.setCategory(category.get());
         return course;
     }
