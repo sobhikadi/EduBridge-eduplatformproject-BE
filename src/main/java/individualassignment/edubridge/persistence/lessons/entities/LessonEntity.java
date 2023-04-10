@@ -23,7 +23,7 @@ public class LessonEntity {
     private Long id;
 
     @NotNull
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "course_id", referencedColumnName = "id")
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
@@ -41,5 +41,3 @@ public class LessonEntity {
 
 }
 
-//    @OneToMany(mappedBy = "lesson")
-//    private HashMap<String, String> links;

@@ -58,7 +58,7 @@ public class CourseEntity {
     @Column(name = "last_modified")
     private LocalDateTime lastModified;
 
-    @OneToMany(mappedBy = "course")
+    @OneToMany(mappedBy = "course", cascade = CascadeType.ALL)
     private List<LessonEntity> lessons;
 
     @NotNull

@@ -13,7 +13,7 @@ import java.util.HashMap;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UpdateLessonRequest {
-    
+
     private Long id;
     @NotBlank
     @Length(min = 3, max = 100)
