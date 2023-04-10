@@ -11,4 +11,5 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class GetAllCoursesRequest {
     private String provider;
+    private String category;
 }

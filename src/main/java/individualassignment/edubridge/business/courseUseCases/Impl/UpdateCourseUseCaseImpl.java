@@ -13,9 +13,11 @@ import individualassignment.edubridge.persistence.courses.entities.CourseEntity;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -24,6 +26,7 @@ public class UpdateCourseUseCaseImpl implements UpdateCourseUseCase {
     private final CourseRepository courseRepository;
     private final CategoryRepository categoryRepository;
     private final UploadImageService uploadImageService;
+    @Transactional
     @Override
     public void updateCourse(UpdateCourseRequest request) {
         Optional<CourseEntity> courseOptional = courseRepository.findById(request.getId());
@@ -42,6 +45,10 @@ public class UpdateCourseUseCaseImpl implements UpdateCourseUseCase {
 
         if (category.isEmpty()) {
             throw new InvalidCategoryIdException();
+        }
+
+        if (!Objects.equals(course.getTitle(), request.getTitle())) {
+            uploadImageService.deleteImage(course.getTitle());
         }
 
         String imageUrl = null;

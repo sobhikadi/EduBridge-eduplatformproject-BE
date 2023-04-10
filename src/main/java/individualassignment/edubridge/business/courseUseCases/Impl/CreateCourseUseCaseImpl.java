@@ -14,6 +14,7 @@ import individualassignment.edubridge.persistence.courses.entities.CourseEntity;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.util.Optional;
 
@@ -25,6 +26,7 @@ public class CreateCourseUseCaseImpl implements CreateCourseUseCase {
     private final CategoryRepository categoryRepository;
     private final UploadImageService uploadImageService;
 
+    @Transactional
     @Override
     public CreateCourseResponse createCourse(CreateCourseRequest request) {
         if(courseRepository.existsByTitle(request.getTitle())) {

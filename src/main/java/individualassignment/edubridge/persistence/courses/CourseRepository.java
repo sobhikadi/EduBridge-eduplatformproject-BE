@@ -9,10 +9,8 @@ import java.util.Optional;
 public interface CourseRepository extends JpaRepository<CourseEntity, Long> {
 
     boolean existsByTitle (String courseTitle);
-    List<CourseEntity> findAllByProvider (String provider);
-//    CourseEntity saveCourse (CourseEntity course);
-//    void deleteById (Long courseId);
-//    List<CourseEntity> findAll();
-    Optional<CourseEntity>findByTitle (String courseTitle);
+    List<CourseEntity> findAllByProviderContainingIgnoreCase (String provider);
+    List<CourseEntity> findAllByCategory (String category);
+    Optional<CourseEntity>findByTitleContainingIgnoreCase (String courseTitle);
 //    Optional<CourseEntity>findById (long courseId);
 }

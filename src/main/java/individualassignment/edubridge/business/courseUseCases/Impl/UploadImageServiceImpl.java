@@ -17,11 +17,7 @@ public class UploadImageServiceImpl implements UploadImageService {
 
     @Override
     public String uploadImage(MultipartFile image, String imageName) {
-        HashMap<String, String> config = new HashMap<>();
-        config.put("cloud_name", "diwgbx1f9");
-        config.put("api_key", "249747327848349");
-        config.put("api_secret", "jsGuZRAER3RJikpNeGqx8eTrNX8");
-        cloudinary = new Cloudinary(config);
+        initializeCloudinary();
 
         // Upload
         try {
@@ -42,11 +38,27 @@ public class UploadImageServiceImpl implements UploadImageService {
 
     @Override
     public void deleteImage(String imageName) {
+        initializeCloudinary();
+
         try {
             cloudinary.uploader().destroy(imageName, ObjectUtils.emptyMap());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    private void initializeCloudinary(){
+        if (cloudinary != null) return;
+        HashMap<String, String> config = new HashMap<>();
+        config.put("cloud_name", "diwgbx1f9");
+        config.put("api_key", "249747327848349");
+        config.put("api_secret", "jsGuZRAER3RJikpNeGqx8eTrNX8");
+        config.put("secure", "true");
+        config.put("folder", "edubridge");
+        config.put("overwrite", "true");
+        config.put("invalidate", "true");
+
+        cloudinary = new Cloudinary(config);
     }
 
 

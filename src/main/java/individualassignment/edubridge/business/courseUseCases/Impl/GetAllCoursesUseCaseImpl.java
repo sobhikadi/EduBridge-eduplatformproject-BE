@@ -11,6 +11,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
@@ -19,12 +20,16 @@ public class GetAllCoursesUseCaseImpl implements GetAllCoursesUseCase {
 
     private CourseRepository courseRepository;
 
+    @Transactional
     @Override
     public GetAllCoursesResponse getAllCourses(final GetAllCoursesRequest request) {
         List<CourseEntity> result;
 
         if(StringUtils.hasText(request.getProvider())){
-            result = courseRepository.findAllByProvider(request.getProvider());
+            result = courseRepository.findAllByProviderContainingIgnoreCase(request.getProvider());
+        }
+        else if(StringUtils.hasText(request.getCategory())){
+            result = courseRepository.findAllByCategory(request.getCategory());
         }
         else {
             result = courseRepository.findAll(Sort.by(Sort.Direction.ASC, "id"));

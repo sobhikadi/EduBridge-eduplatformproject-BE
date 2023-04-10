@@ -20,9 +20,13 @@ public class CourseConverter {
                 .creationDate(course.getCreationDate())
                 .publishDate(Optional.of(course.getPublishDate()))
                 .publishState(course.getPublishState())
-                .lastModified(Optional.of(course.getLastModified()))
+                .lastModified(Optional.ofNullable(course.getLastModified()))
                 .imageUrl(course.getImageUrl())
                 .category(CategoryConverter.convert(course.getCategory()))
+                .lessons(course.getLessons().isEmpty() ? Collections.emptyList() : course.getLessons()
+                        .stream()
+                        .map(LessonConverter::convert)
+                        .toList())
                 .build();
     }
 }
