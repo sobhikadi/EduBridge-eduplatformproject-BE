@@ -3,6 +3,7 @@ package individualassignment.edubridge.persistence.courses;
 import individualassignment.edubridge.domain.courses.CoursePublishState;
 import individualassignment.edubridge.persistence.categories.entities.CategoryEntity;
 import individualassignment.edubridge.persistence.courses.entities.CourseEntity;
+import individualassignment.edubridge.persistence.lessons.LessonRepository;
 import individualassignment.edubridge.persistence.lessons.entities.LessonEntity;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -14,6 +15,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import javax.persistence.EntityManager;
 
 import java.time.LocalDate;
+import java.util.Collections;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -29,19 +31,12 @@ class CourseRepositoryTest {
     @Autowired
     private CourseRepository courseRepository;
 
+    @Autowired
+    private LessonRepository lessonRepository;
+
     @Test
     void save_shouldSaveCourseWithAllFields() {
         CategoryEntity category = saveCategory("Programming");
-
-        LessonEntity lesson1 = LessonEntity.builder()
-                .name("Lesson 1")
-                .description("Lesson 1 description")
-                .build();
-
-        LessonEntity lesson2 = LessonEntity.builder()
-                .name("Lesson 2")
-                .description("Lesson 2 description")
-                .build();
 
         CourseEntity course = CourseEntity.builder()
                 .title("Java")
@@ -53,13 +48,30 @@ class CourseRepositoryTest {
                 .publishDate(null)
                 .imageUrl("https://www.Java.com")
                 .category(category)
-                .lessons(List.of(lesson1, lesson2))
+                .lessons(Collections.emptyList())
                 .build();
 
         CourseEntity savedCourse = courseRepository.save(course);
         assertNotNull(savedCourse.getId());
 
+        LessonEntity lesson1 = LessonEntity.builder()
+                .name("Lesson 1")
+                .description("Lesson 1 description")
+                .course(savedCourse)
+                .build();
+
+        LessonEntity lesson2 = LessonEntity.builder()
+                .name("Lesson 2")
+                .description("Lesson 2 description")
+                .course(savedCourse)
+                .build();
+
+        lessonRepository.save(lesson1);
+        lessonRepository.save(lesson2);
+
         savedCourse = entityManager.find(CourseEntity.class, savedCourse.getId());
+
+        savedCourse.setLessons(List.of(lesson1, lesson2));
 
         CourseEntity expectedCourse = CourseEntity.builder()
                 .id(savedCourse.getId())

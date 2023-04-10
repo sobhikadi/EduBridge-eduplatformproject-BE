@@ -7,6 +7,7 @@ import individualassignment.edubridge.persistence.categories.CategoryRepository;
 import individualassignment.edubridge.persistence.courses.CourseRepository;
 import individualassignment.edubridge.persistence.categories.entities.CategoryEntity;
 import individualassignment.edubridge.persistence.courses.entities.CourseEntity;
+import individualassignment.edubridge.persistence.lessons.entities.LessonEntity;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -14,6 +15,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -37,6 +39,12 @@ class CreateCourseUseCaseImplTest {
         CategoryEntity category = CategoryEntity.builder()
                 .id(1L)
                 .name("category")
+                .build();
+
+        LessonEntity lessonEntity = LessonEntity.builder()
+                .id(1L)
+                .name("Lesson 1")
+                .description("Lesson 1")
                 .build();
 
         CourseEntity courseEntity = CourseEntity.builder()
