@@ -1,4 +1,4 @@
-package individualassignment.edubridge.business.course.Impl;
+package individualassignment.edubridge.business.course.impl;
 
 import individualassignment.edubridge.business.course.DeleteCourseUseCase;
 import individualassignment.edubridge.business.course.UploadImageService;

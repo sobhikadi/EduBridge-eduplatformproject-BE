@@ -1,4 +1,4 @@
-package individualassignment.edubridge.business.course.Impl;
+package individualassignment.edubridge.business.course.impl;
 
 import individualassignment.edubridge.business.category.exceptions.InvalidCategoryIdException;
 import individualassignment.edubridge.business.course.UploadImageService;

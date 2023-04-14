@@ -1,4 +1,4 @@
-package individualassignment.edubridge.business.course.Impl;
+package individualassignment.edubridge.business.course.impl;
 
 import individualassignment.edubridge.business.category.impl.CategoryConverter;
 import individualassignment.edubridge.business.lesson.impl.LessonConverter;

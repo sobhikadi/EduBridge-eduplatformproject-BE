@@ -1,4 +1,4 @@
-package individualassignment.edubridge.business.course.Impl;
+package individualassignment.edubridge.business.course.impl;
 
 import individualassignment.edubridge.domain.courses.CoursePublishState;
 import individualassignment.edubridge.domain.courses.requests.GetAllCoursesRequest;

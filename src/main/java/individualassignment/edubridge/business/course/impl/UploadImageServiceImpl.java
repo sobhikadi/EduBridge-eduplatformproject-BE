@@ -1,4 +1,4 @@
-package individualassignment.edubridge.business.course.Impl;
+package individualassignment.edubridge.business.course.impl;
 
 import com.cloudinary.Cloudinary;
 import com.cloudinary.Transformation;
