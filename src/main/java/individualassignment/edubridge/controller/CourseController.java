@@ -1,7 +1,7 @@
 package individualassignment.edubridge.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import individualassignment.edubridge.business.courseUseCases.*;
+import individualassignment.edubridge.business.course.*;
 import individualassignment.edubridge.domain.courses.Course;
 import individualassignment.edubridge.domain.courses.requests.CreateCourseRequest;
 import individualassignment.edubridge.domain.courses.requests.GetAllCoursesRequest;

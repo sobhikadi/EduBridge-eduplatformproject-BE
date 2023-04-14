@@ -1,10 +1,10 @@
 package individualassignment.edubridge.controller;
 
 
-import individualassignment.edubridge.business.categoryUseCases.CreateCategoryUseCase;
-import individualassignment.edubridge.business.categoryUseCases.DeleteCategoryUseCase;
-import individualassignment.edubridge.business.categoryUseCases.GetAllCategoriesUseCase;
-import individualassignment.edubridge.business.categoryUseCases.UpdateCategoryUseCase;
+import individualassignment.edubridge.business.category.CreateCategoryUseCase;
+import individualassignment.edubridge.business.category.DeleteCategoryUseCase;
+import individualassignment.edubridge.business.category.GetAllCategoriesUseCase;
+import individualassignment.edubridge.business.category.UpdateCategoryUseCase;
 import individualassignment.edubridge.domain.categories.requests.CreateCategoryRequest;
 import individualassignment.edubridge.domain.categories.requests.UpdateCategoryRequest;
 import individualassignment.edubridge.domain.categories.responses.CreateCategoryResponse;

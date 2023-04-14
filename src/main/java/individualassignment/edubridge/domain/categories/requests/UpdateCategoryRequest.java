@@ -7,7 +7,6 @@ import javax.validation.constraints.NotBlank;
 @Data
 @Builder
 @AllArgsConstructor
-@NoArgsConstructor
 public class UpdateCategoryRequest {
 
     @NonNull

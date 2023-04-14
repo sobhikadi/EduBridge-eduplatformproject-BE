@@ -12,13 +12,4 @@ public interface LessonRepository extends JpaRepository<LessonEntity, Long> {
     List<LessonEntity> findAllByCourseId (Long courseId);
     Optional<LessonEntity> findByName (String lessonName);
     Optional<LessonEntity> findByCourseId (Long courseId);
-
-
-
-//    boolean existsById(long lessonId);
-//    List<LessonEntity> findAll();
-//    LessonEntity saveLesson (LessonEntity lesson);
-//    void deleteById (Long lessonId);
-//    Optional<LessonEntity>findById (long lessonId);
-
 }
