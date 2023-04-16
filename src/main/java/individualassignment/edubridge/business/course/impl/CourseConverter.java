@@ -18,7 +18,7 @@ public class CourseConverter {
                 .description(course.getDescription())
                 .provider(course.getProvider())
                 .creationDate(course.getCreationDate())
-                .publishDate(Optional.of(course.getPublishDate()))
+                .publishDate(Optional.ofNullable(course.getPublishDate()))
                 .publishState(course.getPublishState())
                 .lastModified(Optional.ofNullable(course.getLastModified()))
                 .imageUrl(course.getImageUrl())
