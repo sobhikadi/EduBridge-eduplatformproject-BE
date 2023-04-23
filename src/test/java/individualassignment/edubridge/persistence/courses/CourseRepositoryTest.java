@@ -1,6 +1,6 @@
 package individualassignment.edubridge.persistence.courses;
 
-import individualassignment.edubridge.domain.courses.CoursePublishState;
+import individualassignment.edubridge.domain.courses.CoursePublishStateEnum;
 import individualassignment.edubridge.persistence.categories.entities.CategoryEntity;
 import individualassignment.edubridge.persistence.courses.entities.CourseEntity;
 import individualassignment.edubridge.persistence.lessons.LessonRepository;
@@ -43,7 +43,7 @@ class CourseRepositoryTest {
                 .description("Java course")
                 .provider("EduBridge")
                 .creationDate(LocalDate.now())
-                .publishState(CoursePublishState.PENDING)
+                .publishState(CoursePublishStateEnum.PENDING)
                 .lastModified(null)
                 .publishDate(null)
                 .imageUrl("https://www.Java.com")
@@ -79,7 +79,7 @@ class CourseRepositoryTest {
                 .description("Java course")
                 .provider("EduBridge")
                 .creationDate(LocalDate.now())
-                .publishState(CoursePublishState.PENDING)
+                .publishState(CoursePublishStateEnum.PENDING)
                 .lastModified(null)
                 .publishDate(null)
                 .imageUrl("https://www.Java.com")

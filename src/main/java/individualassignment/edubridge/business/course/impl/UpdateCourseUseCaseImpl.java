@@ -4,7 +4,7 @@ import individualassignment.edubridge.business.category.exceptions.InvalidCatego
 import individualassignment.edubridge.business.course.UploadImageService;
 import individualassignment.edubridge.business.course.exceptions.InvalidCourseIdException;
 import individualassignment.edubridge.business.course.UpdateCourseUseCase;
-import individualassignment.edubridge.domain.courses.CoursePublishState;
+import individualassignment.edubridge.domain.courses.CoursePublishStateEnum;
 import individualassignment.edubridge.domain.courses.requests.UpdateCourseRequest;
 import individualassignment.edubridge.persistence.categories.CategoryRepository;
 import individualassignment.edubridge.persistence.categories.entities.CategoryEntity;
@@ -59,7 +59,7 @@ public class UpdateCourseUseCaseImpl implements UpdateCourseUseCase {
         course.setTitle(request.getTitle());
         course.setDescription(request.getDescription());
         course.setProvider(request.getProvider());
-        course.setPublishDate(request.getPublishState() == CoursePublishState.PUBLISHED ? LocalDate.now() : null);
+        course.setPublishDate(request.getPublishState() == CoursePublishStateEnum.PUBLISHED ? LocalDate.now() : null);
         course.setPublishState(request.getPublishState());
         course.setImageUrl(imageUrl);
         course.setLastModified(LocalDateTime.parse(LocalDateTime

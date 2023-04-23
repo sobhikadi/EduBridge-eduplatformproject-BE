@@ -1,6 +1,6 @@
 package individualassignment.edubridge.business.course.impl;
 
-import individualassignment.edubridge.domain.courses.CoursePublishState;
+import individualassignment.edubridge.domain.courses.CoursePublishStateEnum;
 import individualassignment.edubridge.domain.courses.requests.CreateCourseRequest;
 import individualassignment.edubridge.domain.courses.responses.CreateCourseResponse;
 import individualassignment.edubridge.persistence.categories.CategoryRepository;
@@ -51,7 +51,7 @@ class CreateCourseUseCaseImplTest {
                 .description("Java Programming")
                 .provider("EduBridge")
                 .creationDate(LocalDate.now())
-                .publishState(CoursePublishState.PENDING)
+                .publishState(CoursePublishStateEnum.PENDING)
                 .imageUrl(null)
                 .category(category)
                 .build();
@@ -62,7 +62,7 @@ class CreateCourseUseCaseImplTest {
                 .description("Java Programming")
                 .provider("EduBridge")
                 .creationDate(LocalDate.now())
-                .publishState(CoursePublishState.PENDING)
+                .publishState(CoursePublishStateEnum.PENDING)
                 .imageUrl(null)
                 .category(category)
                 .build();
@@ -73,7 +73,7 @@ class CreateCourseUseCaseImplTest {
                 .title("Java")
                 .description("Java Programming")
                 .provider("EduBridge")
-                .publishState(CoursePublishState.PENDING)
+                .publishState(CoursePublishStateEnum.PENDING)
                 .image(null)
                 .categoryId(category.getId())
                 .build();

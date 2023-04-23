@@ -1,6 +1,6 @@
 package individualassignment.edubridge.business.course.impl;
 
-import individualassignment.edubridge.domain.courses.CoursePublishState;
+import individualassignment.edubridge.domain.courses.CoursePublishStateEnum;
 import individualassignment.edubridge.domain.courses.requests.GetAllCoursesRequest;
 import individualassignment.edubridge.domain.courses.responses.GetAllCoursesResponse;
 import individualassignment.edubridge.persistence.categories.entities.CategoryEntity;
@@ -49,7 +49,7 @@ class GetAllCoursesUseCaseImplTest {
                 .description("Java Programming")
                 .provider("EduBridge")
                 .creationDate(LocalDate.now())
-                .publishState(CoursePublishState.PUBLISHED)
+                .publishState(CoursePublishStateEnum.PUBLISHED)
                 .publishDate(LocalDate.now())
                 .lastModified(null)
                 .lessons(List.of(lessonEntity))
@@ -63,7 +63,7 @@ class GetAllCoursesUseCaseImplTest {
                 .description("Python Programming")
                 .provider("EduBridge")
                 .creationDate(LocalDate.now())
-                .publishState(CoursePublishState.PUBLISHED)
+                .publishState(CoursePublishStateEnum.PUBLISHED)
                 .publishDate(LocalDate.now())
                 .lastModified(null)
                 .lessons(Collections.emptyList())

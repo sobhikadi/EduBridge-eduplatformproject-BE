@@ -4,7 +4,7 @@ import individualassignment.edubridge.business.category.exceptions.InvalidCatego
 import individualassignment.edubridge.business.course.CreateCourseUseCase;
 import individualassignment.edubridge.business.course.UploadImageService;
 import individualassignment.edubridge.business.course.exceptions.CourseNameAlreadyExistsException;
-import individualassignment.edubridge.domain.courses.CoursePublishState;
+import individualassignment.edubridge.domain.courses.CoursePublishStateEnum;
 import individualassignment.edubridge.domain.courses.requests.CreateCourseRequest;
 import individualassignment.edubridge.domain.courses.responses.CreateCourseResponse;
 import individualassignment.edubridge.persistence.categories.CategoryRepository;
@@ -53,7 +53,7 @@ public class CreateCourseUseCaseImpl implements CreateCourseUseCase {
         }
 
         LocalDate publishDate =
-                request.getPublishState() == CoursePublishState.PUBLISHED ? LocalDate.now() : null;
+                request.getPublishState() == CoursePublishStateEnum.PUBLISHED ? LocalDate.now() : null;
 
         CourseEntity newCourse = CourseEntity.builder()
                 .title(request.getTitle())

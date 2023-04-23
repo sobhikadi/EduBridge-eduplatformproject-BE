@@ -1,6 +1,6 @@
 package individualassignment.edubridge.business.course.impl;
 
-import individualassignment.edubridge.domain.courses.CoursePublishState;
+import individualassignment.edubridge.domain.courses.CoursePublishStateEnum;
 import individualassignment.edubridge.domain.courses.requests.UpdateCourseRequest;
 import individualassignment.edubridge.persistence.categories.CategoryRepository;
 import individualassignment.edubridge.persistence.categories.entities.CategoryEntity;
@@ -45,7 +45,7 @@ class UpdateCourseUseCaseImplTest {
                 .description("Java Programming")
                 .provider("EduBridge")
                 .creationDate(LocalDate.now())
-                .publishState(CoursePublishState.PENDING)
+                .publishState(CoursePublishStateEnum.PENDING)
                 .category(category)
                 .lastModified(null)
                 .imageUrl(null)
@@ -60,8 +60,8 @@ class UpdateCourseUseCaseImplTest {
                 .description("Java Programming")
                 .provider("Sobhi")
                 .creationDate(LocalDate.now())
-                .publishDate(oldCourse.getPublishState() == CoursePublishState.PUBLISHED ? LocalDate.now() : null)
-                .publishState(CoursePublishState.PENDING)
+                .publishDate(oldCourse.getPublishState() == CoursePublishStateEnum.PUBLISHED ? LocalDate.now() : null)
+                .publishState(CoursePublishStateEnum.PENDING)
                 .category(category)
                 .lastModified(LocalDateTime.parse(LocalDateTime
                         .now()

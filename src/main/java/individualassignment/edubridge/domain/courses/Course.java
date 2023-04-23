@@ -20,7 +20,7 @@ public class Course {
     private String description;
     private String provider;
     private LocalDate creationDate;
-    private CoursePublishState publishState;
+    private CoursePublishStateEnum publishState;
     private Optional<LocalDate> publishDate;
     private Optional<LocalDateTime> lastModified;
     private String imageUrl;

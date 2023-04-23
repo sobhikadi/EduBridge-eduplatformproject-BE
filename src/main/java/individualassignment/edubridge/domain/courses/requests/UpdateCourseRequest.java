@@ -1,6 +1,6 @@
 package individualassignment.edubridge.domain.courses.requests;
 
-import individualassignment.edubridge.domain.courses.CoursePublishState;
+import individualassignment.edubridge.domain.courses.CoursePublishStateEnum;
 import lombok.*;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.web.multipart.MultipartFile;
@@ -23,7 +23,7 @@ public class UpdateCourseRequest {
     @Length(min = 1, max = 200)
     private String provider;
     @NotNull
-    private CoursePublishState publishState;
+    private CoursePublishStateEnum publishState;
     @NotNull
     private MultipartFile image;
     @NotNull

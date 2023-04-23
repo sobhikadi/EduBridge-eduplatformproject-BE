@@ -1,6 +1,6 @@
 package individualassignment.edubridge.domain.courses;
 
-public enum CoursePublishState {
+public enum CoursePublishStateEnum {
     PENDING,
     PUBLISHED
 }
