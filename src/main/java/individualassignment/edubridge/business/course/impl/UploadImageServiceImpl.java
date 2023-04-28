@@ -54,12 +54,11 @@ public class UploadImageServiceImpl implements UploadImageService {
         config.put("api_key", "249747327848349");
         config.put("api_secret", "jsGuZRAER3RJikpNeGqx8eTrNX8");
         config.put("secure", "true");
-        config.put("folder", "edubridge");
+        config.put("folder", "edubridge/courses");
         config.put("overwrite", "true");
         config.put("invalidate", "true");
 
         cloudinary = new Cloudinary(config);
     }
-
 
 }

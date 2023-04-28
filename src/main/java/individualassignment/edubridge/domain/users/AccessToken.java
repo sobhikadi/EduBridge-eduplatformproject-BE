@@ -17,6 +17,7 @@ public class AccessToken {
     private List<String> roles;
     private Long studentId;
     private Long teacherId;
+    private Long adminId;
 
     @JsonIgnore
     public boolean hasRole(String roleName) {

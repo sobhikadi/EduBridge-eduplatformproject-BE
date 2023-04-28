@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 @Data
 @Builder
 @AllArgsConstructor
@@ -16,5 +18,5 @@ public class Teacher {
         private String firstName;
         private String lastName;
         private Address address;
-        private String lastModified;
+        private LocalDateTime lastModified;
 }

@@ -43,6 +43,9 @@ public class AccessTokenEncoderDecoderImpl implements AccessTokenEncoder, Access
         if (accessToken.getTeacherId() != null) {
             claimsMap.put("teacherId", accessToken.getTeacherId());
         }
+        if (accessToken.getAdminId() != null) {
+            claimsMap.put("adminId", accessToken.getAdminId());
+        }
 
         Instant now = Instant.now();
         return Jwts.builder()

@@ -25,7 +25,7 @@ public class UserEntity {
     @NotBlank
     @Length(min = 2, max = 100)
     @Column(name = "username")
-    private String username;
+    private String userName;
 
     @Column(name = "password")
     @Length(max = 100)
@@ -38,6 +38,10 @@ public class UserEntity {
     @OneToOne(optional = true)
     @JoinColumn(name = "teacher_id")
     private TeacherEntity teacher;
+
+    @OneToOne(optional = true)
+    @JoinColumn(name = "admin_id")
+    private AdminEntity admin;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
