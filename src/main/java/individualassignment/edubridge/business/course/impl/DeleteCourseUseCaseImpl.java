@@ -26,8 +26,7 @@ public class DeleteCourseUseCaseImpl implements DeleteCourseUseCase {
             throw new InvalidCourseIdException();
         }
 
-
         this.courseRepository.deleteById(courseId);
-        uploadImageService.deleteImage(courseEntity.get().getTitle());
+        this.uploadImageService.deleteImage(courseEntity.get().getTitle());
     }
 }

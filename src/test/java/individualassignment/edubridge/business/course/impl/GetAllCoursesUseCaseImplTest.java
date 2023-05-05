@@ -1,8 +1,10 @@
 package individualassignment.edubridge.business.course.impl;
 
+import individualassignment.edubridge.domain.categories.responses.GetAllCategoriesResponse;
 import individualassignment.edubridge.domain.courses.CoursePublishStateEnum;
 import individualassignment.edubridge.domain.courses.requests.GetAllCoursesRequest;
 import individualassignment.edubridge.domain.courses.responses.GetAllCoursesResponse;
+import individualassignment.edubridge.persistence.categories.CategoryRepository;
 import individualassignment.edubridge.persistence.categories.entities.CategoryEntity;
 import individualassignment.edubridge.persistence.courses.CourseRepository;
 import individualassignment.edubridge.persistence.courses.entities.CourseEntity;
@@ -15,18 +17,21 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.domain.Sort;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class GetAllCoursesUseCaseImplTest {
 
     @Mock
     private CourseRepository courseRepository;
+
+    @Mock
+    private CategoryRepository categoryRepository;
     @InjectMocks
     private GetAllCoursesUseCaseImpl getAllCoursesUseCase;
 
@@ -81,5 +86,73 @@ class GetAllCoursesUseCaseImplTest {
 
         verify(courseRepository).findAll(Sort.by(Sort.Direction.ASC, "id"));
 
+    }
+
+    @Test
+    void testGetAllCoursesWithProviderFilter() {
+        GetAllCoursesRequest request = GetAllCoursesRequest.builder().provider("EduBridge").build();
+
+        CourseEntity course = CourseEntity.builder()
+                .id(1L)
+                .title("Java")
+                .description("Java Programming")
+                .provider("EduBridge")
+                .creationDate(LocalDate.now())
+                .publishState(CoursePublishStateEnum.PUBLISHED)
+                .publishDate(LocalDate.now())
+                .lastModified(null)
+                .lessons(Collections.emptyList())
+                .imageUrl(null)
+                .category(CategoryEntity.builder().id(1L).name("Category A").build())
+                .build();
+
+        when(courseRepository.findAllByProviderContainingIgnoreCase("EduBridge")).thenReturn(List.of(course));
+
+        GetAllCoursesResponse response = getAllCoursesUseCase.getAllCourses(request);
+
+        assertEquals(1, response.getCourses().size());
+        assertEquals("Java", response.getCourses().get(0).getTitle());
+        verify(courseRepository, times(1)).findAllByProviderContainingIgnoreCase("EduBridge");
+    }
+
+    @Test
+    void testGetAllCoursesWithCategoryFilter() {
+        GetAllCoursesRequest request = GetAllCoursesRequest.builder().category("Category A").build();
+
+        CategoryEntity category = CategoryEntity.builder().id(1L).name("Category A").build();
+
+        CourseEntity course = CourseEntity.builder()
+                .id(1L)
+                .title("Java")
+                .description("Java Programming")
+                .provider("EduBridge")
+                .creationDate(LocalDate.now())
+                .publishState(CoursePublishStateEnum.PUBLISHED)
+                .publishDate(LocalDate.now())
+                .lastModified(null)
+                .lessons(Collections.emptyList())
+                .imageUrl(null)
+                .category(category)
+                .build();
+
+        when(categoryRepository.findByName("Category A"))
+                .thenReturn(category);
+        when(courseRepository.findAllByCategory(category)).thenReturn(List.of(course));
+
+        GetAllCoursesResponse response = getAllCoursesUseCase.getAllCourses(request);
+
+        assertEquals(1, response.getCourses().size());
+        assertEquals("Java", response.getCourses().get(0).getTitle());
+        verify(courseRepository, times(1)).findAllByCategory(category);
+    }
+
+    @Test
+    void testGetAllCategories_shouldReturnEmptyListWhenNoCategoriesFound() {
+        when(courseRepository.findAll(any(Sort.class))).thenReturn(List.of());
+
+        GetAllCoursesResponse response = getAllCoursesUseCase.getAllCourses(GetAllCoursesRequest.builder().build());
+
+        assertTrue(response.getCourses().isEmpty());
+        verify(courseRepository, times(1)).findAll(any(Sort.class));
     }
 }

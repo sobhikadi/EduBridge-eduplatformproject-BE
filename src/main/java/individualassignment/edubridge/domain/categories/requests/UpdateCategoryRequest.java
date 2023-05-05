@@ -9,7 +9,6 @@ import javax.validation.constraints.NotBlank;
 @AllArgsConstructor
 public class UpdateCategoryRequest {
 
-    @NonNull
     private Long id;
 
     @NotBlank

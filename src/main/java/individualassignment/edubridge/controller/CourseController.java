@@ -2,6 +2,7 @@ package individualassignment.edubridge.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import individualassignment.edubridge.business.course.*;
+import individualassignment.edubridge.configuration.security.isauthenticated.IsAuthenticated;
 import individualassignment.edubridge.domain.courses.Course;
 import individualassignment.edubridge.domain.courses.requests.CreateCourseRequest;
 import individualassignment.edubridge.domain.courses.requests.GetAllCoursesRequest;
@@ -15,6 +16,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import javax.annotation.security.RolesAllowed;
+import javax.validation.Valid;
 import java.util.Optional;
 
 @RestController
@@ -31,10 +34,11 @@ public class CourseController {
     private final ObjectMapper objectMapper;
 
 
+    @IsAuthenticated
+    @RolesAllowed({"ROLE_ADMIN", "ROLE_TEACHER"})
     @PostMapping()
-    public ResponseEntity<CreateCourseResponse> createCourse(@RequestParam("courseInfo") String courseInfo,
+    public ResponseEntity<CreateCourseResponse> createCourse(@Valid @RequestParam("courseInfo") String courseInfo,
                                                             @RequestParam("image") MultipartFile image){
-
         CreateCourseRequest request;
         try {
             request = objectMapper.readValue(courseInfo, CreateCourseRequest.class);
@@ -47,6 +51,7 @@ public class CourseController {
         CreateCourseResponse response = createCourseUseCase.createCourse(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
+
 
     @GetMapping()
     public ResponseEntity<GetAllCoursesResponse> getAllCourses(@RequestParam(value = "provider", required = false) String provider){
@@ -62,12 +67,16 @@ public class CourseController {
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
+    @IsAuthenticated
+    @RolesAllowed({"ROLE_ADMIN"})
     @DeleteMapping("{courseId}")
     public ResponseEntity<Void> deleteCourse(@PathVariable int courseId) {
         this.deleteCourseUseCase.deleteCourse(courseId);
         return ResponseEntity.noContent().build();
     }
 
+    @IsAuthenticated
+    @RolesAllowed({"ROLE_ADMIN", "ROLE_TEACHER"})
     @PutMapping("{courseId}")
     public ResponseEntity<Void> updateCourse(@PathVariable("courseId") long courseId,
                                              @RequestParam("courseInfo") String courseInfo,

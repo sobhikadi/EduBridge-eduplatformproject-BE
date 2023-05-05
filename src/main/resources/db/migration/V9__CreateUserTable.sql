@@ -5,8 +5,10 @@ CREATE TABLE user
     password   varchar(100) NOT NULL,
     student_id int NULL,
     teacher_id int NULL,
+    admin_id int NULL,
     PRIMARY KEY (id),
     UNIQUE (username),
     FOREIGN KEY (student_id) REFERENCES student (id),
-    FOREIGN KEY (teacher_id) REFERENCES teacher (id)
+    FOREIGN KEY (teacher_id) REFERENCES teacher (id),
+    FOREIGN KEY (admin_id) REFERENCES admin (id)
 );
