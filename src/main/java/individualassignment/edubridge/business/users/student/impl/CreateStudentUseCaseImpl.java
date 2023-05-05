@@ -26,8 +26,8 @@ public class CreateStudentUseCaseImpl implements CreateStudentUseCase {
 
     private final StudentRepository studentRepository;
     private final CountryIdValidator countryIdValidator;
-    private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final UserRepository userRepository;
 
 
     @Transactional
