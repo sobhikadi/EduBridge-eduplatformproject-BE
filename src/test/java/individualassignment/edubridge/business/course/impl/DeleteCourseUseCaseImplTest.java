@@ -1,6 +1,5 @@
 package individualassignment.edubridge.business.course.impl;
 
-import individualassignment.edubridge.business.course.UploadImageService;
 import individualassignment.edubridge.business.course.exceptions.InvalidCourseIdException;
 import individualassignment.edubridge.domain.courses.CoursePublishStateEnum;
 import individualassignment.edubridge.persistence.categories.entities.CategoryEntity;

@@ -1,6 +1,5 @@
 package individualassignment.edubridge.business.course.impl;
 
-import individualassignment.edubridge.domain.categories.responses.GetAllCategoriesResponse;
 import individualassignment.edubridge.domain.courses.CoursePublishStateEnum;
 import individualassignment.edubridge.domain.courses.requests.GetAllCoursesRequest;
 import individualassignment.edubridge.domain.courses.responses.GetAllCoursesResponse;
@@ -17,11 +16,11 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.domain.Sort;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)

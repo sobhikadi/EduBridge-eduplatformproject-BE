@@ -18,7 +18,7 @@ public class DeleteLessonUseCaseImpl implements DeleteLessonUseCase {
     public void deleteLesson(long lessonId, long courseId) {
         if (lessonId != 0) {
             this.lessonRepository.deleteById(lessonId);
-        } else {
+        } else if (courseId != 0) {
             this.lessonRepository.deleteAllByCourseId(courseId);
         }
     }

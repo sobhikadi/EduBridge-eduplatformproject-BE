@@ -62,9 +62,9 @@ public class CourseController {
 
     @GetMapping("{title}")
     public ResponseEntity<Course> getCourseByTitle(@PathVariable(value = "title") final String title){
-        final Optional<Course> courseOptional = getCourseUseCase.getCourse(title);
-        return courseOptional.map(course -> ResponseEntity.ok().body(course))
-                .orElseGet(() -> ResponseEntity.notFound().build());
+        final Course course = getCourseUseCase.getCourse(title);
+        return course != null ? ResponseEntity.ok().body(course) : ResponseEntity.notFound().build();
+                
     }
 
     @IsAuthenticated

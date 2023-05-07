@@ -1,5 +1,7 @@
 package individualassignment.edubridge.business.course.impl;
 
+import individualassignment.edubridge.business.category.exceptions.InvalidCategoryIdException;
+import individualassignment.edubridge.business.course.exceptions.InvalidCourseIdException;
 import individualassignment.edubridge.domain.courses.CoursePublishStateEnum;
 import individualassignment.edubridge.domain.courses.requests.UpdateCourseRequest;
 import individualassignment.edubridge.persistence.categories.CategoryRepository;
@@ -18,6 +20,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Collections;
 import java.util.Optional;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -33,7 +36,7 @@ class UpdateCourseUseCaseImplTest {
     private UpdateCourseUseCaseImpl updateCourseUseCase;
 
     @Test
-    void updateCourse() {
+    void updateCourse_ShouldUpdateCourse() {
         CategoryEntity category = CategoryEntity.builder()
                 .id(1L)
                 .name("category")
@@ -91,14 +94,48 @@ class UpdateCourseUseCaseImplTest {
         verify(courseRepositoryMock, times(1)).save(newCourse);
         verify(courseRepositoryMock).findById(newCourse.getId());
         verify(categoryRepositoryMock).findById(newCourse.getCategory().getId());
-
-
-
-
-
-
     }
 
+    @Test
+    void testUpdateCourse_courseNotFound_shouldThrowInvalidCourseIdException() {
 
+        when(courseRepositoryMock.findById(1L)).thenReturn(Optional.empty());
+
+        assertThrows(InvalidCourseIdException.class,
+                () -> updateCourseUseCase.updateCourse(UpdateCourseRequest.builder().id(1L).build()));
+
+        verify(courseRepositoryMock).findById(1L);
+        verifyNoMoreInteractions(courseRepositoryMock);
+        verifyNoInteractions(categoryRepositoryMock);
+    }
+
+    @Test
+    void testUpdateCourse_categoryNotFound_shouldThrowInvalidCategoryIdException() {
+        CategoryEntity category = CategoryEntity.builder()
+                .id(1L)
+                .name("category")
+                .build();
+        CourseEntity oldCourse = CourseEntity.builder()
+                .id(1L)
+                .title("Java")
+                .description("Java Programming")
+                .provider("EduBridge")
+                .creationDate(LocalDate.now())
+                .publishState(CoursePublishStateEnum.PENDING)
+                .category(category)
+                .lastModified(null)
+                .imageUrl(null)
+                .lessons(Collections.emptyList())
+                .build();
+        when(courseRepositoryMock.findById(1L)).thenReturn(Optional.of(oldCourse));
+        when(categoryRepositoryMock.findById(category.getId())).thenReturn(Optional.empty());
+
+        assertThrows(InvalidCategoryIdException.class,
+                () -> updateCourseUseCase.updateCourse(UpdateCourseRequest.builder().id(1L).categoryId(1L).build()));
+
+        verify(courseRepositoryMock).findById(1L);
+        verify(categoryRepositoryMock).findById(category.getId());
+        verifyNoMoreInteractions(courseRepositoryMock, categoryRepositoryMock);
+    }
 
 }

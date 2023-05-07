@@ -3,6 +3,7 @@ package individualassignment.edubridge.business.course.impl;
 import individualassignment.edubridge.business.course.GetCourseUseCase;
 import individualassignment.edubridge.domain.courses.Course;
 import individualassignment.edubridge.persistence.courses.CourseRepository;
+import individualassignment.edubridge.persistence.courses.entities.CourseEntity;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +18,8 @@ public class GetCourseUseCaseImpl implements GetCourseUseCase {
 
     @Transactional
     @Override
-    public Optional<Course> getCourse(String courseTitle) {
-        return courseRepository.findByTitleContainingIgnoreCase(courseTitle).map(CourseConverter::convert);
+    public Course getCourse(String courseTitle) {
+        Optional<CourseEntity> courseEntity = courseRepository.findByTitleContainingIgnoreCase(courseTitle);
+        return courseEntity.map(CourseConverter::convert).orElse(null);
     }
 }
