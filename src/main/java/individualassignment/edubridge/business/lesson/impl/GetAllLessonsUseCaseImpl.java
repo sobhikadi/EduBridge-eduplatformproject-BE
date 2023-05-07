@@ -8,6 +8,7 @@ import individualassignment.edubridge.domain.lessons.responses.GetAllLessonsResp
 import individualassignment.edubridge.persistence.lessons.entities.LessonEntity;
 import individualassignment.edubridge.persistence.lessons.LessonRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 
@@ -21,10 +22,10 @@ public class GetAllLessonsUseCaseImpl implements GetAllLessonsUseCase {
     public GetAllLessonsResponse getAllLessonsByCourseId(GetAllLessonsRequest request) {
         List<LessonEntity> result;
         if(request.getCourseId() != null){
-            result = lessonRepository.findAllByCourseId(request.getCourseId());
+            result = lessonRepository.findAllByCourseIdOrderById(request.getCourseId());
         }
         else {
-            result = lessonRepository.findAll();
+            result = lessonRepository.findAll(Sort.by(Sort.Direction.ASC, "id"));
         }
 
         final GetAllLessonsResponse response = new GetAllLessonsResponse();

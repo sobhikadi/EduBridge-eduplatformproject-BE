@@ -136,13 +136,13 @@ class GetAllCoursesUseCaseImplTest {
 
         when(categoryRepository.findByName("Category A"))
                 .thenReturn(category);
-        when(courseRepository.findAllByCategory(category)).thenReturn(List.of(course));
+        when(courseRepository.findAllByCategoryOrderById(category)).thenReturn(List.of(course));
 
         GetAllCoursesResponse response = getAllCoursesUseCase.getAllCourses(request);
 
         assertEquals(1, response.getCourses().size());
         assertEquals("Java", response.getCourses().get(0).getTitle());
-        verify(courseRepository, times(1)).findAllByCategory(category);
+        verify(courseRepository, times(1)).findAllByCategoryOrderById(category);
     }
 
     @Test

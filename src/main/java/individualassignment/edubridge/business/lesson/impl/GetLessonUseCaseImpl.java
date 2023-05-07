@@ -21,7 +21,7 @@ public class GetLessonUseCaseImpl implements GetLessonUseCase {
         if(lessonTitle != null){
             lesson = lessonRepository.findByName(lessonTitle).map(LessonConverter::convert);
         }
-        else if (courseId != 0){
+        else if (courseId != null){
             lesson = lessonRepository.findByCourseId(courseId).map(LessonConverter::convert);
         }
         else lesson = Optional.empty();

@@ -9,7 +9,7 @@ import java.util.Optional;
 public interface LessonRepository extends JpaRepository<LessonEntity, Long> {
     boolean existsByName (String lessonTitle);
     void deleteAllByCourseId (Long courseId);
-    List<LessonEntity> findAllByCourseId (Long courseId);
+    List<LessonEntity> findAllByCourseIdOrderById (Long courseId);
     Optional<LessonEntity> findByName (String lessonName);
     Optional<LessonEntity> findByCourseId (Long courseId);
 }

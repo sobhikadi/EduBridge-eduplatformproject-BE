@@ -33,7 +33,7 @@ public class GetAllCoursesUseCaseImpl implements GetAllCoursesUseCase {
         }
         else if(StringUtils.hasText(request.getCategory())){
             CategoryEntity category = categoryRepository.findByName(request.getCategory());
-            result = courseRepository.findAllByCategory(category);
+            result = courseRepository.findAllByCategoryOrderById(category);
         }
         else {
             result = courseRepository.findAll(Sort.by(Sort.Direction.ASC, "id"));

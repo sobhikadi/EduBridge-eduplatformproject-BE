@@ -11,6 +11,6 @@ public interface CourseRepository extends JpaRepository<CourseEntity, Long> {
 
     boolean existsByTitle (String courseTitle);
     List<CourseEntity> findAllByProviderContainingIgnoreCase (String provider);
-    List<CourseEntity> findAllByCategory (CategoryEntity category);
+    List<CourseEntity> findAllByCategoryOrderById (CategoryEntity category);
     Optional<CourseEntity>findByTitleContainingIgnoreCase (String courseTitle);
 }

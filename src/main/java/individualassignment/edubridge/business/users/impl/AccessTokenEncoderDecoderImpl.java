@@ -60,7 +60,7 @@ public class AccessTokenEncoderDecoderImpl implements AccessTokenEncoder, Access
     @Override
     public AccessToken decode(String accessTokenEncoded) {
         try {
-            Jwt jwt = Jwts.parserBuilder().setSigningKey(key).build().parse(accessTokenEncoded);
+            Jwt jwt = Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJwt(accessTokenEncoded);
             Claims claims = (Claims) jwt.getBody();
 
             List<String> roles = claims.get("roles", List.class);
