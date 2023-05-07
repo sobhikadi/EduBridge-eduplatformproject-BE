@@ -94,6 +94,21 @@ class CourseRepositoryTest {
         assertEquals(expectedCourse, savedCourse);
     }
 
+    @Test
+    void existsByName() {
+        // TODO: Implement
+    }
+
+    @Test
+    void findAllByProvider() {
+        // TODO: Implement
+    }
+
+    @Test
+    void findByTitle() {
+        // TODO: Implement
+    }
+
     private CategoryEntity saveCategory(String name) {
         CategoryEntity category = CategoryEntity.builder()
                 .name(name)
@@ -102,17 +117,13 @@ class CourseRepositoryTest {
         return category;
     }
 
-
-
     @Test
-    void existsByName() {
+    void existsByTitle() {
+        // TODO: Implement
     }
 
     @Test
-    void findAllByProvider() {
-    }
-
-    @Test
-    void findByTitle() {
+    void deleteById(){
+        // todo: implement
     }
 }
