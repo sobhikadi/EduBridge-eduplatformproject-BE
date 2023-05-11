@@ -1,7 +1,10 @@
 package individualassignment.edubridge.persistence.address;
 
-import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.jupiter.api.Test;
 
 class AddressRepositoryTest {
+    @Test
+    void saveAddress(){}
 
 }

@@ -37,7 +37,7 @@ class CourseRepositoryTest {
 
     @Test
     void save_shouldSaveCourseWithAllFields() {
-        CategoryEntity category = saveCategory();
+        CategoryEntity category = saveCategory("Programming");
 
         CourseEntity course = CourseEntity.builder()
                 .title("Java")
@@ -96,7 +96,7 @@ class CourseRepositoryTest {
 
     @Test
     void save_shouldThrowExceptionWhenTitleNotSupplied() {
-        CategoryEntity category = saveCategory();
+        CategoryEntity category = saveCategory("Programming");
 
         CourseEntity course = CourseEntity.builder()
                 .title("")
@@ -150,10 +150,9 @@ class CourseRepositoryTest {
         // TODO: implement
     }
 
-    private CategoryEntity saveCategory() {
+    private CategoryEntity saveCategory(String name) {
         CategoryEntity category = CategoryEntity.builder()
-                .id(1L)
-                .name("Programming")
+                .name(name)
                 .build();
         entityManager.persist(category);
         return category;
