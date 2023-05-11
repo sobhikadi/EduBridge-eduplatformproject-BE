@@ -13,6 +13,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import javax.persistence.EntityManager;
+import javax.validation.ConstraintViolationException;
 
 import java.time.LocalDate;
 import java.util.Collections;
@@ -36,7 +37,7 @@ class CourseRepositoryTest {
 
     @Test
     void save_shouldSaveCourseWithAllFields() {
-        CategoryEntity category = saveCategory("Programming");
+        CategoryEntity category = saveCategory();
 
         CourseEntity course = CourseEntity.builder()
                 .title("Java")
@@ -90,14 +91,29 @@ class CourseRepositoryTest {
         entityManager.flush(); // Makes sure queries are sent to the database
         entityManager.clear();
 
-
         assertEquals(expectedCourse, savedCourse);
     }
 
     @Test
-    void existsByName() {
-        // TODO: Implement
+    void save_shouldThrowExceptionWhenTitleNotSupplied() {
+        CategoryEntity category = saveCategory();
+
+        CourseEntity course = CourseEntity.builder()
+                .title("")
+                .description("Java course")
+                .provider("EduBridge")
+                .creationDate(LocalDate.now())
+                .publishState(CoursePublishStateEnum.PENDING)
+                .lastModified(null)
+                .publishDate(null)
+                .imageUrl("https://www.Java.com")
+                .category(category)
+                .lessons(Collections.emptyList())
+                .build();
+
+        assertThrows(ConstraintViolationException.class, () -> courseRepository.save(course));
     }
+
 
     @Test
     void findAllByProvider() {
@@ -105,16 +121,18 @@ class CourseRepositoryTest {
     }
 
     @Test
-    void findByTitle() {
+    void findAllByCategoryOrderById() {
         // TODO: Implement
     }
 
-    private CategoryEntity saveCategory(String name) {
-        CategoryEntity category = CategoryEntity.builder()
-                .name(name)
-                .build();
-        entityManager.persist(category);
-        return category;
+    @Test
+    void findAll(){
+        // TODO: implement
+    }
+
+    @Test
+    void findByTitle() {
+        // TODO: Implement
     }
 
     @Test
@@ -123,7 +141,23 @@ class CourseRepositoryTest {
     }
 
     @Test
-    void deleteById(){
-        // todo: implement
+    void findById() {
+        // TODO: Implement
     }
+
+    @Test
+    void deleteById(){
+        // TODO: implement
+    }
+
+    private CategoryEntity saveCategory() {
+        CategoryEntity category = CategoryEntity.builder()
+                .id(1L)
+                .name("Programming")
+                .build();
+        entityManager.persist(category);
+        return category;
+    }
+
+
 }
