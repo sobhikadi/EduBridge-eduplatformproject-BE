@@ -1,6 +1,7 @@
 package individualassignment.edubridge.business.users.impl;
 
 import individualassignment.edubridge.business.users.AccessTokenEncoder;
+import individualassignment.edubridge.business.users.RefreshTokenUseCase;
 import individualassignment.edubridge.business.users.exceptions.InvalidCredentialsException;
 import individualassignment.edubridge.domain.users.AccessToken;
 import individualassignment.edubridge.domain.users.UserRoleEnum;
@@ -16,7 +17,9 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -33,8 +36,14 @@ class LoginUseCaseImplTest {
     private PasswordEncoder passwordEncoderMock;
     @Mock
     private AccessTokenEncoder accessTokenEncoderMock;
+
+    @Mock
+    private RefreshTokenUseCase refreshTokenUseCaseMock;
+
     @InjectMocks
     private LoginUseCaseImpl loginUseCase;
+
+
 
     @Test
     void login_ValidCredentials_ShouldReturnLoginResponse() {
@@ -47,6 +56,8 @@ class LoginUseCaseImplTest {
         when(userRepositoryMock.findByUserName(user.getUserName())).thenReturn(user);
         when(passwordEncoderMock.matches(anyString(), eq(user.getPassword()))).thenReturn(true);
         when(accessTokenEncoderMock.encode(any(AccessToken.class))).thenReturn("accessToken");
+        when(refreshTokenUseCaseMock.createRefreshToken(eq(user.getUserName())))
+                .thenReturn(new HashMap<>(Map.of("refreshToken", "testRefreshToken")));
 
         LoginRequest loginRequest = LoginRequest.builder()
                 .username(user.getUserName())
@@ -57,6 +68,7 @@ class LoginUseCaseImplTest {
 
         assertNotNull(response);
         assertEquals("accessToken", response.getAccessToken());
+        assertEquals("testRefreshToken", response.getRefreshToken());
     }
 
     @Test
