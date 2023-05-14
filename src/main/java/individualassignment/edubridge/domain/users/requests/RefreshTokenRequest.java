@@ -1,4 +1,4 @@
-package individualassignment.edubridge.domain.users.responses;
+package individualassignment.edubridge.domain.users.requests;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class LoginResponse {
-    private String accessToken;
+public class RefreshTokenRequest {
     private String refreshToken;
+    private String subject;
 }

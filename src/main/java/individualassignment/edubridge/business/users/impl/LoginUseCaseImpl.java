@@ -2,16 +2,19 @@ package individualassignment.edubridge.business.users.impl;
 
 import individualassignment.edubridge.business.users.AccessTokenEncoder;
 import individualassignment.edubridge.business.users.LoginUseCase;
+import individualassignment.edubridge.business.users.RefreshTokenUseCase;
 import individualassignment.edubridge.business.users.exceptions.InvalidCredentialsException;
 import individualassignment.edubridge.domain.users.AccessToken;
 import individualassignment.edubridge.domain.users.requests.LoginRequest;
 import individualassignment.edubridge.domain.users.responses.LoginResponse;
 import individualassignment.edubridge.persistence.users.UserRepository;
+import individualassignment.edubridge.persistence.users.entities.RefreshTokenEntity;
 import individualassignment.edubridge.persistence.users.entities.UserEntity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
 
 @Service
@@ -23,6 +26,9 @@ public class LoginUseCaseImpl implements LoginUseCase {
     private final PasswordEncoder passwordEncoder;
 
     private final AccessTokenEncoder accessTokenEncoder;
+
+    private final RefreshTokenUseCase refreshTokenUseCase;
+
 
     @Override
     public LoginResponse login(LoginRequest loginRequest) {
@@ -36,7 +42,12 @@ public class LoginUseCaseImpl implements LoginUseCase {
         }
 
         String accessToken = generateAccessToken(user);
-        return LoginResponse.builder().accessToken(accessToken).build();
+        HashMap<String, String> refreshToken = refreshTokenUseCase.createRefreshToken(user.getUserName());
+
+        return LoginResponse.builder()
+                .accessToken(accessToken)
+                .refreshToken(refreshToken.get("refreshToken"))
+                .build();
     }
 
     private boolean matchesPassword(String rawPassword, String encodedPassword) {
