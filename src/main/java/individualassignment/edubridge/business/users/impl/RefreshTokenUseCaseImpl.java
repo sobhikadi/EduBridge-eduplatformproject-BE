@@ -1,6 +1,5 @@
 package individualassignment.edubridge.business.users.impl;
 
-import individualassignment.edubridge.business.users.AccessTokenDecoder;
 import individualassignment.edubridge.business.users.AccessTokenEncoder;
 import individualassignment.edubridge.business.users.RefreshTokenUseCase;
 import individualassignment.edubridge.business.users.exceptions.InvalidRefreshTokenException;
@@ -15,7 +14,10 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
