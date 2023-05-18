@@ -1,6 +1,7 @@
 package individualassignment.edubridge.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import individualassignment.edubridge.business.course.*;
 import individualassignment.edubridge.configuration.security.isauthenticated.IsAuthenticated;
 import individualassignment.edubridge.domain.courses.Course;
@@ -14,11 +15,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import javax.annotation.security.RolesAllowed;
 import javax.validation.Valid;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/courses")

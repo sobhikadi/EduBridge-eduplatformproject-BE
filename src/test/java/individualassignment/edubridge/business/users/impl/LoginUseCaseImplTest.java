@@ -18,14 +18,14 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class LoginUseCaseImplTest {
@@ -56,7 +56,7 @@ class LoginUseCaseImplTest {
         when(userRepositoryMock.findByUserName(user.getUserName())).thenReturn(user);
         when(passwordEncoderMock.matches(anyString(), eq(user.getPassword()))).thenReturn(true);
         when(accessTokenEncoderMock.encode(any(AccessToken.class))).thenReturn("accessToken");
-        when(refreshTokenUseCaseMock.createRefreshToken(eq(user.getUserName())))
+        when(refreshTokenUseCaseMock.createRefreshToken(user.getUserName()))
                 .thenReturn(new HashMap<>(Map.of("refreshToken", "testRefreshToken")));
 
         LoginRequest loginRequest = LoginRequest.builder()

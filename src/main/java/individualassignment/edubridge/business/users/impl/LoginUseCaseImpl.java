@@ -8,7 +8,6 @@ import individualassignment.edubridge.domain.users.AccessToken;
 import individualassignment.edubridge.domain.users.requests.LoginRequest;
 import individualassignment.edubridge.domain.users.responses.LoginResponse;
 import individualassignment.edubridge.persistence.users.UserRepository;
-import individualassignment.edubridge.persistence.users.entities.RefreshTokenEntity;
 import individualassignment.edubridge.persistence.users.entities.UserEntity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;

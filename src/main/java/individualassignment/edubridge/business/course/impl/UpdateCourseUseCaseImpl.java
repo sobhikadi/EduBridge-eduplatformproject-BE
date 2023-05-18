@@ -1,9 +1,9 @@
 package individualassignment.edubridge.business.course.impl;
 
 import individualassignment.edubridge.business.category.exceptions.InvalidCategoryIdException;
+import individualassignment.edubridge.business.course.UpdateCourseUseCase;
 import individualassignment.edubridge.business.course.UploadImageService;
 import individualassignment.edubridge.business.course.exceptions.InvalidCourseIdException;
-import individualassignment.edubridge.business.course.UpdateCourseUseCase;
 import individualassignment.edubridge.domain.courses.CoursePublishStateEnum;
 import individualassignment.edubridge.domain.courses.requests.UpdateCourseRequest;
 import individualassignment.edubridge.persistence.categories.CategoryRepository;

@@ -3,7 +3,6 @@ package individualassignment.edubridge.configuration.security.auth;
 import individualassignment.edubridge.business.users.AccessTokenDecoder;
 import individualassignment.edubridge.business.users.exceptions.InvalidAccessTokenException;
 import individualassignment.edubridge.domain.users.AccessToken;
-import io.jsonwebtoken.ExpiredJwtException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

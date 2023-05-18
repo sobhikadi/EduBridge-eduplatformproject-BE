@@ -11,7 +11,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
@@ -39,7 +40,7 @@ class CreateCategoryUseCaseImplTest {
         CreateCategoryResponse response = createCategoryUseCase.createCategory(request);
 
         verify(categoryRepositoryMock, times(1)).save(any(CategoryEntity.class));
-        assertEquals(response.getCategoryId(), 1L); // Assuming id of the saved category is 1
+        assertEquals(1L, response.getCategoryId() );
     }
 
     @Test

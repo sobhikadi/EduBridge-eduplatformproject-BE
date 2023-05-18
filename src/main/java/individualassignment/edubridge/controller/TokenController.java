@@ -32,7 +32,7 @@ public class TokenController {
     }
 
     @PostMapping("/logout")
-    public ResponseEntity<?> logout(@Valid @RequestBody RefreshTokenRequest request) {
+    public ResponseEntity<Void> logout(@Valid @RequestBody RefreshTokenRequest request) {
         refreshTokenuseCase.deleteByUser(request.getSubject());
         return ResponseEntity.ok().build();
     }

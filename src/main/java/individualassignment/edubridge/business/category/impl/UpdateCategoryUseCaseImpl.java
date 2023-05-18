@@ -1,7 +1,7 @@
 package individualassignment.edubridge.business.category.impl;
 
-import individualassignment.edubridge.business.category.exceptions.InvalidCategoryIdException;
 import individualassignment.edubridge.business.category.UpdateCategoryUseCase;
+import individualassignment.edubridge.business.category.exceptions.InvalidCategoryIdException;
 import individualassignment.edubridge.domain.categories.requests.UpdateCategoryRequest;
 import individualassignment.edubridge.persistence.categories.CategoryRepository;
 import individualassignment.edubridge.persistence.categories.entities.CategoryEntity;

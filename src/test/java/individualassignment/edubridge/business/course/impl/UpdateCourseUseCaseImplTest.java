@@ -20,7 +20,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Collections;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.fail;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -101,8 +101,12 @@ class UpdateCourseUseCaseImplTest {
 
         when(courseRepositoryMock.findById(1L)).thenReturn(Optional.empty());
 
-        assertThrows(InvalidCourseIdException.class,
-                () -> updateCourseUseCase.updateCourse(UpdateCourseRequest.builder().id(1L).build()));
+        try {
+            updateCourseUseCase.updateCourse(UpdateCourseRequest.builder().id(1L).build());
+            fail("Expected InvalidCourseIdException to be thrown");
+        } catch (InvalidCourseIdException e) {
+            // Exception thrown as expected
+        }
 
         verify(courseRepositoryMock).findById(1L);
         verifyNoMoreInteractions(courseRepositoryMock);
@@ -130,8 +134,12 @@ class UpdateCourseUseCaseImplTest {
         when(courseRepositoryMock.findById(1L)).thenReturn(Optional.of(oldCourse));
         when(categoryRepositoryMock.findById(category.getId())).thenReturn(Optional.empty());
 
-        assertThrows(InvalidCategoryIdException.class,
-                () -> updateCourseUseCase.updateCourse(UpdateCourseRequest.builder().id(1L).categoryId(1L).build()));
+        try {
+            updateCourseUseCase.updateCourse(UpdateCourseRequest.builder().id(1L).categoryId(1L).build());
+            fail("Expected InvalidCategoryIdException to be thrown");
+        } catch (InvalidCategoryIdException e) {
+            // Exception thrown as expected
+        }
 
         verify(courseRepositoryMock).findById(1L);
         verify(categoryRepositoryMock).findById(category.getId());

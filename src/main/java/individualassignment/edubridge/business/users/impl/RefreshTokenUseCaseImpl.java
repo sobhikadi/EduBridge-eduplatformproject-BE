@@ -58,7 +58,7 @@ public class RefreshTokenUseCaseImpl implements RefreshTokenUseCase {
     public void validateRefreshToken(String token) {
         RefreshTokenEntity refreshToken = refreshTokenRepository.findByToken(token)
                 .orElseThrow(
-                        () -> new InvalidRefreshTokenException());
+                        InvalidRefreshTokenException::new);
 
         if (refreshToken.getExpiryDate().isBefore(LocalDateTime.now())) {
             throw new InvalidRefreshTokenException();

@@ -1,6 +1,5 @@
 package individualassignment.edubridge.persistence.users;
 
-import individualassignment.edubridge.persistence.users.entities.StudentEntity;
 import individualassignment.edubridge.persistence.users.entities.TeacherEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 

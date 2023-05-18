@@ -1,7 +1,9 @@
 package individualassignment.edubridge.domain.courses.requests;
 
 import individualassignment.edubridge.domain.courses.CoursePublishStateEnum;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.web.multipart.MultipartFile;
 

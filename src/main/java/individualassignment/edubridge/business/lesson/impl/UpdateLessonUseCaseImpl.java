@@ -1,13 +1,13 @@
 package individualassignment.edubridge.business.lesson.impl;
 
 import individualassignment.edubridge.business.course.exceptions.InvalidCourseIdException;
-import individualassignment.edubridge.business.lesson.exceptions.InvalidLessonIdException;
 import individualassignment.edubridge.business.lesson.UpdateLessonUseCase;
+import individualassignment.edubridge.business.lesson.exceptions.InvalidLessonIdException;
 import individualassignment.edubridge.domain.lessons.requests.UpdateLessonRequest;
 import individualassignment.edubridge.persistence.courses.CourseRepository;
 import individualassignment.edubridge.persistence.courses.entities.CourseEntity;
-import individualassignment.edubridge.persistence.lessons.entities.LessonEntity;
 import individualassignment.edubridge.persistence.lessons.LessonRepository;
+import individualassignment.edubridge.persistence.lessons.entities.LessonEntity;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 

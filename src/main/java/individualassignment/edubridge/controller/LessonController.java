@@ -1,5 +1,6 @@
 package individualassignment.edubridge.controller;
 
+import individualassignment.edubridge.business.lesson.*;
 import individualassignment.edubridge.configuration.security.isauthenticated.IsAuthenticated;
 import individualassignment.edubridge.domain.lessons.Lesson;
 import individualassignment.edubridge.domain.lessons.requests.CreateLessonRequest;
@@ -7,7 +8,6 @@ import individualassignment.edubridge.domain.lessons.requests.GetAllLessonsReque
 import individualassignment.edubridge.domain.lessons.requests.UpdateLessonRequest;
 import individualassignment.edubridge.domain.lessons.responses.CreateLessonResponse;
 import individualassignment.edubridge.domain.lessons.responses.GetAllLessonsResponse;
-import individualassignment.edubridge.business.lesson.*;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

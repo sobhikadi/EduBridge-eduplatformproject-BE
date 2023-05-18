@@ -10,23 +10,13 @@ import individualassignment.edubridge.domain.categories.requests.CreateCategoryR
 import individualassignment.edubridge.domain.categories.requests.UpdateCategoryRequest;
 import individualassignment.edubridge.domain.categories.responses.CreateCategoryResponse;
 import individualassignment.edubridge.domain.categories.responses.GetAllCategoriesResponse;
-import individualassignment.edubridge.domain.users.UserRoleEnum;
-import individualassignment.edubridge.persistence.address.entities.CountryEntity;
-import individualassignment.edubridge.persistence.users.AdminRepository;
-import individualassignment.edubridge.persistence.users.UserRepository;
-import individualassignment.edubridge.persistence.users.entities.AdminEntity;
-import individualassignment.edubridge.persistence.users.entities.StudentEntity;
-import individualassignment.edubridge.persistence.users.entities.UserEntity;
-import individualassignment.edubridge.persistence.users.entities.UserRoleEntity;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.security.RolesAllowed;
 import javax.validation.Valid;
-import java.util.Set;
 
 @RestController
 @RequestMapping("/categories")

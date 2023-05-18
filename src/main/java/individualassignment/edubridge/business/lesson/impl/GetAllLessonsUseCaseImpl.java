@@ -1,16 +1,14 @@
 package individualassignment.edubridge.business.lesson.impl;
 
 import individualassignment.edubridge.business.lesson.GetAllLessonsUseCase;
-
 import individualassignment.edubridge.domain.lessons.Lesson;
 import individualassignment.edubridge.domain.lessons.requests.GetAllLessonsRequest;
 import individualassignment.edubridge.domain.lessons.responses.GetAllLessonsResponse;
-import individualassignment.edubridge.persistence.lessons.entities.LessonEntity;
 import individualassignment.edubridge.persistence.lessons.LessonRepository;
+import individualassignment.edubridge.persistence.lessons.entities.LessonEntity;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-
 
 import java.util.List;
 

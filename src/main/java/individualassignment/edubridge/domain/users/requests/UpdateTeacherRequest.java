@@ -1,6 +1,5 @@
 package individualassignment.edubridge.domain.users.requests;
 
-import individualassignment.edubridge.domain.address.Address;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

@@ -1,7 +1,6 @@
 package individualassignment.edubridge.business.users.teacher.impl;
 
 import individualassignment.edubridge.business.users.exceptions.UnauthorizedDataAccessException;
-import individualassignment.edubridge.business.users.impl.StudentConverter;
 import individualassignment.edubridge.business.users.impl.TeacherConverter;
 import individualassignment.edubridge.business.users.teacher.GetTeacherUseCase;
 import individualassignment.edubridge.domain.users.AccessToken;

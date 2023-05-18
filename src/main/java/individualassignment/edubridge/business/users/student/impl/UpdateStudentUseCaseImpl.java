@@ -51,7 +51,7 @@ public class UpdateStudentUseCaseImpl implements UpdateStudentUseCase {
         StudentEntity student = studentOptional.get();
         UserEntity user = userOptional.get();
         updateStudentFields(request, student);
-        UpdateUserFields(request, user);
+        updateUserFields(request, user);
     }
 
     private void updateStudentFields(UpdateStudentRequest request, StudentEntity student) {
@@ -62,7 +62,7 @@ public class UpdateStudentUseCaseImpl implements UpdateStudentUseCase {
         studentRepository.save(student);
     }
 
-    private void UpdateUserFields(UpdateStudentRequest request, UserEntity user) {
+    private void updateUserFields(UpdateStudentRequest request, UserEntity user) {
         String encodedPassword = passwordEncoder.encode(request.getPassword());
         user.setUserName(request.getUserName());
         user.setPassword(encodedPassword);

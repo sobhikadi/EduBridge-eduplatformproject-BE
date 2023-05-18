@@ -7,8 +7,8 @@ import individualassignment.edubridge.domain.lessons.requests.CreateLessonReques
 import individualassignment.edubridge.domain.lessons.responses.CreateLessonResponse;
 import individualassignment.edubridge.persistence.courses.CourseRepository;
 import individualassignment.edubridge.persistence.courses.entities.CourseEntity;
-import individualassignment.edubridge.persistence.lessons.entities.LessonEntity;
 import individualassignment.edubridge.persistence.lessons.LessonRepository;
+import individualassignment.edubridge.persistence.lessons.entities.LessonEntity;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 

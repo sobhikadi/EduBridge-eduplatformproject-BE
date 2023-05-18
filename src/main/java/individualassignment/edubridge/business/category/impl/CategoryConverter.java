@@ -1,7 +1,6 @@
 package individualassignment.edubridge.business.category.impl;
 
 import individualassignment.edubridge.domain.categories.Category;
-
 import individualassignment.edubridge.persistence.categories.entities.CategoryEntity;
 
 

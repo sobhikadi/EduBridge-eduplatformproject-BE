@@ -30,7 +30,7 @@ class DeleteCourseUseCaseImplTest {
     private DeleteCourseUseCaseImpl deleteCourseUseCaseImpl;
     
     @Test
-    public void deleteCourse_withValidCourseId_deletesCourseAndImage() {
+    void deleteCourse_withValidCourseId_deletesCourseAndImage() {
         CategoryEntity category = CategoryEntity.builder()
                 .id(1L)
                 .name("category")
@@ -56,7 +56,7 @@ class DeleteCourseUseCaseImplTest {
     }
 
     @Test
-    public void deleteCourse_withInvalidCourseId_throwsInvalidCourseIdException() {
+    void deleteCourse_withInvalidCourseId_throwsInvalidCourseIdException() {
         long courseId = 1L;
         when(courseRepositoryMock.findById(courseId)).thenReturn(Optional.empty());
 
