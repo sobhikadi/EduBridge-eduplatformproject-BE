@@ -2,12 +2,10 @@ package individualassignment.edubridge.business.users.impl;
 
 import individualassignment.edubridge.business.users.AccessTokenDecoder;
 import individualassignment.edubridge.business.users.AccessTokenEncoder;
+import individualassignment.edubridge.business.users.exceptions.ExpiredAccessTokenException;
 import individualassignment.edubridge.business.users.exceptions.InvalidAccessTokenException;
 import individualassignment.edubridge.domain.users.AccessToken;
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jws;
-import io.jsonwebtoken.JwtException;
-import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
@@ -70,7 +68,12 @@ public class AccessTokenEncoderDecoderImpl implements AccessTokenEncoder, Access
                     .roles(roles)
                     .studentId(claims.get("studentId", Long.class))
                     .build();
-        } catch (JwtException e) {
+        }
+        catch (ExpiredJwtException e)
+        {
+            throw new ExpiredAccessTokenException(e.getMessage());
+        }
+        catch (JwtException e) {
             throw new InvalidAccessTokenException(e.getMessage());
         }
 

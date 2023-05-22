@@ -1,6 +1,7 @@
 package individualassignment.edubridge.configuration.security.auth;
 
 import individualassignment.edubridge.business.users.AccessTokenDecoder;
+import individualassignment.edubridge.business.users.exceptions.ExpiredAccessTokenException;
 import individualassignment.edubridge.business.users.exceptions.InvalidAccessTokenException;
 import individualassignment.edubridge.domain.users.AccessToken;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,8 +43,13 @@ public class AuthenticationRequestFilter extends OncePerRequestFilter {
             AccessToken accessTokenDTO = accessTokenDecoder.decode(accessToken);
             setupSpringSecurityContext(accessTokenDTO);
             chain.doFilter(request, response);
-        } catch (InvalidAccessTokenException e) {
-            logger.error("Error validating access token", e);
+        }
+        catch (ExpiredAccessTokenException e){
+            logger.error("Access token expired", e);
+            sendTokenExpiredError(response);
+        }
+        catch (InvalidAccessTokenException e){
+            logger.error("Invalid access token", e);
             sendAuthenticationError(response);
         }
 
@@ -51,6 +57,13 @@ public class AuthenticationRequestFilter extends OncePerRequestFilter {
 
     private void sendAuthenticationError(HttpServletResponse response) throws IOException {
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+        response.flushBuffer();
+    }
+
+    private void sendTokenExpiredError(HttpServletResponse response) throws IOException {
+        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+        response.getWriter().write("{\"error\": \"Access token expired\"}");
+        response.setContentType("application/json");
         response.flushBuffer();
     }
 

@@ -21,7 +21,7 @@ import javax.validation.Valid;
 @RestController
 @RequestMapping("/categories")
 @AllArgsConstructor
-@CrossOrigin(origins = "http://localhost:3000/")
+@CrossOrigin(origins = "http://localhost:3000")
 public class CategoryController {
     private final CreateCategoryUseCase createCategoryUseCase;
     private final DeleteCategoryUseCase deleteCategoryUseCase;
@@ -36,8 +36,6 @@ public class CategoryController {
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
-    @IsAuthenticated
-    @RolesAllowed({"ROLE_ADMIN"})
     @GetMapping()
     public ResponseEntity<GetAllCategoriesResponse> getAllCategories(){
         GetAllCategoriesResponse response = getAllCategoriesUseCase.getAllCategories();

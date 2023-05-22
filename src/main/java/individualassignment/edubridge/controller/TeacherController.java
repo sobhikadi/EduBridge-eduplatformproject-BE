@@ -20,7 +20,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/teachers")
 @RequiredArgsConstructor
-@CrossOrigin(origins = "http://localhost:3000/")
+@CrossOrigin(origins = "http://localhost:3000")
 public class TeacherController {
     private final GetTeacherUseCase getTeacherUseCase;
     private final GetAllTeachersUseCase getAllTeachersUseCase;

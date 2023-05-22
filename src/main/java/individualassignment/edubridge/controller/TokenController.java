@@ -13,7 +13,7 @@ import java.util.HashMap;
 @RestController
 @RequestMapping("/token")
 @RequiredArgsConstructor
-@CrossOrigin(origins = "http://localhost:3000/")
+@CrossOrigin(origins = "http://localhost:3000")
 public class TokenController {
 
     private final RefreshTokenUseCase refreshTokenuseCase;
