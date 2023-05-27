@@ -15,6 +15,7 @@ import org.springframework.util.StringUtils;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 @AllArgsConstructor
@@ -28,14 +29,19 @@ public class GetAllCoursesUseCaseImpl implements GetAllCoursesUseCase {
     public GetAllCoursesResponse getAllCourses(final GetAllCoursesRequest request) {
         List<CourseEntity> result;
 
-        if(StringUtils.hasText(request.getProvider())){
-            result = courseRepository.findAllByProviderContainingIgnoreCase(request.getProvider());
+        if(StringUtils.hasText(request.getSearchTerm())){
+            result = courseRepository.findAllByProviderContainingIgnoreCase(request.getSearchTerm());
+            if (result.isEmpty())
+                result =
+                        List.of(
+                                Objects.requireNonNull(
+                                        courseRepository.findByTitleContainingIgnoreCase(request.getSearchTerm())
+                                                .orElse(null)));
         }
-        else if(StringUtils.hasText(request.getCategory())){
-            CategoryEntity category = categoryRepository.findByName(request.getCategory());
+        else if(request.getCategoryId() != null && request.getCategoryId() > 0){
+            CategoryEntity category = categoryRepository.findById(request.getCategoryId()).orElse(null);
             result = courseRepository.findAllByCategoryOrderById(category);
-        }
-        else {
+        }  else {
             result = courseRepository.findAll(Sort.by(Sort.Direction.ASC, "id"));
         }
 

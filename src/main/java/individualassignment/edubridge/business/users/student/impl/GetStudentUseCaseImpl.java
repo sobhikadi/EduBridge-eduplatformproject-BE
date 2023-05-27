@@ -9,6 +9,7 @@ import individualassignment.edubridge.persistence.users.StudentRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -21,6 +22,7 @@ public class GetStudentUseCaseImpl implements GetStudentUseCase {
     private AccessToken requestAccessToken;
 
     @Override
+    @Transactional
     public Optional<Student> getStudent(long studentId) {
         if (!Objects.equals(requestAccessToken.getStudentId(), studentId)) {
             throw new UnauthorizedDataAccessException();

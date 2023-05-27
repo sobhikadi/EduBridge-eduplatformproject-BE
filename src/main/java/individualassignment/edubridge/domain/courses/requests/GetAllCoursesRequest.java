@@ -10,6 +10,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class GetAllCoursesRequest {
-    private String provider;
-    private String category;
+    private String searchTerm;
+    private Long categoryId;
 }

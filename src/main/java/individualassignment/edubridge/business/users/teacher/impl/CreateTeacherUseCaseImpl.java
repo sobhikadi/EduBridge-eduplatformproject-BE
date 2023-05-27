@@ -7,6 +7,7 @@ import individualassignment.edubridge.business.users.teacher.exceptions.TeacherN
 import individualassignment.edubridge.domain.users.UserRoleEnum;
 import individualassignment.edubridge.domain.users.requests.CreateTeacherRequest;
 import individualassignment.edubridge.domain.users.responses.CreateTeacherResponse;
+import individualassignment.edubridge.persistence.address.AddressRepository;
 import individualassignment.edubridge.persistence.address.entities.AddressEntity;
 import individualassignment.edubridge.persistence.address.entities.CountryEntity;
 import individualassignment.edubridge.persistence.users.TeacherRepository;
@@ -29,13 +30,17 @@ public class CreateTeacherUseCaseImpl implements CreateTeacherUseCase {
     private final CountryIdValidator countryIdValidator;
     private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
+    private final AddressRepository addressRepository;
 
-    @Transactional
+
     @Override
+    @Transactional
     public CreateTeacherResponse createTeacher(CreateTeacherRequest request) {
 
         if (userRepository.existsByUserName(request.getUserName())) {
-            throw new UserNameAlreadyExistsException();
+            throw new UserNameAlreadyExistsException("Username already exists, please choose another one, " +
+                    "or update your account to become teacher. " +
+                    "you can do this by logging in and going to your profile.");
         }
         if (teacherRepository.existsByFirstNameAndLastName(request.getFirstName(), request.getLastName())) {
             throw new TeacherNameAlreadyExistsException();
@@ -77,10 +82,12 @@ public class CreateTeacherUseCaseImpl implements CreateTeacherUseCase {
                         .build())
                 .build();
 
+        AddressEntity savedAddress = addressRepository.save(address);
+
         TeacherEntity newTeacher = TeacherEntity.builder()
                 .firstName(request.getFirstName())
                 .lastName(request.getLastName())
-                .address(address)
+                .address(savedAddress)
                 .build();
         return teacherRepository.save(newTeacher);
     }

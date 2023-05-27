@@ -67,6 +67,8 @@ public class AccessTokenEncoderDecoderImpl implements AccessTokenEncoder, Access
                     .subject(claims.getSubject())
                     .roles(roles)
                     .studentId(claims.get("studentId", Long.class))
+                    .teacherId(claims.get("teacherId", Long.class))
+                    .adminId(claims.get("adminId", Long.class))
                     .build();
         }
         catch (ExpiredJwtException e)

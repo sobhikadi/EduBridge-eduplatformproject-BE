@@ -4,7 +4,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
 
 public class UserNameAlreadyExistsException extends ResponseStatusException {
-    public UserNameAlreadyExistsException() {
-        super(HttpStatus.BAD_REQUEST, "USER_NAME_ALREADY_EXISTS");
+    public UserNameAlreadyExistsException(String message) {
+        super(HttpStatus.BAD_REQUEST, message);
     }
 }

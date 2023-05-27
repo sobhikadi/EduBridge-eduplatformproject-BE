@@ -34,7 +34,10 @@ public class CreateStudentUseCaseImpl implements CreateStudentUseCase {
     @Override
     public CreateStudentResponse createStudent(CreateStudentRequest request) {
         if (userRepository.existsByUserName(request.getUserName())) {
-            throw new UserNameAlreadyExistsException();
+            throw new UserNameAlreadyExistsException
+                    ("Username already exists, please choose another one, " +
+                            "or update your account to become student. " +
+                            "you can do this by logging in and going to your profile.");
         }
         if (studentRepository.existsByFirstNameAndLastName(request.getFirstName(), request.getLastName())) {
             throw new StudentNameAlreadyExistsException();

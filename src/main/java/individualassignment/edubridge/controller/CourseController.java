@@ -53,8 +53,14 @@ public class CourseController {
 
 
     @GetMapping()
-    public ResponseEntity<GetAllCoursesResponse> getAllCourses(@RequestParam(value = "provider", required = false) String provider){
-        GetAllCoursesRequest request = GetAllCoursesRequest.builder().provider(provider).build();
+    public ResponseEntity<GetAllCoursesResponse> getAllCourses
+            (@RequestParam(value = "searchTerm", required = false) String searchTerm,
+                @RequestParam(value = "categoryId", required = false) Long categoryId
+             ){
+        GetAllCoursesRequest request = GetAllCoursesRequest.builder()
+                .searchTerm(searchTerm)
+                .categoryId(categoryId)
+                .build();
         GetAllCoursesResponse response = getAllCoursesUseCase.getAllCourses(request);
         return ResponseEntity.ok(response);
     }
