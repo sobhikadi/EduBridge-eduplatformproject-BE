@@ -13,6 +13,7 @@ public class AdminConverter {
                     .id(admin.getId())
                     .firstName(admin.getFirstName())
                     .lastName(admin.getLastName())
+                    .publishName(admin.getPublishName())
                     .lastModified(admin.getLastModified())
                     .build();
     }

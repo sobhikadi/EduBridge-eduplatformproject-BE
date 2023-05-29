@@ -14,8 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import javax.transaction.Transactional;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 @Service
 @AllArgsConstructor
@@ -31,12 +30,10 @@ public class GetAllCoursesUseCaseImpl implements GetAllCoursesUseCase {
 
         if(StringUtils.hasText(request.getSearchTerm())){
             result = courseRepository.findAllByProviderContainingIgnoreCase(request.getSearchTerm());
-            if (result.isEmpty())
-                result =
-                        List.of(
-                                Objects.requireNonNull(
-                                        courseRepository.findByTitleContainingIgnoreCase(request.getSearchTerm())
-                                                .orElse(null)));
+            if (result.isEmpty()) {
+                Optional<CourseEntity> courseByName = courseRepository.findByTitleContainingIgnoreCase(request.getSearchTerm());
+                result = courseByName.stream().toList();
+            }
         }
         else if(request.getCategoryId() != null && request.getCategoryId() > 0){
             CategoryEntity category = categoryRepository.findById(request.getCategoryId()).orElse(null);
@@ -46,11 +43,19 @@ public class GetAllCoursesUseCaseImpl implements GetAllCoursesUseCase {
         }
 
         final GetAllCoursesResponse response = new GetAllCoursesResponse();
-        List<Course> courses = result
-                .stream()
-                .map(CourseConverter::convert)
-                .toList();
-        response.setCourses(courses);
+        List<Course> courses = new ArrayList<>();
+        if(!result.isEmpty()) {
+            courses = result
+                    .stream()
+                    .map(CourseConverter::convert)
+                    .toList();
+        }
+
+        if(result.isEmpty()){
+            response.setCourses(Collections.emptyList());
+        } else if (!courses.isEmpty()) {
+            response.setCourses(courses);
+        }
         return response;
     }
 }

@@ -62,6 +62,7 @@ public class UpdateTeacherUseCaseImpl implements UpdateTeacherUseCase {
 
         teacher.setFirstName(request.getFirstName());
         teacher.setLastName(request.getLastName());
+        teacher.setPublishName(request.getPublishName());
         teacher.setAddress(address);
         teacherRepository.save(teacher);
     }

@@ -33,6 +33,10 @@ public class CreateTeacherRequest {
 
     @NotBlank
     @Length(min = 2, max = 50)
+    private String publishName;
+
+    @NotBlank
+    @Length(min = 2, max = 50)
     private String street;
 
     @NotBlank

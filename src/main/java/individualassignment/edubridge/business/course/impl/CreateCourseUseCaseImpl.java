@@ -4,9 +4,11 @@ import individualassignment.edubridge.business.category.exceptions.InvalidCatego
 import individualassignment.edubridge.business.course.CreateCourseUseCase;
 import individualassignment.edubridge.business.course.UploadImageService;
 import individualassignment.edubridge.business.course.exceptions.CourseNameAlreadyExistsException;
+import individualassignment.edubridge.business.users.exceptions.UnauthorizedDataAccessException;
 import individualassignment.edubridge.domain.courses.CoursePublishStateEnum;
 import individualassignment.edubridge.domain.courses.requests.CreateCourseRequest;
 import individualassignment.edubridge.domain.courses.responses.CreateCourseResponse;
+import individualassignment.edubridge.domain.users.AccessToken;
 import individualassignment.edubridge.persistence.categories.CategoryRepository;
 import individualassignment.edubridge.persistence.categories.entities.CategoryEntity;
 import individualassignment.edubridge.persistence.courses.CourseRepository;

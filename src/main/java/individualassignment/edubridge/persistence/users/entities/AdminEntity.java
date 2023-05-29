@@ -34,6 +34,11 @@ public class AdminEntity {
     @Column(name = "last_name")
     private String lastName;
 
+    @NotBlank
+    @Length(min = 2, max = 50)
+    @Column(name = "publish_name")
+    private String publishName;
+
     @Column(name = "last_modified")
     private LocalDateTime lastModified;
 }

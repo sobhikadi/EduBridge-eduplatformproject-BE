@@ -4,6 +4,7 @@ import individualassignment.edubridge.business.users.student.*;
 import individualassignment.edubridge.configuration.security.isauthenticated.IsAuthenticated;
 import individualassignment.edubridge.domain.users.Student;
 import individualassignment.edubridge.domain.users.requests.CreateStudentRequest;
+import individualassignment.edubridge.domain.users.requests.EnrollStudentToCourseRequest;
 import individualassignment.edubridge.domain.users.requests.GetAllStudentsRequest;
 import individualassignment.edubridge.domain.users.requests.UpdateStudentRequest;
 import individualassignment.edubridge.domain.users.responses.CreateStudentResponse;
@@ -27,6 +28,7 @@ public class StudentController {
     private final DeleteStudentUseCase deleteStudentUseCase;
     private final CreateStudentUseCase createStudentUseCase;
     private final UpdateStudentUseCase updateStudentUseCase;
+    private final EnrollStudentToCourseUseCase enrollStudentToCourseUseCase;
 
     @IsAuthenticated
     @RolesAllowed({"ROLE_ADMIN", "ROLE_STUDENT"})
@@ -51,7 +53,7 @@ public class StudentController {
     @DeleteMapping("{studentId}")
     public ResponseEntity<Void> deleteStudent(@PathVariable int studentId) {
         deleteStudentUseCase.deleteStudent(studentId);
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
 
     @PostMapping()
@@ -66,6 +68,14 @@ public class StudentController {
     public ResponseEntity<Student> updateStudent(@PathVariable("id") long id, @RequestBody @Valid UpdateStudentRequest request) {
         request.setId(id);
         updateStudentUseCase.updateStudent(request);
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.status(HttpStatus.OK).build();
+    }
+
+    @IsAuthenticated
+    @RolesAllowed({"ROLE_STUDENT"})
+    @PostMapping("/enrollToCourse")
+    public ResponseEntity<Void> enrollToCourse(@RequestBody @Valid EnrollStudentToCourseRequest request) {
+        enrollStudentToCourseUseCase.enrollStudentToCourse(request);
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
 }

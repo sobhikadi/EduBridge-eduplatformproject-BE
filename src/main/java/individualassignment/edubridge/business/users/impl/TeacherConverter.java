@@ -13,6 +13,7 @@ public class TeacherConverter {
                     .id(teacher.getId())
                     .firstName(teacher.getFirstName())
                     .lastName(teacher.getLastName())
+                    .publishName(teacher.getPublishName())
                     .lastModified(teacher.getLastModified())
                     .address(AddressConverter.convert(teacher.getAddress()))
                     .build();

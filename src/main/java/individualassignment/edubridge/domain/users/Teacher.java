@@ -17,6 +17,7 @@ public class Teacher {
         private Long id;
         private String firstName;
         private String lastName;
+        private String publishName;
         private Address address;
         private LocalDateTime lastModified;
 }

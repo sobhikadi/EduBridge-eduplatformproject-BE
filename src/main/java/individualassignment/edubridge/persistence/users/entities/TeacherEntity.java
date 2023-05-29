@@ -36,6 +36,11 @@ public class TeacherEntity {
     @Column(name = "last_name")
     private String lastName;
 
+    @NotBlank
+    @Length(min = 2, max = 50)
+    @Column(name = "publish_name")
+    private String publishName;
+
     @NotNull
     @ManyToOne
     @JoinColumn(name = "address_id")

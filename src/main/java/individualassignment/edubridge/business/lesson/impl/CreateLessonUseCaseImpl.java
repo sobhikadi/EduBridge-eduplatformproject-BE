@@ -12,6 +12,7 @@ import individualassignment.edubridge.persistence.lessons.entities.LessonEntity;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.Optional;
 
 @Service
@@ -21,6 +22,7 @@ public class CreateLessonUseCaseImpl implements CreateLessonUseCase {
     private final CourseRepository courseRepository;
 
     @Override
+    @Transactional
     public CreateLessonResponse createLesson(CreateLessonRequest request) {
         if(lessonRepository.existsByName(request.getName())) {
             throw new LessonNameAlreadyExistsException();
@@ -36,7 +38,7 @@ public class CreateLessonUseCaseImpl implements CreateLessonUseCase {
     {
         Optional<CourseEntity> course = courseRepository.findById(request.getCourseId());
 
-        if(course.isEmpty()){
+        if (course.isEmpty()) {
             throw new InvalidCourseIdException();
         }
 

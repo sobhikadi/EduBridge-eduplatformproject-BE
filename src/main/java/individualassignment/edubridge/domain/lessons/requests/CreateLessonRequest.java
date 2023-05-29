@@ -20,7 +20,7 @@ public class CreateLessonRequest {
     private String name;
 
     @NotBlank
-    @Length(min = 3, max = 300)
+    @Length(min = 3, max = 1000)
     private String description;
 
     @NotNull

@@ -87,6 +87,7 @@ public class CreateTeacherUseCaseImpl implements CreateTeacherUseCase {
         TeacherEntity newTeacher = TeacherEntity.builder()
                 .firstName(request.getFirstName())
                 .lastName(request.getLastName())
+                .publishName(request.getPublishName())
                 .address(savedAddress)
                 .build();
         return teacherRepository.save(newTeacher);

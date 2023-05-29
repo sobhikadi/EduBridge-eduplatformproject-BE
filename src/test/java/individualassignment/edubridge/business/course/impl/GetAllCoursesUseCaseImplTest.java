@@ -77,7 +77,7 @@ class GetAllCoursesUseCaseImplTest {
 
         when(courseRepository.findAll(Sort.by(Sort.Direction.ASC, "id"))).thenReturn(List.of(courseEntity1, courseEntity2));
 
-        GetAllCoursesRequest request = GetAllCoursesRequest.builder().provider(null).build();
+        GetAllCoursesRequest request = GetAllCoursesRequest.builder().searchTerm(null).build();
 
         GetAllCoursesResponse response = getAllCoursesUseCase.getAllCourses(request);
 
@@ -89,7 +89,7 @@ class GetAllCoursesUseCaseImplTest {
 
     @Test
     void testGetAllCoursesWithProviderFilter() {
-        GetAllCoursesRequest request = GetAllCoursesRequest.builder().provider("EduBridge").build();
+        GetAllCoursesRequest request = GetAllCoursesRequest.builder().searchTerm("EduBridge").build();
 
         CourseEntity course = CourseEntity.builder()
                 .id(1L)
@@ -116,7 +116,7 @@ class GetAllCoursesUseCaseImplTest {
 
     @Test
     void testGetAllCoursesWithCategoryFilter() {
-        GetAllCoursesRequest request = GetAllCoursesRequest.builder().category("Category A").build();
+        GetAllCoursesRequest request = GetAllCoursesRequest.builder().categoryId(1L).build();
 
         CategoryEntity category = CategoryEntity.builder().id(1L).name("Category A").build();
 
