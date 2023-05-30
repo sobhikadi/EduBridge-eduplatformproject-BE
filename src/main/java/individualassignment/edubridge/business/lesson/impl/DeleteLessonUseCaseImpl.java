@@ -13,8 +13,9 @@ public class DeleteLessonUseCaseImpl implements DeleteLessonUseCase {
 
     private final LessonRepository lessonRepository;
 
-    @Transactional
+
     @Override
+    @Transactional
     public void deleteLesson(long lessonId, long courseId) {
         if (lessonId != 0) {
             this.lessonRepository.deleteById(lessonId);

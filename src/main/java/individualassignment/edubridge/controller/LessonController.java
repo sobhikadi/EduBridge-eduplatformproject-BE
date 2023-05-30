@@ -55,8 +55,17 @@ public class LessonController {
     @DeleteMapping("{lessonId}/{courseId}")
     public ResponseEntity<Void> deleteLesson(@PathVariable(value = "lessonId", required = false) int lessonId,
                                              @PathVariable(value = "courseId", required = false) int courseId) {
-        this.deleteLessonUseCase.deleteLesson(lessonId, courseId);
-        return ResponseEntity.noContent().build();
+        try{
+            this.deleteLessonUseCase.deleteLesson(lessonId, courseId);
+        }catch (Exception e){
+            String messageType = e.getClass().getSimpleName();
+            if(messageType.equals("DataIntegrityViolationException")){
+                return ResponseEntity.status(HttpStatus.CONFLICT).build();
+            }
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
 
     @IsAuthenticated

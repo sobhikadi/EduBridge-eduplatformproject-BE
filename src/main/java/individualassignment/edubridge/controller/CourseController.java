@@ -69,15 +69,22 @@ public class CourseController {
     public ResponseEntity<Course> getCourseByTitle(@PathVariable(value = "title") final String title){
         final Course course = getCourseUseCase.getCourse(title);
         return course != null ? ResponseEntity.ok().body(course) : ResponseEntity.notFound().build();
-                
     }
 
     @IsAuthenticated
     @RolesAllowed({"ROLE_ADMIN"})
     @DeleteMapping("{courseId}")
     public ResponseEntity<Void> deleteCourse(@PathVariable int courseId) {
+        try{
         this.deleteCourseUseCase.deleteCourse(courseId);
-        return ResponseEntity.noContent().build();
+        }catch (Exception e){
+            String messageType = e.getClass().getSimpleName();
+            if(messageType.equals("DataIntegrityViolationException")){
+                return ResponseEntity.status(HttpStatus.CONFLICT).build();
+            }
+         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
 
     @IsAuthenticated
@@ -96,6 +103,6 @@ public class CourseController {
         request.setImage(image);
         request.setId(courseId);
         updateCourseUseCase.updateCourse(request);
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
 }
