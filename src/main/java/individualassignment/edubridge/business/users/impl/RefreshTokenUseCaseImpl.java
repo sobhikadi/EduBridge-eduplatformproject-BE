@@ -14,10 +14,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -34,10 +31,10 @@ public class RefreshTokenUseCaseImpl implements RefreshTokenUseCase {
     }
 
     @Override
-    public HashMap<String, String> createRefreshToken(String subject) {
+    public Map<String, String> createRefreshToken(String subject) {
         UserEntity user = userRepository.findByUserName(subject);
 
-        HashMap<String, String> source = new HashMap<>();
+        Map<String, String> source = new HashMap<>();
 
         RefreshTokenEntity refreshToken = RefreshTokenEntity.builder()
                         .expiryDate(LocalDateTime.now().plus(7, ChronoUnit.DAYS))

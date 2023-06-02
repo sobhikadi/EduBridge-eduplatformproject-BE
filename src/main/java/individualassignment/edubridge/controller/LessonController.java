@@ -62,7 +62,6 @@ public class LessonController {
             if(messageType.equals("DataIntegrityViolationException")){
                 return ResponseEntity.status(HttpStatus.CONFLICT).build();
             }
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
 
         return ResponseEntity.status(HttpStatus.OK).build();

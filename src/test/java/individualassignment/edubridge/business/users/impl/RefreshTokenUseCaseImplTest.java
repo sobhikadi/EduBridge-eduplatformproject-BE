@@ -17,7 +17,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
-import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
@@ -73,7 +73,7 @@ class RefreshTokenUseCaseImplTest {
         when(userRepository.findByUserName(userName)).thenReturn(userEntity);
         when(refreshTokenRepository.save(any(RefreshTokenEntity.class))).thenReturn(refreshTokenEntity);
         when(accessTokenEncoder.encode(any(AccessToken.class))).thenReturn(expectedAccessToken);
-        HashMap<String, String> result = refreshTokenUseCase.createRefreshToken(userName);
+        Map<String, String> result = refreshTokenUseCase.createRefreshToken(userName);
 
         assertEquals(expectedAccessToken, result.get("accessToken"));
         assertEquals(refreshTokenEntity.getToken(), result.get("refreshToken"));

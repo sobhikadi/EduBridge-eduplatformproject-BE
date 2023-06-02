@@ -51,13 +51,13 @@ class UpdateLessonUseCaseImplTest {
                 .build();
 
         when(lessonRepositoryMock.findById(existingLesson.getId())).thenReturn(Optional.of(existingLesson));
-        when(courseRepositoryMock.findById(course.getId())).thenReturn(Optional.of(course));
+        when(courseRepositoryMock.findByTitleIgnoreCase(course.getTitle())).thenReturn(Optional.of(course));
 
         UpdateLessonRequest request = UpdateLessonRequest.builder()
                 .id(existingLesson.getId())
                 .name(updatedLesson.getName())
                 .description(updatedLesson.getDescription())
-                .courseId(course.getId())
+                .courseName(course.getTitle())
                 .build();
 
         updateLessonUseCase.updateLesson(request);
@@ -78,7 +78,7 @@ class UpdateLessonUseCaseImplTest {
                 .id(1L)
                 .name("Updated Lesson 1")
                 .description("Updated Lesson 1 Description")
-                .courseId(1L)
+                .courseName("Java")
                 .build();
 
         when(lessonRepositoryMock.findById(request.getId())).thenReturn(Optional.empty());
@@ -102,10 +102,10 @@ class UpdateLessonUseCaseImplTest {
                 .id(existingLesson.getId())
                 .name("Updated Lesson 1")
                 .description("Updated Lesson 1 Description")
-                .courseId(1L)
+                .courseName("Java")
                 .build();
 
-        when(courseRepositoryMock.findById(request.getCourseId())).thenReturn(Optional.empty());
+        when(courseRepositoryMock.findByTitleIgnoreCase(request.getCourseName())).thenReturn(Optional.empty());
 
         // Act & Assert
         assertThrows(InvalidCourseIdException.class, () -> updateLessonUseCase.updateLesson(request));

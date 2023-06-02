@@ -46,8 +46,15 @@ public class CategoryController {
     @RolesAllowed({"ROLE_ADMIN"})
     @DeleteMapping("{categoryId}")
     public ResponseEntity<Void> deleteCategory(@PathVariable int categoryId) {
-        this.deleteCategoryUseCase.deleteCategory(categoryId);
-        return ResponseEntity.noContent().build();
+        try{
+            this.deleteCategoryUseCase.deleteCategory(categoryId);
+        }catch (Exception e){
+            String messageType = e.getClass().getSimpleName();
+            if(messageType.equals("DataIntegrityViolationException")){
+                return ResponseEntity.status(HttpStatus.CONFLICT).build();
+            }
+        }
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
 
     @IsAuthenticated

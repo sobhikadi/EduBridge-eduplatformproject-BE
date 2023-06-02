@@ -8,7 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/token")
@@ -21,7 +21,7 @@ public class TokenController {
     @PostMapping("/refresh")
     public ResponseEntity<LoginResponse> refreshToken(@RequestBody @Valid RefreshTokenRequest request) {
         refreshTokenuseCase.validateRefreshToken(request.getRefreshToken());
-        HashMap<String, String> refreshToken =
+        Map<String, String> refreshToken =
                 refreshTokenuseCase.createRefreshToken(request.getSubject());
         return ResponseEntity.ok().body(LoginResponse.builder()
                 .accessToken(refreshToken.get("accessToken"))

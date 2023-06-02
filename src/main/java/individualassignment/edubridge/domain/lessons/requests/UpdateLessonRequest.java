@@ -22,7 +22,7 @@ public class UpdateLessonRequest {
     private String name;
     @NotBlank
     private String description;
-    @NotNull
-    private Long courseId;
+    @NotBlank
+    private String courseName;
 
 }

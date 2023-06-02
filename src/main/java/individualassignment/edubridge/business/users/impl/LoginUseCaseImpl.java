@@ -13,8 +13,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -41,7 +41,7 @@ public class LoginUseCaseImpl implements LoginUseCase {
         }
 
         String accessToken = generateAccessToken(user);
-        HashMap<String, String> refreshToken = refreshTokenUseCase.createRefreshToken(user.getUserName());
+        Map<String, String> refreshToken = refreshTokenUseCase.createRefreshToken(user.getUserName());
 
         return LoginResponse.builder()
                 .accessToken(accessToken)

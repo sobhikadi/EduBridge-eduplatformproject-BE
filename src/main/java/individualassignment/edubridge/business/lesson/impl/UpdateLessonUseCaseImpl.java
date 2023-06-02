@@ -33,7 +33,7 @@ public class UpdateLessonUseCaseImpl implements UpdateLessonUseCase {
     }
 
     private LessonEntity updateFields(UpdateLessonRequest request, LessonEntity lesson) {
-        Optional<CourseEntity> course = courseRepository.findById(request.getCourseId());
+        Optional<CourseEntity> course = courseRepository.findByTitleIgnoreCase(request.getCourseName());
 
         if(course.isEmpty()){
             throw new InvalidCourseIdException();
