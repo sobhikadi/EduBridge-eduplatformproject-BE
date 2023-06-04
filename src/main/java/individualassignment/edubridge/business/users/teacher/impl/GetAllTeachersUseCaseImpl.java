@@ -12,6 +12,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
@@ -21,6 +22,7 @@ public class GetAllTeachersUseCaseImpl implements GetAllTeachersUseCase {
     private final TeacherRepository teacherRepository;
 
     @Override
+    @Transactional
     public GetAllTeachersResponse getAllTeachers(GetAllTeachersRequest request) {
         List<TeacherEntity> results;
         if (StringUtils.hasText(request.getCountryCode())) {

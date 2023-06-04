@@ -1,6 +1,7 @@
 package individualassignment.edubridge.persistence.users.entities;
 
 import individualassignment.edubridge.persistence.address.entities.AddressEntity;
+import individualassignment.edubridge.persistence.courses.entities.CourseEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,6 +12,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "teacher")
@@ -48,5 +50,12 @@ public class TeacherEntity {
 
     @Column(name = "last_modified")
     private LocalDateTime lastModified;
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "courses_created_by_teacher",
+            joinColumns = @JoinColumn(name = "teacher_id"),
+            inverseJoinColumns = @JoinColumn(name = "course_id"))
+    private List<CourseEntity> coursesCreatedBy;
 
 }

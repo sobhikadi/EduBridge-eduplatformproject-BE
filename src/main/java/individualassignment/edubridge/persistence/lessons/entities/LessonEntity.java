@@ -5,6 +5,7 @@ import lombok.*;
 import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
+import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
@@ -29,6 +30,7 @@ public class LessonEntity {
     private CourseEntity course;
 
     @NotBlank
+    @Length(min = 3, max = 100)
     @Column(name = "name")
     private String name;
 
