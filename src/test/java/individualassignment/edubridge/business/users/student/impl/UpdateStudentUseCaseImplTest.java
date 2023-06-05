@@ -120,6 +120,18 @@ class UpdateStudentUseCaseImplTest {
         when(studentRepositoryMock.findById(studentId)).thenReturn(Optional.empty());
 
         assertThrows(InvalidStudentException.class, () -> updateStudentUseCase.updateStudent(request));
+        verify(studentRepositoryMock).findById(anyLong());
+    }
+
+    @Test
+    void updateStudent_InvalidUserId_ShouldThrowInvalidStudentException() {
+        long studentId = 1L;
+
+        UpdateStudentRequest request = UpdateStudentRequest.builder().id(studentId).build();
+        when(requestAccessToken.getStudentId()).thenReturn(studentId);
+        when(userRepositoryMock.findById(studentId)).thenReturn(Optional.empty());
+
+        assertThrows(InvalidStudentException.class, () -> updateStudentUseCase.updateStudent(request));
         verify(userRepositoryMock).findById(anyLong());
     }
 }
