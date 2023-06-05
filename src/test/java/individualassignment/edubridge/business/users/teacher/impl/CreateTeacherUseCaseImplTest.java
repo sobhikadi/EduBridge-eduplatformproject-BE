@@ -5,6 +5,9 @@ import individualassignment.edubridge.business.users.exceptions.UserNameAlreadyE
 import individualassignment.edubridge.business.users.teacher.exceptions.TeacherNameAlreadyExistsException;
 import individualassignment.edubridge.domain.users.requests.CreateTeacherRequest;
 import individualassignment.edubridge.domain.users.responses.CreateTeacherResponse;
+import individualassignment.edubridge.persistence.address.AddressRepository;
+import individualassignment.edubridge.persistence.address.entities.AddressEntity;
+import individualassignment.edubridge.persistence.address.entities.CountryEntity;
 import individualassignment.edubridge.persistence.users.TeacherRepository;
 import individualassignment.edubridge.persistence.users.UserRepository;
 import individualassignment.edubridge.persistence.users.entities.TeacherEntity;
@@ -31,12 +34,25 @@ class CreateTeacherUseCaseImplTest {
     private CountryIdValidator countryIdValidatorMock;
     @Mock
     private PasswordEncoder passwordEncoderMock;
+    @Mock private AddressRepository addressRepositoryMock;
 
     @InjectMocks
     private CreateTeacherUseCaseImpl createTeacherUseCase;
 
     @Test
     void createTeacher_ValidRequest_ShouldCreateTeacher() {
+        CountryEntity country = CountryEntity.builder()
+                .id(1L)
+                .name("Netherlands")
+                .build();
+
+        AddressEntity address = AddressEntity.builder()
+                .id(1L)
+                .street("Street")
+                .zipcode("1234AB")
+                .city("City")
+                .country(country)
+                .build();
 
         CreateTeacherRequest request = CreateTeacherRequest.builder()
                 .firstName("John")
@@ -47,23 +63,35 @@ class CreateTeacherUseCaseImplTest {
                 .build();
 
         when(userRepositoryMock.existsByUserName(request.getUserName())).thenReturn(false);
-        when(teacherRepositoryMock.existsByFirstNameAndLastName(
-                request.getFirstName(), request.getLastName())).thenReturn(false);
+        when(teacherRepositoryMock.existsByFirstNameAndLastName(request.getFirstName(), request.getLastName()))
+                .thenReturn(false);
         doNothing().when(countryIdValidatorMock).validateId(request.getCountryId());
         when(passwordEncoderMock.encode(request.getPassword())).thenReturn("encodedPassword");
+        when(addressRepositoryMock.save(any(AddressEntity.class))).thenReturn(address);
 
         TeacherEntity savedTeacher = TeacherEntity.builder()
                 .id(1L)
                 .firstName(request.getFirstName())
                 .lastName(request.getLastName())
+                .address(address)
+                .publishName("John D.")
+                .build();
+
+        UserEntity savedUser = UserEntity.builder()
+                .id(1L)
+                .userName(request.getUserName())
+                .password("encodedPassword")
+                .teacher(savedTeacher)
                 .build();
         when(teacherRepositoryMock.save(any(TeacherEntity.class))).thenReturn(savedTeacher);
+        when(userRepositoryMock.save(any(UserEntity.class))).thenReturn(savedUser);
 
         CreateTeacherResponse response = createTeacherUseCase.createTeacher(request);
 
         assertEquals(1L, response.getTeacherId());
         verify(teacherRepositoryMock).save(any(TeacherEntity.class));
         verify(userRepositoryMock).save(any(UserEntity.class));
+        verify(addressRepositoryMock).save(any(AddressEntity.class));
     }
 
     @Test

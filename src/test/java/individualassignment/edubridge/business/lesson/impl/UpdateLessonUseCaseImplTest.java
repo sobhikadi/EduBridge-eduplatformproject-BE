@@ -13,6 +13,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -41,6 +42,7 @@ class UpdateLessonUseCaseImplTest {
                 .id(1L)
                 .title("Java")
                 .description("Java Programming")
+                .lessons(List.of(existingLesson))
                 .build();
 
         LessonEntity updatedLesson = LessonEntity.builder()
@@ -52,6 +54,7 @@ class UpdateLessonUseCaseImplTest {
 
         when(lessonRepositoryMock.findById(existingLesson.getId())).thenReturn(Optional.of(existingLesson));
         when(courseRepositoryMock.findByTitleIgnoreCase(course.getTitle())).thenReturn(Optional.of(course));
+        when(lessonRepositoryMock.save(updatedLesson)).thenReturn(updatedLesson);
 
         UpdateLessonRequest request = UpdateLessonRequest.builder()
                 .id(existingLesson.getId())
@@ -68,7 +71,7 @@ class UpdateLessonUseCaseImplTest {
         assertEquals(course, updatedLesson.getCourse());
 
         verify(lessonRepositoryMock).save(updatedLesson);
-        verify(courseRepositoryMock).findById(course.getId());
+        verify(courseRepositoryMock).findByTitleIgnoreCase(course.getTitle());
         verify(lessonRepositoryMock).findById(existingLesson.getId());
     }
 

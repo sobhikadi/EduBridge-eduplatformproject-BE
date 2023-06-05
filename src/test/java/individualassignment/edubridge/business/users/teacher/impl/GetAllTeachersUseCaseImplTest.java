@@ -6,6 +6,7 @@ import individualassignment.edubridge.persistence.address.entities.AddressEntity
 import individualassignment.edubridge.persistence.address.entities.CountryEntity;
 import individualassignment.edubridge.persistence.users.TeacherRepository;
 import individualassignment.edubridge.persistence.users.entities.TeacherEntity;
+import individualassignment.edubridge.persistence.users.entities.UserEntity;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -14,6 +15,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.domain.Sort;
 
 import java.util.List;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
@@ -74,11 +76,24 @@ class GetAllTeachersUseCaseImplTest {
                 .country(CountryEntity.builder().code("NL").name("Netherlands").id(1L).build())
                 .build();
 
-        return TeacherEntity.builder()
+        UserEntity user = UserEntity.builder()
+                .userName("john.doe")
+                .password("password")
+                .userRoles(Set.of())
+                .build();
+
+        TeacherEntity teacher = TeacherEntity.builder()
                 .id(id)
                 .firstName(firstName)
                 .lastName(lastName)
                 .address(address)
+                .coursesCreatedBy(List.of())
+                .publishName("John Doe")
                 .build();
+
+        user.setTeacher(teacher);
+
+        return teacher;
+
     }
 }

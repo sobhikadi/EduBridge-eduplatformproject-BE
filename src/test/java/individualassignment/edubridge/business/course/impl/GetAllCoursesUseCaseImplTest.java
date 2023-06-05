@@ -134,8 +134,8 @@ class GetAllCoursesUseCaseImplTest {
                 .category(category)
                 .build();
 
-        when(categoryRepository.findByName("Category A"))
-                .thenReturn(category);
+        when(categoryRepository.findById(category.getId()))
+                .thenReturn(java.util.Optional.of(category));
         when(courseRepository.findAllByCategoryOrderById(category)).thenReturn(List.of(course));
 
         GetAllCoursesResponse response = getAllCoursesUseCase.getAllCourses(request);
