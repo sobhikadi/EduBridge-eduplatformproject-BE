@@ -20,7 +20,6 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/lessons")
 @AllArgsConstructor
-@CrossOrigin(origins = "http://localhost:3000")
 public class LessonController {
     private final CreateLessonUseCase createLessonUseCase;
     private final DeleteLessonUseCase deleteLessonUseCase;

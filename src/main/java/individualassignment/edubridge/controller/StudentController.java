@@ -21,7 +21,6 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/students")
 @RequiredArgsConstructor
-@CrossOrigin(origins = "http://localhost:3000")
 public class StudentController {
     private final GetStudentUseCase getStudentUseCase;
     private final GetAllStudentsUseCase getAllStudentsUseCase;
@@ -40,7 +39,7 @@ public class StudentController {
     }
 
     @IsAuthenticated
-    @RolesAllowed({"ROLE_ADMIN"})
+    @RolesAllowed({"ROLE_ADMIN", "ROLE_TEACHER"})
     @GetMapping
     public ResponseEntity<GetAllStudentsResponse> getAllStudents(@RequestParam(value = "country", required = false) String countryCode) {
         GetAllStudentsRequest request = new GetAllStudentsRequest();

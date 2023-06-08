@@ -12,7 +12,6 @@ import javax.validation.Valid;
 
 @RestController
 @RequiredArgsConstructor
-@CrossOrigin(origins = "http://localhost:3000")
 public class LogInController {
     private final LoginUseCase loginUseCase;
 

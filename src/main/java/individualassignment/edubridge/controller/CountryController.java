@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/countries")
 @AllArgsConstructor
-@CrossOrigin(origins = "http://localhost:3000")
 public class CountryController {
     private final GetAllCountriesUseCase getAllCountriesUseCase;
 

@@ -21,7 +21,6 @@ import javax.validation.Valid;
 @RestController
 @RequestMapping("/categories")
 @AllArgsConstructor
-@CrossOrigin(origins = "http://localhost:3000")
 public class CategoryController {
     private final CreateCategoryUseCase createCategoryUseCase;
     private final DeleteCategoryUseCase deleteCategoryUseCase;

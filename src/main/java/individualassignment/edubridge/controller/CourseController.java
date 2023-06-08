@@ -22,7 +22,6 @@ import javax.validation.Valid;
 @RestController
 @RequestMapping("/courses")
 @AllArgsConstructor
-@CrossOrigin(origins = "http://localhost:3000")
 public class CourseController {
 
     private final CreateCourseUseCase createCourseUseCase;
