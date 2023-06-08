@@ -11,7 +11,7 @@ import javax.validation.constraints.NotNull;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class EnrollStudentToCourseRequest {
+public class AddCourseToStudentRequest {
     @NotNull
     private Long studentId;
     @NotNull

@@ -4,18 +4,20 @@ import individualassignment.edubridge.business.users.student.*;
 import individualassignment.edubridge.configuration.security.isauthenticated.IsAuthenticated;
 import individualassignment.edubridge.domain.users.Student;
 import individualassignment.edubridge.domain.users.requests.CreateStudentRequest;
-import individualassignment.edubridge.domain.users.requests.EnrollStudentToCourseRequest;
+import individualassignment.edubridge.domain.users.requests.AddCourseToStudentRequest;
 import individualassignment.edubridge.domain.users.requests.GetAllStudentsRequest;
 import individualassignment.edubridge.domain.users.requests.UpdateStudentRequest;
 import individualassignment.edubridge.domain.users.responses.CreateStudentResponse;
 import individualassignment.edubridge.domain.users.responses.GetAllStudentsResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.security.RolesAllowed;
 import javax.validation.Valid;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -27,7 +29,7 @@ public class StudentController {
     private final DeleteStudentUseCase deleteStudentUseCase;
     private final CreateStudentUseCase createStudentUseCase;
     private final UpdateStudentUseCase updateStudentUseCase;
-    private final EnrollStudentToCourseUseCase enrollStudentToCourseUseCase;
+    private final List<AddCourseToStudentUseCase> addCourseToStudentUseCase;
 
     @IsAuthenticated
     @RolesAllowed({"ROLE_ADMIN", "ROLE_STUDENT"})
@@ -73,8 +75,16 @@ public class StudentController {
     @IsAuthenticated
     @RolesAllowed({"ROLE_STUDENT"})
     @PostMapping("/enrollToCourse")
-    public ResponseEntity<Void> enrollToCourse(@RequestBody @Valid EnrollStudentToCourseRequest request) {
-        enrollStudentToCourseUseCase.enrollStudentToCourse(request);
+    public ResponseEntity<Void> enrollToCourse(@RequestBody @Valid AddCourseToStudentRequest request) {
+        addCourseToStudentUseCase.get(1).addCourseToStudent(request);
+        return ResponseEntity.status(HttpStatus.OK).build();
+    }
+
+    @IsAuthenticated
+    @RolesAllowed({"ROLE_STUDENT"})
+    @PostMapping("/addToFavourites")
+    public ResponseEntity<Void> addToFavourites(@RequestBody @Valid AddCourseToStudentRequest request) {
+        addCourseToStudentUseCase.get(0).addCourseToStudent(request);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 }
