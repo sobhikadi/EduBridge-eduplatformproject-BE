@@ -30,6 +30,7 @@ public class StudentController {
     private final CreateStudentUseCase createStudentUseCase;
     private final UpdateStudentUseCase updateStudentUseCase;
     private final List<AddCourseToStudentUseCase> addCourseToStudentUseCase;
+    private final GetAllStudentsByFollowedCourseUseCase getAllStudentsByFollowedCourseUseCase;
 
     @IsAuthenticated
     @RolesAllowed({"ROLE_ADMIN", "ROLE_STUDENT"})
@@ -87,4 +88,12 @@ public class StudentController {
         addCourseToStudentUseCase.get(0).addCourseToStudent(request);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
+
+    @IsAuthenticated
+    @RolesAllowed({"ROLE_TEACHER"})
+    @GetMapping("/getStudentsByCourse/{courseId}")
+    public ResponseEntity<GetAllStudentsResponse> getStudentsByCourse(@PathVariable("courseId") long courseId) {
+        return ResponseEntity.ok(getAllStudentsByFollowedCourseUseCase.getAllStudentsByFollowedCourse(courseId));
+    }
+
 }
