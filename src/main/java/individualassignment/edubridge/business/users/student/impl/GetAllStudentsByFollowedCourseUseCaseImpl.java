@@ -8,9 +8,7 @@ import individualassignment.edubridge.domain.users.responses.GetAllStudentsRespo
 import individualassignment.edubridge.persistence.users.StudentRepository;
 import individualassignment.edubridge.persistence.users.entities.StudentEntity;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 
 import javax.transaction.Transactional;
 import java.util.List;
