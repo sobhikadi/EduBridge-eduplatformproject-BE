@@ -5,6 +5,8 @@ stages:
   - build
   - test
   - sonar
+  - dockerize
+  - deploy
 
 build:
   stage: build
@@ -19,5 +21,25 @@ test:
 sonar:
   stage: test
   script:
+    - docker start sonarqube
     - ./gradlew test jacocoTestReport sonarqube
     - ./gradlew sonarqube
+
+dockerize:
+  stage: dockerize
+  script:
+   - ./gradlew clean assemble
+   - docker build -t individual_backend .
+  only:
+    - main
+
+deploy:
+  stage: deploy
+  script:
+    - docker start edubridge_database_stage
+    - docker stop edubridge_backend_stage
+    - docker rm edubridge_backend_stage
+    - docker run -d -p 8090:8080 --net=edubridge_network_staging --env spring_profiles_active=staging --name=edubridge_backend_stage individual_backend
+
+  only:
+    - main
