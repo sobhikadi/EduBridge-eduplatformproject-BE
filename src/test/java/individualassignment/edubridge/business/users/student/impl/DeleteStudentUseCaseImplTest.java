@@ -22,6 +22,7 @@ class DeleteStudentUseCaseImplTest {
        long studentId = 1L;
 
         doNothing().when(studentRepositoryMock).deleteById(studentId);
+        when(studentRepositoryMock.existsById(studentId)).thenReturn(true);
 
         deleteStudentUseCase.deleteStudent(studentId);
 
