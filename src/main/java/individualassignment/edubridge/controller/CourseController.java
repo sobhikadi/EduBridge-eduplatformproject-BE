@@ -1,5 +1,6 @@
 package individualassignment.edubridge.controller;
 
+import com.cloudinary.api.exceptions.BadRequest;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import individualassignment.edubridge.business.course.*;
@@ -17,7 +18,11 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.security.RolesAllowed;
+import javax.validation.ConstraintViolation;
+import javax.validation.ConstraintViolationException;
 import javax.validation.Valid;
+import javax.validation.Validator;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/courses")
@@ -31,6 +36,8 @@ public class CourseController {
     private final UpdateCourseUseCase updateCourseUseCase;
     private final ObjectMapper objectMapper;
 
+    private final Validator validator;
+
 
     @IsAuthenticated
     @RolesAllowed({"ROLE_ADMIN", "ROLE_TEACHER"})
@@ -40,11 +47,17 @@ public class CourseController {
         CreateCourseRequest request;
         try {
             request = objectMapper.readValue(courseInfo, CreateCourseRequest.class);
+            request.setImage(image);
+
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
 
-        request.setImage(image);
+        Set<ConstraintViolation<CreateCourseRequest>> violations = validator.validate(request);
+        if (!violations.isEmpty()) {
+            throw new ConstraintViolationException(violations);
+        }
+
 
         CreateCourseResponse response = createCourseUseCase.createCourse(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
@@ -94,12 +107,17 @@ public class CourseController {
         UpdateCourseRequest request;
         try {
             request = objectMapper.readValue(courseInfo, UpdateCourseRequest.class);
+            request.setImage(image);
+            request.setId(courseId);
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
 
-        request.setImage(image);
-        request.setId(courseId);
+        Set<ConstraintViolation<UpdateCourseRequest>> violations = validator.validate(request);
+        if (!violations.isEmpty()) {
+            throw new ConstraintViolationException(violations);
+        }
+
         updateCourseUseCase.updateCourse(request);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
