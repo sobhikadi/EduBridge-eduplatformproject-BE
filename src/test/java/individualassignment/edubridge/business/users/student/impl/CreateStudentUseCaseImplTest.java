@@ -5,6 +5,7 @@ import individualassignment.edubridge.business.users.exceptions.UserNameAlreadyE
 import individualassignment.edubridge.business.users.student.exceptions.StudentNameAlreadyExistsException;
 import individualassignment.edubridge.domain.users.requests.CreateStudentRequest;
 import individualassignment.edubridge.domain.users.responses.CreateStudentResponse;
+import individualassignment.edubridge.persistence.address.entities.CountryEntity;
 import individualassignment.edubridge.persistence.users.StudentRepository;
 import individualassignment.edubridge.persistence.users.UserRepository;
 import individualassignment.edubridge.persistence.users.entities.StudentEntity;
@@ -14,6 +15,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.crypto.password.PasswordEncoder;
+
+import java.util.Collections;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -51,6 +54,9 @@ class CreateStudentUseCaseImplTest {
                 .id(1L)
                 .firstName(request.getFirstName())
                 .lastName(request.getLastName())
+                .followedCourses(Collections.emptyList())
+                .favoriteCourses(Collections.emptyList())
+                .country(CountryEntity.builder().id(1L).code("NL").name("Netherlands").build())
                 .build();
 
         when(studentRepositoryMock.save(any(StudentEntity.class))).thenReturn(savedStudent);
