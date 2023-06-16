@@ -105,13 +105,13 @@ class GetAllCoursesUseCaseImplTest {
                 .category(CategoryEntity.builder().id(1L).name("Category A").build())
                 .build();
 
-        when(courseRepository.findAllByProviderContainingIgnoreCase("EduBridge")).thenReturn(List.of(course));
+        when(courseRepository.findAllByTitleOrProviderContainingIgnoreCase("EduBridge", "EduBridge")).thenReturn(List.of(course));
 
         GetAllCoursesResponse response = getAllCoursesUseCase.getAllCourses(request);
 
         assertEquals(1, response.getCourses().size());
         assertEquals("Java", response.getCourses().get(0).getTitle());
-        verify(courseRepository, times(1)).findAllByProviderContainingIgnoreCase("EduBridge");
+        verify(courseRepository, times(1)).findAllByTitleOrProviderContainingIgnoreCase("EduBridge", "EduBridge");
     }
 
     @Test

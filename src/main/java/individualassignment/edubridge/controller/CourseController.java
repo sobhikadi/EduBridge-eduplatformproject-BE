@@ -1,6 +1,5 @@
 package individualassignment.edubridge.controller;
 
-import com.cloudinary.api.exceptions.BadRequest;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import individualassignment.edubridge.business.course.*;

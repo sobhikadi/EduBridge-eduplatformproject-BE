@@ -27,18 +27,20 @@ public class GetAllCoursesUseCaseImpl implements GetAllCoursesUseCase {
     @Override
     public GetAllCoursesResponse getAllCourses(final GetAllCoursesRequest request) {
         List<CourseEntity> result;
+        CategoryEntity category = categoryRepository.findById(request.getCategoryId()).orElse(null);
 
-        if(StringUtils.hasText(request.getSearchTerm())){
-            result = courseRepository.findAllByProviderContainingIgnoreCase(request.getSearchTerm());
-            if (result.isEmpty()) {
-                Optional<CourseEntity> courseByName = courseRepository.findByTitleContainingIgnoreCase(request.getSearchTerm());
-                result = courseByName.stream().toList();
-            }
+        if (category != null && StringUtils.hasText(request.getSearchTerm())) {
+            result = courseRepository
+                    .findAllByTitleOrProviderContainingIgnoreCaseAndCategory
+                            (request.getSearchTerm(), request.getSearchTerm(), category);
         }
-        else if(request.getCategoryId() != null && request.getCategoryId() > 0){
-            CategoryEntity category = categoryRepository.findById(request.getCategoryId()).orElse(null);
+        else if(StringUtils.hasText(request.getSearchTerm()) && category == null){
+            result = courseRepository.findAllByTitleOrProviderContainingIgnoreCase(request.getSearchTerm(), request.getSearchTerm());
+        }
+        else if(category != null && !StringUtils.hasText(request.getSearchTerm())){
             result = courseRepository.findAllByCategoryOrderById(category);
-        }  else {
+        }
+        else {
             result = courseRepository.findAll(Sort.by(Sort.Direction.ASC, "id"));
         }
 
@@ -51,11 +53,11 @@ public class GetAllCoursesUseCaseImpl implements GetAllCoursesUseCase {
                     .toList();
         }
 
-        if(result.isEmpty()){
+        if(courses.isEmpty()){
             response.setCourses(Collections.emptyList());
-        } else if (!courses.isEmpty()) {
-            response.setCourses(courses);
+            return response;
         }
+        response.setCourses(courses);
         return response;
     }
 }
