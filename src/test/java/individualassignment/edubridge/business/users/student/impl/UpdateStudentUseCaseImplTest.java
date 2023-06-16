@@ -53,7 +53,6 @@ class UpdateStudentUseCaseImplTest {
                 .firstName("John")
                 .lastName("Doe")
                 .country(countryEntity)
-                .followedCourses(Collections.emptyList())
                 .favoriteCourses(Collections.emptyList())
                 .build();
 
@@ -62,7 +61,6 @@ class UpdateStudentUseCaseImplTest {
                 .firstName("John")
                 .lastName("Doe")
                 .country(countryEntity)
-                .followedCourses(Collections.emptyList())
                 .favoriteCourses(Collections.emptyList())
                 .build();
 

@@ -54,7 +54,6 @@ class DeleteCourseFromFavoritesUseCaseImplTest {
                 .id(1L)
                 .firstName("John")
                 .lastName("Doe")
-                .followedCourses(new ArrayList<>())
                 .favoriteCourses(new ArrayList<>(List.of(courseEntity)))
                 .country(CountryEntity.builder().id(1L).code("NL").name("Netherlands").build())
                 .build();
@@ -63,7 +62,6 @@ class DeleteCourseFromFavoritesUseCaseImplTest {
                 .id(1L)
                 .firstName("John")
                 .lastName("Doe")
-                .followedCourses(new ArrayList<>())
                 .favoriteCourses(new ArrayList<>())
                 .country(CountryEntity.builder().id(1L).code("NL").name("Netherlands").build())
                 .build();

@@ -3,7 +3,6 @@ package individualassignment.edubridge.business.users.student.impl;
 import individualassignment.edubridge.business.users.exceptions.UnauthorizedDataAccessException;
 import individualassignment.edubridge.business.users.student.AddCourseToStudentUseCase;
 import individualassignment.edubridge.business.users.student.exceptions.CourseHasBeenAlredyAddedToFavouritesException;
-import individualassignment.edubridge.business.users.student.exceptions.StudentAlreadyBeenEnrolledToCourseException;
 import individualassignment.edubridge.domain.users.AccessToken;
 import individualassignment.edubridge.domain.users.requests.AddCourseToStudentRequest;
 import individualassignment.edubridge.persistence.courses.CourseRepository;
@@ -22,7 +21,7 @@ import java.util.Objects;
 public class AddCourseToFavouritesUseCaseImpl implements AddCourseToStudentUseCase {
     private final StudentRepository studentRepository;
     private final CourseRepository courseRepository;
-    private AccessToken requestAccessToken;
+    private final AccessToken requestAccessToken;
     @Override
     @Transactional
     public void addCourseToStudent(AddCourseToStudentRequest request) {

@@ -45,18 +45,13 @@ public class StudentEntity {
     @Column(name = "last_modified")
     private LocalDateTime lastModified;
 
+    @OneToMany(mappedBy = "student")
+    private List<StudentFollowedCourseEntity> followedCourses;
+
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "favorite_course",
             joinColumns = @JoinColumn(name = "student_id"),
             inverseJoinColumns = @JoinColumn(name = "course_id"))
     private List<CourseEntity> favoriteCourses;
-
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(
-            name = "followed_course",
-            joinColumns = @JoinColumn(name = "student_id"),
-            inverseJoinColumns = @JoinColumn(name = "course_id"))
-    private List<CourseEntity> followedCourses;
-
 }

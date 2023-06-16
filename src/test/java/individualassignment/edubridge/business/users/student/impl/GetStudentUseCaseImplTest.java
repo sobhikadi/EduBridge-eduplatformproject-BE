@@ -44,7 +44,6 @@ class GetStudentUseCaseImplTest {
                 .lastName("Doe")
                 .country(countryEntity)
                 .favoriteCourses(Collections.emptyList())
-                .followedCourses(Collections.emptyList())
                 .build();
 
         when(requestAccessToken.getStudentId()).thenReturn(studentId);

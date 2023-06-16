@@ -13,7 +13,6 @@ public interface StudentRepository extends JpaRepository<StudentEntity, Long> {
 
     List<StudentEntity> findAllByCountryCodeOrderByIdAsc(String countryCode);
 
-    @Query("SELECT s FROM StudentEntity s JOIN s.followedCourses c WHERE c.id = :courseId")
-    List<StudentEntity> findStudentsByCourseFollowedCourseId(@Param("courseId") Long courseId);
+
 
 }

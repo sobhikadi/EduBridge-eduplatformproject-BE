@@ -5,11 +5,13 @@ import individualassignment.edubridge.business.course.exceptions.CourseNameAlrea
 import individualassignment.edubridge.domain.courses.CoursePublishStateEnum;
 import individualassignment.edubridge.domain.courses.requests.CreateCourseRequest;
 import individualassignment.edubridge.domain.courses.responses.CreateCourseResponse;
+import individualassignment.edubridge.domain.users.AccessToken;
 import individualassignment.edubridge.persistence.categories.CategoryRepository;
 import individualassignment.edubridge.persistence.categories.entities.CategoryEntity;
 import individualassignment.edubridge.persistence.courses.CourseRepository;
 import individualassignment.edubridge.persistence.courses.entities.CourseEntity;
 import individualassignment.edubridge.persistence.lessons.entities.LessonEntity;
+import individualassignment.edubridge.persistence.users.TeacherRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -30,20 +32,19 @@ class CreateCourseUseCaseImplTest {
     private CourseRepository courseRepositoryMock;
     @Mock
     private CategoryRepository categoryRepositoryMock;
+    @Mock
+    private TeacherRepository teacherRepositoryMock;
     @InjectMocks
     private CreateCourseUseCaseImpl createCourseUseCase;
+    @Mock
+    private AccessToken requestAccessToken;
 
     @Test
     void createCourse_ShouldCreateAndSaveCourse() {
+        long teacherId = 1L;
         CategoryEntity category = CategoryEntity.builder()
                 .id(1L)
                 .name("category")
-                .build();
-
-        LessonEntity lessonEntity = LessonEntity.builder()
-                .id(1L)
-                .name("Lesson 1")
-                .description("Lesson 1")
                 .build();
 
         CourseEntity courseEntity = CourseEntity.builder()
@@ -67,6 +68,10 @@ class CreateCourseUseCaseImplTest {
                 .category(category)
                 .build();
 
+        when(requestAccessToken.hasRole("TEACHER")).thenReturn(true);
+        when(requestAccessToken.getTeacherId()).thenReturn(teacherId);
+        when(requestAccessToken.getTeacherId()).thenReturn(teacherId);
+        when(teacherRepositoryMock.findById(teacherId)).thenReturn(Optional.ofNullable(null));
         when(courseRepositoryMock.save(courseEntity)).thenReturn(expected);
 
         CreateCourseRequest courseRequest = CreateCourseRequest.builder()

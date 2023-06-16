@@ -4,6 +4,9 @@ import individualassignment.edubridge.business.course.impl.CourseConverter;
 import individualassignment.edubridge.domain.users.Student;
 import individualassignment.edubridge.persistence.users.entities.StudentEntity;
 
+import java.util.ArrayList;
+import java.util.Objects;
+
 public class StudentConverter {
     private StudentConverter() {
     }
@@ -16,17 +19,18 @@ public class StudentConverter {
                 .country(CountryConverter.convert(student.getCountry()))
                 .lastModified(student.getLastModified())
                 .favoriteCourses(
-                        student.getFavoriteCourses().isEmpty() ? null : student.getFavoriteCourses()
+                        student.getFavoriteCourses().isEmpty() ? new ArrayList<>() : student.getFavoriteCourses()
                                 .stream()
                                 .map(CourseConverter::convert)
                                 .toList()
                 )
                 .followedCourses(
-                        student.getFollowedCourses().isEmpty() ? null : student.getFollowedCourses()
+                         Objects.isNull(student.getFollowedCourses()) || student.getFollowedCourses().isEmpty() ? new ArrayList<>() : student.getFollowedCourses()
                                 .stream()
-                                .map(CourseConverter::convert)
+                                .map(StudentFollowedCourseConverter::convert)
                                 .toList()
                 )
+
                 .build();
     }
 }

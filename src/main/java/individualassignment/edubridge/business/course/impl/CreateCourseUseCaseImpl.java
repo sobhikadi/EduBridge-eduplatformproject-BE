@@ -7,10 +7,13 @@ import individualassignment.edubridge.business.course.exceptions.CourseNameAlrea
 import individualassignment.edubridge.domain.courses.CoursePublishStateEnum;
 import individualassignment.edubridge.domain.courses.requests.CreateCourseRequest;
 import individualassignment.edubridge.domain.courses.responses.CreateCourseResponse;
+import individualassignment.edubridge.domain.users.AccessToken;
 import individualassignment.edubridge.persistence.categories.CategoryRepository;
 import individualassignment.edubridge.persistence.categories.entities.CategoryEntity;
 import individualassignment.edubridge.persistence.courses.CourseRepository;
 import individualassignment.edubridge.persistence.courses.entities.CourseEntity;
+import individualassignment.edubridge.persistence.users.TeacherRepository;
+import individualassignment.edubridge.persistence.users.entities.TeacherEntity;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -25,7 +28,8 @@ public class CreateCourseUseCaseImpl implements CreateCourseUseCase {
     private final CourseRepository courseRepository;
     private final CategoryRepository categoryRepository;
     private final UploadImageService uploadImageService;
-
+    private final AccessToken requestAccessToken;
+    private final TeacherRepository teacherRepository;
     @Transactional
     @Override
     public CreateCourseResponse createCourse(CreateCourseRequest request) {
@@ -33,7 +37,16 @@ public class CreateCourseUseCaseImpl implements CreateCourseUseCase {
             throw new CourseNameAlreadyExistsException();
         }
 
+        TeacherEntity teacher = null;
+        if(requestAccessToken.hasRole("TEACHER") && requestAccessToken.getTeacherId() != null){
+            teacher = teacherRepository.findById(requestAccessToken.getTeacherId()).orElse(null);
+        }
+
         CourseEntity savedCourse = saveNewCourse(request);
+        if (teacher != null){
+            teacher.getCoursesCreatedBy().add(savedCourse);
+            teacherRepository.save(teacher);
+        }
         return CreateCourseResponse.builder()
                 .courseId(savedCourse.getId())
                 .build();

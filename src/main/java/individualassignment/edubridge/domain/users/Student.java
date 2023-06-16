@@ -22,6 +22,5 @@ public class Student {
     private Country country;
     private LocalDateTime lastModified;
     private List<Course> favoriteCourses;
-    private List<Course> followedCourses;
-
+    private List<StudentFollowedCourse> followedCourses;
 }

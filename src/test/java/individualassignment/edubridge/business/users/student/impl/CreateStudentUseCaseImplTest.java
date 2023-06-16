@@ -54,7 +54,6 @@ class CreateStudentUseCaseImplTest {
                 .id(1L)
                 .firstName(request.getFirstName())
                 .lastName(request.getLastName())
-                .followedCourses(Collections.emptyList())
                 .favoriteCourses(Collections.emptyList())
                 .country(CountryEntity.builder().id(1L).code("NL").name("Netherlands").build())
                 .build();

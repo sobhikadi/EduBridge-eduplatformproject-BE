@@ -27,7 +27,10 @@ public class GetAllCoursesUseCaseImpl implements GetAllCoursesUseCase {
     @Override
     public GetAllCoursesResponse getAllCourses(final GetAllCoursesRequest request) {
         List<CourseEntity> result;
-        CategoryEntity category = categoryRepository.findById(request.getCategoryId()).orElse(null);
+        CategoryEntity category = null;
+        if (request.getCategoryId() != null) {
+            category = categoryRepository.findById(request.getCategoryId()).orElse(null);
+        }
 
         if (category != null && StringUtils.hasText(request.getSearchTerm())) {
             result = courseRepository

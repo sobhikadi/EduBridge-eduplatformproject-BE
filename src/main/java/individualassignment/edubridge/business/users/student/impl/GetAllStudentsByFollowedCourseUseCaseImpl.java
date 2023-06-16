@@ -5,8 +5,8 @@ import individualassignment.edubridge.business.users.impl.StudentConverter;
 import individualassignment.edubridge.business.users.student.GetAllStudentsByFollowedCourseUseCase;
 import individualassignment.edubridge.domain.users.Student;
 import individualassignment.edubridge.domain.users.responses.GetAllStudentsResponse;
-import individualassignment.edubridge.persistence.users.StudentRepository;
-import individualassignment.edubridge.persistence.users.entities.StudentEntity;
+import individualassignment.edubridge.persistence.users.StudentFollowedCourseRepository;
+import individualassignment.edubridge.persistence.users.entities.StudentFollowedCourseEntity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -17,14 +17,14 @@ import java.util.List;
 @RequiredArgsConstructor
 public class GetAllStudentsByFollowedCourseUseCaseImpl implements GetAllStudentsByFollowedCourseUseCase {
 
-    private final StudentRepository studentRepository;
+    private final StudentFollowedCourseRepository studentFollowedCourseRepository;
 
     @Override
     @Transactional
     public GetAllStudentsResponse getAllStudentsByFollowedCourse(long courseId) {
-        List<StudentEntity> results;
+        List<StudentFollowedCourseEntity> results;
         if (courseId > 0) {
-            results = studentRepository.findStudentsByCourseFollowedCourseId(courseId);
+            results = studentFollowedCourseRepository.findAllByCourse_Id(courseId);
         } else {
             throw new InvalidCourseIdException();
         }
@@ -32,6 +32,7 @@ public class GetAllStudentsByFollowedCourseUseCaseImpl implements GetAllStudents
         final GetAllStudentsResponse response = new GetAllStudentsResponse();
         List<Student> students = results
                 .stream()
+                .map(StudentFollowedCourseEntity::getStudent)
                 .map(StudentConverter::convert)
                 .toList();
 

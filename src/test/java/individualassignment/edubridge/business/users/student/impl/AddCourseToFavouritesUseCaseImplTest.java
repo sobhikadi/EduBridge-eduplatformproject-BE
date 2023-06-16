@@ -46,7 +46,6 @@ class AddCourseToFavouritesUseCaseImplTest {
                 .id(1L)
                 .firstName("John")
                 .lastName("Doe")
-                .followedCourses(new ArrayList<>())
                 .favoriteCourses(new ArrayList<>())
                 .country(CountryEntity.builder().id(1L).code("NL").name("Netherlands").build())
                 .build();
@@ -66,7 +65,6 @@ class AddCourseToFavouritesUseCaseImplTest {
                 .id(1L)
                 .firstName("John")
                 .lastName("Doe")
-                .followedCourses(new ArrayList<>())
                 .favoriteCourses(List.of(courseEntity))
                 .country(CountryEntity.builder().id(1L).code("NL").name("Netherlands").build())
                 .build();
@@ -90,7 +88,6 @@ class AddCourseToFavouritesUseCaseImplTest {
                 .id(1L)
                 .firstName("John")
                 .lastName("Doe")
-                .followedCourses(new ArrayList<>())
                 .favoriteCourses(new ArrayList<>())
                 .country(CountryEntity.builder().id(1L).code("NL").name("Netherlands").build())
                 .build();
@@ -135,7 +132,6 @@ class AddCourseToFavouritesUseCaseImplTest {
                 .id(1L)
                 .firstName("John")
                 .lastName("Doe")
-                .followedCourses(new ArrayList<>())
                 .favoriteCourses(List.of(courseEntity))
                 .country(CountryEntity.builder().id(1L).code("NL").name("Netherlands").build())
                 .build();

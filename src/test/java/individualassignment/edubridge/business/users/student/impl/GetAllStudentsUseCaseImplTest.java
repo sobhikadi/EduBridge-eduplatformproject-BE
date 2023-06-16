@@ -41,7 +41,6 @@ class GetAllStudentsUseCaseImplTest {
                 .lastName("Doe")
                 .country(country)
                 .favoriteCourses(Collections.emptyList())
-                .followedCourses(Collections.emptyList())
                 .build();
         StudentEntity student2 = StudentEntity.builder()
                 .id(2L)
@@ -49,7 +48,6 @@ class GetAllStudentsUseCaseImplTest {
                 .lastName("Doe")
                 .country(country)
                 .favoriteCourses(Collections.emptyList())
-                .followedCourses(Collections.emptyList())
                 .build();
         List<StudentEntity> studentEntities = List.of(student1, student2);
 
@@ -80,7 +78,6 @@ class GetAllStudentsUseCaseImplTest {
                 .lastName("Doe")
                 .country(country)
                 .favoriteCourses(Collections.emptyList())
-                .followedCourses(Collections.emptyList())
                 .build();
         StudentEntity student2 = StudentEntity.builder()
                 .id(2L)
@@ -88,7 +85,6 @@ class GetAllStudentsUseCaseImplTest {
                 .lastName("Doe")
                 .country(country)
                 .favoriteCourses(Collections.emptyList())
-                .followedCourses(Collections.emptyList())
                 .build();
         List<StudentEntity> studentEntities = List.of(student1, student2);
 
