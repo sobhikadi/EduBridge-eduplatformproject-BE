@@ -10,7 +10,9 @@ import individualassignment.edubridge.domain.courses.requests.GetAllCoursesReque
 import individualassignment.edubridge.domain.courses.requests.UpdateCourseRequest;
 import individualassignment.edubridge.domain.courses.responses.CreateCourseResponse;
 import individualassignment.edubridge.domain.courses.responses.GetAllCoursesResponse;
+import individualassignment.edubridge.domain.users.DateCountFollowingStudents;
 import lombok.AllArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,6 +23,8 @@ import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 import javax.validation.Valid;
 import javax.validation.Validator;
+import java.time.LocalDate;
+import java.util.List;
 import java.util.Set;
 
 @RestController
@@ -33,6 +37,7 @@ public class CourseController {
     private final GetCourseUseCase getCourseUseCase;
     private final DeleteCourseUseCase deleteCourseUseCase;
     private final UpdateCourseUseCase updateCourseUseCase;
+    private final GetCoursesStatsUseCase getCoursesStatsUseCase;
     private final ObjectMapper objectMapper;
 
     private final Validator validator;
@@ -74,6 +79,16 @@ public class CourseController {
                 .build();
         GetAllCoursesResponse response = getAllCoursesUseCase.getAllCourses(request);
         return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/stats")
+    public ResponseEntity<List<DateCountFollowingStudents>> getCoursesStats
+            (@RequestParam(value = "courseId", required = false) Long courseId,
+             @RequestParam(value = "startDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
+                @RequestParam(value = "endDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate
+            ){
+        List<DateCountFollowingStudents> response = getCoursesStatsUseCase.countCoursesFollowed(courseId, startDate, endDate);
+        return response.isEmpty() ? ResponseEntity.notFound().build() : ResponseEntity.ok(response);
     }
 
     @GetMapping("{title}")
