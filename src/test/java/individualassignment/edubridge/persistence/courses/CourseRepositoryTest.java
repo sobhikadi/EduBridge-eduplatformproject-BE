@@ -14,7 +14,6 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import javax.persistence.EntityManager;
 import javax.validation.ConstraintViolationException;
-
 import java.time.LocalDate;
 import java.util.Collections;
 import java.util.List;
@@ -116,40 +115,7 @@ CourseRepositoryTest {
     }
 
 
-    @Test
-    void findAllByProvider() {
-        // TODO: Implement
-    }
 
-    @Test
-    void findAllByCategoryOrderById() {
-        // TODO: Implement
-    }
-
-    @Test
-    void findAll(){
-        // TODO: implement
-    }
-
-    @Test
-    void findByTitle() {
-        // TODO: Implement
-    }
-
-    @Test
-    void existsByTitle() {
-        // TODO: Implement
-    }
-
-    @Test
-    void findById() {
-        // TODO: Implement
-    }
-
-    @Test
-    void deleteById(){
-        // TODO: implement
-    }
 
     private CategoryEntity saveCategory(String name) {
         CategoryEntity category = CategoryEntity.builder()
