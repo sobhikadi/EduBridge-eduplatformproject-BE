@@ -11,6 +11,7 @@ import individualassignment.edubridge.domain.courses.requests.UpdateCourseReques
 import individualassignment.edubridge.domain.courses.responses.CreateCourseResponse;
 import individualassignment.edubridge.domain.courses.responses.GetAllCoursesResponse;
 import individualassignment.edubridge.domain.users.DateCountFollowingStudents;
+import individualassignment.edubridge.domain.users.MostFollowedCourses;
 import lombok.AllArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
@@ -80,16 +81,27 @@ public class CourseController {
         GetAllCoursesResponse response = getAllCoursesUseCase.getAllCourses(request);
         return ResponseEntity.ok(response);
     }
-
+    @IsAuthenticated
     @GetMapping("/stats")
+    @RolesAllowed({"ROLE_ADMIN", "ROLE_TEACHER"})
     public ResponseEntity<List<DateCountFollowingStudents>> getCoursesStats
             (@RequestParam(value = "courseId", required = false) Long courseId,
              @RequestParam(value = "startDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
                 @RequestParam(value = "endDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate
             ){
         List<DateCountFollowingStudents> response = getCoursesStatsUseCase.countCoursesFollowed(courseId, startDate, endDate);
-        return response.isEmpty() ? ResponseEntity.notFound().build() : ResponseEntity.ok(response);
+        return response.isEmpty() ? ResponseEntity.status(HttpStatus.NO_CONTENT).build() : ResponseEntity.ok(response);
     }
+
+    @IsAuthenticated
+    @RolesAllowed({"ROLE_ADMIN", "ROLE_TEACHER"})
+    @GetMapping("/stats/mostFollowed")
+    public ResponseEntity<List<MostFollowedCourses>> getMostFollowedCourses
+            (@RequestParam(value = "coursesAmount") Long coursesAmount){
+        List<MostFollowedCourses> response = getCoursesStatsUseCase.getMostFollowedCourses(coursesAmount);
+        return response.isEmpty() ? ResponseEntity.status(HttpStatus.NO_CONTENT).build() : ResponseEntity.ok(response);
+    }
+
 
     @GetMapping("{title}")
     public ResponseEntity<Course> getCourseByTitle(@PathVariable(value = "title") final String title){
